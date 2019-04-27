@@ -1,0 +1,121 @@
+.main-nav {
+  display: flex;
+  background-color: rgb(230, 230, 230);
+  height: 83px;
+  margin: 0;
+  width: 100%;
+  position: fixed;
+  z-index: 1;
+
+  svg {
+    align-self: center;
+    margin-left: 40px;
+  }
+
+  .company-name {
+    align-self: center;
+    color: #25352C;
+    margin-left: 15px;
+    font-style: normal;
+    font-variant-ligatures: normal;
+    font-variant-caps: normal;
+    font-variant-numeric: normal;
+    font-variant-east-asian: normal;
+    font-weight: 550;
+    font-stretch: normal;
+    font-size: 22px;
+    line-height: 1.4em;
+    font-family: avenir, sans-serif;
+
+    .snow-link {
+      color: #02537e;
+      text-decoration: none;
+    }
+
+    .landscape-link {
+      color: rgba(123, 158, 54, 1);
+    }
+  }
+}
+
+
+  .call-to-action {
+    display: flex;
+    justify-content: center;
+    background-color: rgba(123, 158, 54, 1);
+    height: auto;
+    width: 348px;
+    margin-left: auto;
+
+    span {
+      align-self: center;
+      color: #FFFFFF;
+      font-family: avenir, sans-serif;
+      font-size: 18px;
+      font-weight: 600;
+
+    }
+  }
+
+// IFRAME TOOLTIP
+.thumbnail img {
+  position: absolute;
+  width: 200px;
+  height: auto;
+  margin-top: 45px;
+  margin-left: 140px;
+  z-index: 30;
+
+}
+// SUB NAVBAR
+.sub-nav {
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 83px;
+  height: 70px;
+  width: 100%;
+  background-color: rgb(240, 240, 240);
+  z-index: 10;
+
+  .nav-link {
+    align-self: center;
+    margin: 0 20px;
+    font-family: avenir, sans-serif;
+    text-decoration: none;
+    color: #25352C;
+    transition: 0.3s;
+  }
+
+  .nav-link:hover {
+    color: rgba(123, 158, 54, 1);
+  }
+}
+
+.hero-img {
+  height: auto;
+  width: 100%;
+}
+
+.hero-block {
+  position: relative;
+  background-color: rgba(123, 158, 54, 1);
+  height: auto;
+  width: 100%;
+  margin-top: -5px;
+  padding-bottom: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: wrap;
+
+  .hero-title {
+    color: rgb(255, 255, 255);
+    font-size: 3em;
+    font-family: avenir, sans-serif;
+    text-align: center;
+    text-shadow: rgba(0, 0, 0, 0.4) 0px 4px 5px;
+  }
+}
