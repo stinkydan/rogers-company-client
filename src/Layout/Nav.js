@@ -38,7 +38,7 @@ class Nav extends Component {
            <span
            className="landscape-link"
            > Landscaping Services
-           </span> LLC</span>
+           </span></span>
           <div className="call-to-action">
             <span>Contact Us Now</span>
           </div>

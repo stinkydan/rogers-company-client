@@ -1,3 +1,4 @@
+// TOP-NAV: COMPANY NAME, LOGO, AND CALL TO ACTION
 .main-nav {
   display: flex;
   background-color: rgb(230, 230, 230);
@@ -16,6 +17,7 @@
     align-self: center;
     color: #25352C;
     margin-left: 15px;
+    text-align: center;
     font-style: normal;
     font-variant-ligatures: normal;
     font-variant-caps: normal;
@@ -23,7 +25,7 @@
     font-variant-east-asian: normal;
     font-weight: 550;
     font-stretch: normal;
-    font-size: 22px;
+    font-size: 1.2em;
     line-height: 1.4em;
     font-family: avenir, sans-serif;
 
@@ -38,26 +40,33 @@
   }
 }
 
+// CALL TO ACTION IN TOP-NAV
+.call-to-action {
+  display: flex;
+  justify-content: center;
+  background-color: rgba(123, 158, 54, 1);
+  height: auto;
+  width: 348px;
+  margin-left: auto;
 
-  .call-to-action {
-    display: flex;
-    justify-content: center;
-    background-color: rgba(123, 158, 54, 1);
-    height: auto;
-    width: 348px;
-    margin-left: auto;
+  span {
+    align-self: center;
+    text-align: center;
+    color: #FFFFFF;
+    font-family: avenir, sans-serif;
+    font-size: 18px;
+    font-weight: 600;
 
-    span {
-      align-self: center;
-      color: #FFFFFF;
-      font-family: avenir, sans-serif;
-      font-size: 18px;
-      font-weight: 600;
-
-    }
   }
+}
 
-// IFRAME TOOLTIP
+//TOP-NAV MOBILE VIEW
+@media (max-width: 470px) {
+  .call-to-action {
+    display: none;
+  }
+}
+// IFRAME TOOLTIP IN TOP-NAV LINK TO SNOW REMOVAL
 .thumbnail img {
   position: absolute;
   width: 200px;
@@ -93,29 +102,100 @@
   }
 }
 
+// HERO IMAGE AND TITLE SECTION
 .hero-img {
   height: auto;
   width: 100%;
+  margin-top: 153px;
 }
 
 .hero-block {
   position: relative;
   background-color: rgba(123, 158, 54, 1);
-  height: auto;
+  height: calc(auto + 30px);
   width: 100%;
   margin-top: -5px;
-  padding-bottom: 30px;
+  display: flex;
+  flex-direction: row;
+
+  .hero-social-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: inherit;
+    width: 20vw;
+  }
+
+  .hero-cta {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 70vw;
+
+    .hero-title {
+      color: rgb(255, 255, 255);
+      font-size: 3rem;
+      font-family: avenir, sans-serif;
+      text-align: center;
+      text-shadow: rgba(0, 0, 0, 0.4) 0px 4px 5px;
+    }
+
+    .snow-link-btn {
+      margin-bottom: 30px;
+    }
+  }
+}
+
+// MOBILE HERO SECTION
+@media (max-width: 470px) {
+  .hero-block {
+    position: relative;
+    background-color: rgba(123, 158, 54, 1);
+    height: calc(auto + 30px);
+    width: 100%;
+    margin-top: -5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .hero-social-container {
+      display: none;
+    }
+
+    .hero-cta {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 70vw;
+
+      .hero-title {
+        color: rgb(255, 255, 255);
+        font-size: 2rem;
+        font-family: avenir, sans-serif;
+        text-align: center;
+        text-shadow: rgba(0, 0, 0, 0.4) 0px 4px 5px;
+      }
+
+      .snow-link-btn {
+        margin-bottom: 30px;
+      }
+    }
+  }
+}
+
+//INFO BOXES
+.info-container {
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
-  flex-wrap: wrap;
+  width: 100%;
 
-  .hero-title {
-    color: rgb(255, 255, 255);
-    font-size: 3em;
-    font-family: avenir, sans-serif;
-    text-align: center;
-    text-shadow: rgba(0, 0, 0, 0.4) 0px 4px 5px;
+  .info-box {
+    height: 10%;
+    width: 10%;
+    background-color: white;
+    border: black;
   }
 }

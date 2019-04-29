@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Nav from './Layout/Nav'
 import Hero from './Layout/Hero'
+import Info from './Layout/Info'
 import { Route } from 'react-router-dom'
 
 import './App.scss';
@@ -16,6 +17,10 @@ class App extends Component {
         <Route
         exact path="/"
         render={() => <Hero /> } />
+
+        <Route
+        exact path="/"
+        render={() => <Info /> } />
       </>
     );
   }

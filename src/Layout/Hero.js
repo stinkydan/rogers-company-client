@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { AwesomeButton } from 'react-awesome-button';
-import styles from 'react-awesome-button/src/styles/themes/theme-blue';
+import { AwesomeButton, AwesomeButtonSocial } from 'react-awesome-button';
+import styles from 'react-awesome-button/src/styles/themes/theme-rickiest';
 
 class Hero extends Component {
   render() {
@@ -12,14 +12,32 @@ class Hero extends Component {
         alt="Lawn"
         />
         <div className="hero-block">
-          <h1 className="hero-title">Serving Greater Boston</h1>
-          <AwesomeButton
-            cssModule={styles}
-            type="primary"
-            href="https://greaterbostonsnowremoval.com"
-          >
-            Looking For Snow Removal?
-          </AwesomeButton>
+          <div className="hero-social-container">
+            <AwesomeButtonSocial
+              cssModule={styles}
+              type="facebook"
+              url="https://"
+            ></AwesomeButtonSocial>
+
+            <AwesomeButtonSocial
+              cssModule={styles}
+              icon="false"
+              url="https://"
+              image="../images/YelpLogo_Trademark/Screen(R)/Yelp_trademark_RGB.png"
+            ></AwesomeButtonSocial>
+          </div>
+          <div className="hero-cta">
+            <h1 className="hero-title">Serving Greater Boston</h1>
+            <AwesomeButton
+              className="snow-link-btn"
+              cssModule={styles}
+              type="secondary"
+              releaseDelay="50"
+              href="https://greaterbostonsnowremoval.com"
+            >
+              Looking For Snow Removal?
+            </AwesomeButton>
+          </div>
         </div>
       </>
     )
