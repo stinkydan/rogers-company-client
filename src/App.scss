@@ -244,9 +244,8 @@
       height: 36vw;
       width: 27vw;
       background-color: white;
-      margin-top: 25px;
-      margin-left: 1vw;
-      margin-right: 1vw;
+      margin: 1.5vw 1vw;
+      padding-bottom: 20px;
 
       img {
         width: 100%;
@@ -258,8 +257,12 @@
         width: 100%;
         background-color: inherit;
 
+        h2 {
+          font-size: calc(2vw + 5px);
+        }
+
         .book-button {
-          width: 120px;
+          width: 115px;
           height: 40px;
           border: 1px solid #5E801A;
           background-color: #5E801A;
@@ -268,7 +271,62 @@
           line-height: 22px;
           font-family: avenir-lt, sans-serif;
           font-weight: 600;
-          margin-bottom: auto;
+        }
+      }
+    }
+  }
+}
+
+// SERVICES PAGE MOBILE VERSION
+@media (max-width: 800px) {
+  .page-container {
+    width: 100%;
+    height: auto;
+    background-color: rgb(230, 230, 230);
+    padding-top: 160px;
+    padding-bottom: 50px;
+    text-align: center;
+
+    .service-container {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+
+      .service-block {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        height: auto;
+        width: 100%;
+        background-color: white;
+        margin-bottom: 2vw;
+
+        img {
+          align-self: flex-start;
+          width: 50vw;
+          height: auto;
+        }
+
+        .book-service {
+          height: auto;
+          width: 50%;
+          background-color: inherit;
+
+          h2 {
+            font-size: calc(3vw + 7px);
+          }
+
+          .book-button {
+            width: 115px;
+            height: 40px;
+            border: 1px solid #5E801A;
+            background-color: #5E801A;
+            color: #FFFFFF;
+            font-size: 15px;
+            line-height: 22px;
+            font-family: avenir-lt, sans-serif;
+            font-weight: 600;
+          }
         }
       }
     }
