@@ -21,9 +21,8 @@ class Hero extends Component {
 
             <AwesomeButtonSocial
               cssModule={styles}
-              icon="false"
+              type="yelp"
               url="https://"
-              image="../images/YelpLogo_Trademark/Screen(R)/Yelp_trademark_RGB.png"
             ></AwesomeButtonSocial>
           </div>
           <div className="hero-cta">
