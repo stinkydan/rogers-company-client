@@ -222,7 +222,7 @@
   }
 }
 
-// SERVICE PAGE
+// SERVICES PAGE *Landscaping
 .page-container {
   width: 100%;
   height: auto;
@@ -312,8 +312,66 @@
           width: 50%;
           background-color: inherit;
 
-          h2 {
+          h2, h4 {
             font-size: calc(3vw + 7px);
+          }
+
+          .book-button {
+            width: 115px;
+            height: 40px;
+            border: 1px solid #5E801A;
+            background-color: #5E801A;
+            color: #FFFFFF;
+            font-size: 15px;
+            line-height: 22px;
+            font-family: avenir-lt, sans-serif;
+            font-weight: 600;
+          }
+        }
+      }
+    }
+  }
+}
+
+// LARGE SCREEN DEVICE SERVICES PAGE
+@media (min-width: 1250px) {
+  .page-container {
+    width: 100%;
+    height: auto;
+    background-color: rgb(230, 230, 230);
+    padding-top: 160px;
+    padding-bottom: 50px;
+    text-align: center;
+
+    .service-container {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: center;
+      width: 1161px;
+      margin: 0 auto;
+
+      .service-block {
+        display: flex;
+        flex-direction: column;
+        height: 470px;
+        width: 337px;
+        background-color: white;
+        margin: 50px 25px;
+        padding-bottom: 20px;
+
+        img {
+          width: 100%;
+          height: auto;
+        }
+
+        .book-service {
+          height: auto;
+          width: 100%;
+          background-color: inherit;
+
+          h2 {
+            font-size: 30px;
           }
 
           .book-button {
