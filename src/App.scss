@@ -390,3 +390,85 @@
     }
   }
 }
+
+// QUOTES page
+.quote-page-container {
+  display: flex;
+  flex-direction: row;
+  width: 100vw;
+  height: 100vh;
+
+  .google-map {
+    position: relative;
+    width: 60vw;
+    height: 300px;
+    margin-top: 160px;
+    margin-left: 10px;
+
+    .google-maps-input {
+      position: absolute;
+      margin-top: -43px;
+      margin-left: 5px;
+      margin-right: auto;
+      width: 50%;
+      max-width: 350px;
+      background: #fff;
+      border-radius: 8px;
+      box-sizing: border-box;
+      border: 1px solid transparent;
+      padding: 12px 75px 11px 10px;
+    }
+  }
+
+  .quote-form-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 159px auto auto;
+    width: 35vw;
+    height: 70%;
+    background-color: #F9F9F9;
+    border: 1px solid transparent;
+    border-radius: 5px;
+    box-shadow: 1px 2px 5px 1px rgba(0,0,0,0.35);
+    overflow-y: auto;
+
+    .job-dropdown {
+      width: 135px;
+      padding: 7px 10px;
+      margin: 15px auto 0px auto;
+    }
+
+    label {
+      font-family: omnes-cond, sans-serif;
+      font-style: normal;
+      font-weight: 500;
+      font-size: 14px;
+      margin-left: 6%;
+      margin-top: 2%;
+    }
+
+    .quote-input {
+      width: 90%;
+      background: #fff;
+      border-radius: 8px;
+      box-sizing: border-box;
+      border: 1px solid transparent;
+      padding: 12px 75px 11px 10px;
+      margin: 3px auto;
+      box-shadow: 0px 1px 3px 1px rgba(0,0,0,0.25);
+    }
+
+    .get-quote-button {
+      align-self: center;
+      width: 160px;
+      height: auto;
+      padding: 10px 20px;
+      background-color: #003C7B;
+      color: #FFFFFF;
+      border: 1px solid transparent;
+      border-radius: 33px;
+      margin: auto;
+    }
+  }
+}

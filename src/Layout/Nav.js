@@ -48,7 +48,7 @@ class Nav extends Component {
 
         <nav className="sub-nav">
           <Link to="/" className="nav-link">Home</Link>
-          <Link to="/quote" className="nav-link">Quote</Link>
+          <Link to="/quote" className="nav-link">Get Quote</Link>
           <Link to="/services" className="nav-link">Services</Link>
           <Link to="/about" className="nav-link">About</Link>
           <Link to="/testimonials" className="nav-link">Testimonials</Link>
