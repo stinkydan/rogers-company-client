@@ -11,6 +11,7 @@ class Hero extends Component {
         src="https://static.wixstatic.com/media/d99169_052968af867b4f87b57d35f4e4842bc4~mv2_d_4608_2982_s_4_2.jpg/v1/fill/w_1895,h_948,al_t,q_85,usm_0.66_1.00_0.01/d99169_052968af867b4f87b57d35f4e4842bc4~mv2_d_4608_2982_s_4_2.webp"
         alt="Lawn"
         />
+
         <div className="hero-block">
           <div className="hero-social-container">
             <AwesomeButtonSocial

@@ -4,6 +4,9 @@ import Hero from './Layout/Hero'
 import Info from './Layout/Info'
 import Services from './Layout/Services'
 import Quote from './Layout/Quote'
+import About from './Layout/About'
+import Testimonials from './Layout/Testimonials'
+import GalleryPage from './Layout/GalleryPage'
 
 import { Route } from 'react-router-dom'
 
@@ -32,6 +35,16 @@ class App extends Component {
         <Route
           path="/quote"
           render={() =>  <Quote /> } />
+
+        <Route
+          path="/about"
+          render={() =>  <About /> } />
+        <Route
+          path="/testimonials"
+          render={() =>  <Testimonials /> } />
+        <Route
+          path="/gallery"
+          render={() =>  <GalleryPage /> } />
       </>
     );
   }

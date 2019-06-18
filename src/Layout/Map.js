@@ -11,7 +11,7 @@ class Map extends React.Component {
   constructor( props ){
     super( props );
       this.state = {
-       address: '',
+       address: this.props.address,
        city: '',
        area: '',
        state: '',
@@ -71,6 +71,13 @@ class Map extends React.Component {
      return false
    }
  }
+
+ componentDidUpdate(prevProps, prevState) {
+   if (prevProps.address !== this.state.address) {
+     this.setState({ address: this.props.address})
+   }
+ }
+
 /**
   * Get the city and set the city input value to the one selected
   *
@@ -237,19 +244,19 @@ render(){
   let map;
     if( this.props.center.lat !== undefined ) {
      map = <div className="google-map">
-             <AsyncMap
-              googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyCDz0crm3ADVeHrUC_6r2Ye-bDZG5Bofrk&libraries=places"
-              loadingElement={
-               <div style={{ height: `100%` }} />
-              }
-              containerElement={
-               <div style={{ height: this.props.height }} />
-              }
-              mapElement={
-               <div style={{ height: `100%` }} />
-              }
-             />
-            </div>
+               <AsyncMap
+               googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyCDz0crm3ADVeHrUC_6r2Ye-bDZG5Bofrk&libraries=places"
+               loadingElement={
+                <div style={{ height: `100%` }} />
+               }
+               containerElement={
+                <div style={{ height: this.props.height }} />
+               }
+               mapElement={
+                <div style={{ height: `100%` }} />
+               }
+              />
+           </div>
     } else {
        map = <div style={{ height: this.props.height }} />
      }
@@ -258,3 +265,21 @@ render(){
 }
 
 export default Map
+
+{/*
+  {new MeasureTool(<AsyncMap
+    googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyCDz0crm3ADVeHrUC_6r2Ye-bDZG5Bofrk&libraries=places,geometry"
+    loadingElement={
+     <div style={{ height: `100%` }} />
+    }
+    containerElement={
+     <div style={{ height: this.props.height }} />
+    }
+    mapElement={
+     <div style={{ height: `100%` }} />
+    }
+   />, {
+     showSegmentLength: true,
+     unit: MeasureTool.UnitTypeId.IMPERIAL
+   })}
+  */}

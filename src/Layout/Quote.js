@@ -39,6 +39,12 @@ handleChange = event => {
   this.setState({ [event.target.name]: event.target.value })
 }
 
+// <Map
+//    google={this.props.google}
+//    center={{lat: 42.3601, lng: -71.0589}}
+//    height='100%'
+//    zoom={15}
+// />
   render() {
     const { name, email, phone, address } = this.state
 
@@ -46,12 +52,14 @@ handleChange = event => {
       <>
         <div className="quote-page-container">
 
-          <Map
-             google={this.props.google}
-             center={{lat: 42.3601, lng: -71.0589}}
-             height='100%'
-             zoom={15}
-          />
+        <Map
+          className="google-map"
+          google={this.props.google}
+          center={{lat: 42.3601, lng: -71.0589}}
+          height='100%'
+          zoom={15}
+          address={this.state.address}
+        />
 
           <div className="quote-form-container">
             <select className="job-dropdown" name="jobType">
