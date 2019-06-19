@@ -113,27 +113,19 @@ $grass: rgba(123, 158, 54, 1);
 
 .hero-block {
   position: relative;
+  display: flex;
+  flex-direction: column;
   background-color: rgba(123, 158, 54, 1);
   height: auto;
-  width: 100%;
+  width: inherit;
   margin-top: -5px;
-  display: flex;
-  flex-direction: row;
-
-  .hero-social-container {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    height: inherit;
-    width: 20vw;
-    background-color: rgba(175, 175, 175, 1);
-  }
 
   .hero-cta {
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
-    width: 70vw;
+    width: inherit;
 
     .hero-title {
       color: rgb(255, 255, 255);
@@ -143,8 +135,12 @@ $grass: rgba(123, 158, 54, 1);
       text-shadow: rgba(0, 0, 0, 0.4) 0px 4px 5px;
     }
 
-    .snow-link-btn {
-      margin-bottom: 30px;
+    .hero-social-cta {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+      width: 10%;
+      padding: 25px 0;
     }
   }
 }

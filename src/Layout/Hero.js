@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { AwesomeButton, AwesomeButtonSocial } from 'react-awesome-button';
+import { AwesomeButton } from 'react-awesome-button';
 import styles from 'react-awesome-button/src/styles/themes/theme-rickiest';
 
 class Hero extends Component {
@@ -13,19 +13,6 @@ class Hero extends Component {
         />
 
         <div className="hero-block">
-          <div className="hero-social-container">
-            <AwesomeButtonSocial
-              cssModule={styles}
-              type="facebook"
-              url="https://"
-            ></AwesomeButtonSocial>
-
-            <AwesomeButtonSocial
-              cssModule={styles}
-              type="yelp"
-              url="https://"
-            ></AwesomeButtonSocial>
-          </div>
           <div className="hero-cta">
             <h1 className="hero-title">Serving Greater Boston</h1>
             <AwesomeButton
@@ -34,9 +21,11 @@ class Hero extends Component {
               type="secondary"
               releaseDelay="50"
               href="https://greaterbostonsnowremoval.com"
-            >
-              Looking For Snow Removal?
-            </AwesomeButton>
+            >Looking For Snow Removal?</AwesomeButton>
+            <div className="hero-social-cta">
+              <a target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/rogerssnowremoval/"><img alt="white facebook icon" src="https://static.wixstatic.com/media/23fd2a2be53141ed810f4d3dcdcd01fa.png/v1/fill/w_42,h_42,al_c,q_80,usm_0.66_1.00_0.01/23fd2a2be53141ed810f4d3dcdcd01fa.webp"/></a>
+              <a target="_blank" rel="noopener noreferrer" href="https://www.yelp.com/biz/rogers-snow-removal-and-landscaping-service-boston-3"><img alt="white yelp icon" src="https://static.wixstatic.com/media/3ae0375b94ba46fca1f4e6c0f7992fc9.png/v1/fill/w_42,h_42,al_c,q_80,usm_0.66_1.00_0.01/3ae0375b94ba46fca1f4e6c0f7992fc9.webp"/></a>
+            </div>
           </div>
         </div>
       </>
