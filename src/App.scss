@@ -699,7 +699,6 @@ $grass: rgba(123, 158, 54, 1);
 
     div {
       display: flex;
-      flex-direction: column;
       justify-content: center;
       align-items: center;
       color: #FFFFFF;
@@ -711,6 +710,18 @@ $grass: rgba(123, 158, 54, 1);
       span {
         margin-top: 5px;
         font-size: calc(14px + 1%);
+      }
+    }
+    div:nth-child(3n) {
+      display: flex;
+      flex-direction: column;
+    }
+    div:nth-child(1n) {
+      a:nth-child(1n) {
+        margin-right: 2.5%;
+      }
+      a:nth-child(2n) {
+        margin-left: 2.5%;
       }
     }
   }
