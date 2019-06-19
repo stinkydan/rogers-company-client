@@ -647,37 +647,71 @@ $grass: rgba(123, 158, 54, 1);
 
 .footer-container {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   width: 100%;
   height: 390px;
   bottom: 0;
 
-  div {
+  .footer-icon-container {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    width: 33.333333%;
-    width: calc(100% /3);
-    color: #FFFFFF;
-    text-align: center;
+    flex-direction: row;
+    width: inherit;
+    height: inherit;
+
+    div {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      width: 33.333333%;
+      width: calc(100% /3);
+      color: #FFFFFF;
+      text-align: center;
+    }
+    .footer-1 {
+      background-color: rgba(50, 65, 50, 1);
+    }
+    .footer-2 {
+      background-color: rgba(94, 128, 26, 1);
+    }
+    .footer-3 {
+      background-color: $grass;
+    }
+
+    svg {
+      width: 30%;
+      height: 30%;
+      margin-bottom: 6%;
+    }
+    span {
+      font-size: calc(20px + 1vw);
+    }
   }
-  svg {
-    width: 30%;
-    height: 30%;
-    margin-bottom: 6%;
-  }
-  span {
-    font-size: calc(20px + 1vw);
-  }
-  .footer-1 {
-    background-color: rgba(50, 65, 50, 1);
-  }
-  .footer-2 {
-    background-color: rgba(94, 128, 26, 1);
-  }
-  .footer-3 {
-    background-color: $grass;
+
+  .footer-contact {
+    display: flex;
+    flex-direction: row;
+    width: inherit;
+    height: 70px;
+    padding: 30px 0;
+    background-color: rgba(35, 50, 43, 1);
+
+    div {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      color: #FFFFFF;
+      border-right: 1px solid #FFFFFF;
+      width: 25%;
+      height: inherit;
+      padding: 0 5px;
+
+      span {
+        margin-top: 5px;
+        font-size: calc(14px + 1%);
+      }
+    }
   }
 }
