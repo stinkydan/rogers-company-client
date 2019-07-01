@@ -58,7 +58,6 @@ handleChange = event => {
           center={{lat: 42.3601, lng: -71.0589}}
           height='100%'
           zoom={15}
-          address={this.state.address}
         />
 
           <div className="quote-form-container">

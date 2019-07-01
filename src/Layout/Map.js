@@ -1,5 +1,6 @@
 import React from 'react'
-import { withGoogleMap, GoogleMap, withScriptjs, InfoWindow, Marker } from "react-google-maps";
+import { withGoogleMap, GoogleMap, withScriptjs, Marker, Polygon } from "react-google-maps";
+import { DrawingManager } from 'react-google-maps/lib/components/drawing/DrawingManager'
 import Autocomplete from 'react-google-autocomplete';
 import Geocode from "react-geocode";
 // import MeasureTool from 'measuretool-googlemaps-v3'
@@ -10,19 +11,26 @@ Geocode.enableDebug();
 class Map extends React.Component {
   constructor( props ){
     super( props );
+    this.mapRef = React.createRef();
+    this.polygonRef = React.createRef();
+
+    this.markerRef = React.createRef();
+
       this.state = {
-       address: this.props.address,
-       city: '',
-       area: '',
-       state: '',
-         mapPosition: {
-          lat: this.props.center.lat,
-          lng: this.props.center.lng
-         },
+        zoom: 15,
+        address: '',
+        city: '',
+        area: '',
+        state: '',
+        mapPosition: {
+        lat: this.props.center.lat,
+        lng: this.props.center.lng
+        },
        markerPosition: {
         lat: this.props.center.lat,
         lng: this.props.center.lng
-     }
+     },
+     measurementMarkers: [],
    }
  }
 /**
@@ -64,19 +72,20 @@ class Map extends React.Component {
      this.state.address !== nextState.address ||
      this.state.city !== nextState.city ||
      this.state.area !== nextState.area ||
-     this.state.state !== nextState.state
+     this.state.state !== nextState.state ||
+     this.state.measurementMarkers !== nextState.measurementMarkers
     ) {
      return true
     } else if ( this.props.center.lat === nextProps.center.lat ){
      return false
    }
  }
-
- componentDidUpdate(prevProps, prevState) {
-   if (prevProps.address !== this.state.address) {
-     this.setState({ address: this.props.address})
-   }
- }
+ //  MY CHANGES
+ // componentDidUpdate(prevProps, prevState) {
+ //   if (prevProps.address !== this.state.address) {
+ //     this.setState({ address: this.props.address})
+ //   }
+ // }
 
 /**
   * Get the city and set the city input value to the one selected
@@ -141,8 +150,12 @@ class Map extends React.Component {
   *
   * @param event
   */
- onInfoWindowClose = ( event ) => {
-};
+  setZoom = () => {
+    this.setState({
+      zoom: this.mapRef.current.context.__SECRET_MAP_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.zoom
+    })
+    console.log(this.state.zoom, 'ZOOM STATE')
+  };
 /**
   * When the user types an address in the search box
   * @param place
@@ -205,14 +218,89 @@ this.setState( {
   );
  };
 
-render(){
+addLatLng = (event) => {
+  this.setState({
+    measurementMarkers: [...this.state.measurementMarkers, {
+      id: this.state.measurementMarkers.length,
+      lat: event.latLng.lat(),
+      lng: event.latLng.lng()
+    }]
+  })
+  console.log(this.state.measurementMarkers, 'OG STATE FROM CLICKING MAP')
+}
+
+onMeasureDragEnd = poly => {
+  // const newPosition = this.markerRef.current
+  const polyArray = poly.getPath().getArray()
+
+  let paths = []
+
+  polyArray.forEach(path => {
+    paths.push({ lat: path.lat(), lng: path.lng() })
+  })
+
+  this.setState({ measurementMarkers: paths })
+  // eslint-disable-next-line
+  const area = google.maps.geometry.spherical.computeArea(poly.getPath())
+  console.log(area, 'AREA*****')
+
+  // const lat = event.latLng.lat()
+  // const lng = event.latLng.lng()
+  //
+  // const newMarkers = this.state.measurementMarkers.map(marker => {
+  //   if (marker.id === newPosition._reactInternalFiber.index) {
+  //     const update = {
+  //       id: marker.id,
+  //       lat: lat,
+  //       lng: lng
+  //     }
+  //     console.log(update, 'UPDATED MARKER')
+  //     return update
+  //   } else {
+  //     console.log(marker, 'UNCHANGED MARKERS')
+  //     return marker
+  //   }
+  // })
+  // console.log(newMarkers, 'NEWmaRKERS')
+  // this.setState({ measurementMarkers: newMarkers })
+}
+
+render () {
   const AsyncMap = withScriptjs(
     withGoogleMap(props => (
         <GoogleMap
+          ref={this.mapRef}
+          onClick={(e) => this.addLatLng(e)}
           google={this.props.google}
-          defaultZoom={this.props.zoom}
+          defaultZoom={this.state.zoom}
+          onZoomChanged={this.setZoom}
           defaultCenter={{ lat: this.state.mapPosition.lat, lng: this.state.mapPosition.lng }}
+          onPolygonComplete={props.onMeasureDragEnd}
          >
+         <DrawingManager
+          onPolygonComplete={this.onMeasureDragEnd}
+             // eslint-disable-next-line
+           defaultDrawingMode={google.maps.drawing.OverlayType.POLYGON}
+           defaultOptions={{
+             drawingControl: true,
+             drawingControlOptions: {
+                  // eslint-disable-next-line
+               position: google.maps.ControlPosition.TOP_CENTER,
+               drawingModes: [
+                    // eslint-disable-next-line
+                 google.maps.drawing.OverlayType.POLYGON
+               ],
+             },
+             polygonOptions: {
+               fillColor: `rgba(123, 158, 54, 1)`,
+               fillOpacity: 0.4,
+               strokeWeight: 5,
+               clickable: false,
+               editable: true,
+               zIndex: 1,
+             }
+            }}
+          />
           {/* For Auto complete Search Box */}
           <Autocomplete
              className="google-maps-input"
@@ -221,22 +309,35 @@ render(){
              componentRestrictions={{ country: "us" }}
           />
           {/*Marker*/}
-          <Marker google={this.props.google}
-            name={'Dolores park'}
+          <Marker
+            google={this.props.google}
             draggable={true}
-            onDragEnd={ this.onMarkerDragEnd }
+            // onDragEnd={this.onMarkerDragEnd}
             position={{ lat: this.state.markerPosition.lat, lng: this.state.markerPosition.lng }}
           />
-          <Marker />
-          {/* InfoWindow on top of marker */}
-          <InfoWindow
-            onClose={this.onInfoWindowClose}
-            position={{ lat: ( this.state.markerPosition.lat + 0.0018 ), lng: this.state.markerPosition.lng }}
-          >
-          <div>
-             <span style={{ padding: 0, margin: 0 }}>{ this.state.address }</span>
-          </div>
-        </InfoWindow>
+          {/*this.state.measurementMarkers.map((marker, i) => (
+              <Marker
+                ref={this.markerRef}
+                draggable={true}
+                onDragEnd={(e) => this.onMeasureDragEnd(e)}
+                position={{ lat: marker.lat, lng: marker.lng }}
+                key={marker.id}
+              />
+          ))*/}
+        <Polygon
+          ref={this.polygonRef}
+          path={this.state.measurementMarkers}
+          editable={true}
+          draggable={false}
+          geodesic={true}
+          options={{
+              strokeColor: "#ff2527",
+              fillColor: "rgba(123, 158, 54, 1)",
+              fillOpacity: "0.4",
+              strokeOpacity: 0.75,
+              strokeWeight: 2,
+          }}
+        />
       </GoogleMap>
     )
   )
@@ -245,7 +346,7 @@ render(){
     if( this.props.center.lat !== undefined ) {
      map = <div className="google-map">
                <AsyncMap
-               googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyCDz0crm3ADVeHrUC_6r2Ye-bDZG5Bofrk&libraries=places"
+               googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyCDz0crm3ADVeHrUC_6r2Ye-bDZG5Bofrk&libraries=places,drawing,geometry"
                loadingElement={
                 <div style={{ height: `100%` }} />
                }
@@ -265,21 +366,3 @@ render(){
 }
 
 export default Map
-
-{/*
-  {new MeasureTool(<AsyncMap
-    googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyCDz0crm3ADVeHrUC_6r2Ye-bDZG5Bofrk&libraries=places,geometry"
-    loadingElement={
-     <div style={{ height: `100%` }} />
-    }
-    containerElement={
-     <div style={{ height: this.props.height }} />
-    }
-    mapElement={
-     <div style={{ height: `100%` }} />
-    }
-   />, {
-     showSegmentLength: true,
-     unit: MeasureTool.UnitTypeId.IMPERIAL
-   })}
-  */}

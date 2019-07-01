@@ -1,4 +1,4 @@
-//global variables
+ //global variables
 /*eslint-disable*/
 
 var lastClickTime;
