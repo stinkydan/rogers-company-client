@@ -1,5 +1,5 @@
 import React from 'react'
-import { withGoogleMap, GoogleMap, withScriptjs, Marker, Polygon } from "react-google-maps";
+import { withGoogleMap, GoogleMap, withScriptjs, Marker } from "react-google-maps";
 import { DrawingManager } from 'react-google-maps/lib/components/drawing/DrawingManager'
 import Autocomplete from 'react-google-autocomplete';
 import Geocode from "react-geocode";
@@ -72,8 +72,7 @@ class Map extends React.Component {
      this.state.address !== nextState.address ||
      this.state.city !== nextState.city ||
      this.state.area !== nextState.area ||
-     this.state.state !== nextState.state ||
-     this.state.measurementMarkers !== nextState.measurementMarkers
+     this.state.state !== nextState.state
     ) {
      return true
     } else if ( this.props.center.lat === nextProps.center.lat ){
@@ -218,51 +217,21 @@ this.setState( {
   );
  };
 
-addLatLng = (event) => {
-  this.setState({
-    measurementMarkers: [...this.state.measurementMarkers, {
-      id: this.state.measurementMarkers.length,
-      lat: event.latLng.lat(),
-      lng: event.latLng.lng()
-    }]
-  })
-  console.log(this.state.measurementMarkers, 'OG STATE FROM CLICKING MAP')
+calcArea = () => {
+  // eslint-disable-next-line
+  const area = google.maps.geometry.spherical.computeArea(this.state.polygon.getPath())
+  console.log(area, 'AREA*****')
 }
 
-onMeasureDragEnd = poly => {
-  // const newPosition = this.markerRef.current
-  const polyArray = poly.getPath().getArray()
+setPoly = poly => {
+  console.log(poly, 'POLY SET RAN')
 
-  let paths = []
+  this.setState({ polygon: poly })
 
-  polyArray.forEach(path => {
-    paths.push({ lat: path.lat(), lng: path.lng() })
-  })
-
-  this.setState({ measurementMarkers: paths })
   // eslint-disable-next-line
-  const area = google.maps.geometry.spherical.computeArea(poly.getPath())
-  console.log(area, 'AREA*****')
-
-  // const lat = event.latLng.lat()
-  // const lng = event.latLng.lng()
-  //
-  // const newMarkers = this.state.measurementMarkers.map(marker => {
-  //   if (marker.id === newPosition._reactInternalFiber.index) {
-  //     const update = {
-  //       id: marker.id,
-  //       lat: lat,
-  //       lng: lng
-  //     }
-  //     console.log(update, 'UPDATED MARKER')
-  //     return update
-  //   } else {
-  //     console.log(marker, 'UNCHANGED MARKERS')
-  //     return marker
-  //   }
-  // })
-  // console.log(newMarkers, 'NEWmaRKERS')
-  // this.setState({ measurementMarkers: newMarkers })
+  google.maps.event.addListener(poly.getPath(), 'set_at', this.calcArea);
+    // eslint-disable-next-line
+  google.maps.event.addListener(poly.getPath(), 'insert_at', this.calcArea);
 }
 
 render () {
@@ -270,15 +239,14 @@ render () {
     withGoogleMap(props => (
         <GoogleMap
           ref={this.mapRef}
-          onClick={(e) => this.addLatLng(e)}
           google={this.props.google}
           defaultZoom={this.state.zoom}
           onZoomChanged={this.setZoom}
           defaultCenter={{ lat: this.state.mapPosition.lat, lng: this.state.mapPosition.lng }}
-          onPolygonComplete={props.onMeasureDragEnd}
+          options={function (maps) { return { mapTypeId: "satellite" } }}
          >
          <DrawingManager
-          onPolygonComplete={this.onMeasureDragEnd}
+          onPolygonComplete={this.setPoly}
              // eslint-disable-next-line
            defaultDrawingMode={google.maps.drawing.OverlayType.POLYGON}
            defaultOptions={{
@@ -315,29 +283,6 @@ render () {
             // onDragEnd={this.onMarkerDragEnd}
             position={{ lat: this.state.markerPosition.lat, lng: this.state.markerPosition.lng }}
           />
-          {/*this.state.measurementMarkers.map((marker, i) => (
-              <Marker
-                ref={this.markerRef}
-                draggable={true}
-                onDragEnd={(e) => this.onMeasureDragEnd(e)}
-                position={{ lat: marker.lat, lng: marker.lng }}
-                key={marker.id}
-              />
-          ))*/}
-        <Polygon
-          ref={this.polygonRef}
-          path={this.state.measurementMarkers}
-          editable={true}
-          draggable={false}
-          geodesic={true}
-          options={{
-              strokeColor: "#ff2527",
-              fillColor: "rgba(123, 158, 54, 1)",
-              fillOpacity: "0.4",
-              strokeOpacity: 0.75,
-              strokeWeight: 2,
-          }}
-        />
       </GoogleMap>
     )
   )
