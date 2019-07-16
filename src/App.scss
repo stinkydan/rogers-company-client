@@ -393,15 +393,15 @@ $grass: rgba(123, 158, 54, 1);
 .quote-page-container {
   display: flex;
   flex-direction: row;
-  width: 100vw;
-  height: 100vh;
+  width: 96%;
+  height: calc(100vh - 160px);
+  padding: 160px 2% 0px 2%;
 
   .google-map {
     position: relative;
-    width: 60vw;
-    height: 300px;
-    margin-top: 160px;
-    margin-left: 10px;
+    width: 60%;
+    height: 98%;
+    margin: 0 auto;
 
     .google-maps-input {
       position: absolute;
@@ -422,9 +422,9 @@ $grass: rgba(123, 158, 54, 1);
     display: flex;
     flex-direction: column;
     justify-content: center;
-    margin: 159px auto auto;
-    width: 35vw;
-    height: 70%;
+    margin: 0 auto;
+    width: 36%;
+    height: 98%;
     background-color: #F9F9F9;
     border: 1px solid transparent;
     border-radius: 5px;
@@ -434,7 +434,7 @@ $grass: rgba(123, 158, 54, 1);
     .job-dropdown {
       width: 135px;
       padding: 7px 10px;
-      margin: 15px auto 0px auto;
+      margin: auto auto;
     }
 
     label {

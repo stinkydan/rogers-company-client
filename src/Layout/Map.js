@@ -12,9 +12,6 @@ class Map extends React.Component {
   constructor( props ){
     super( props );
     this.mapRef = React.createRef();
-    this.polygonRef = React.createRef();
-
-    this.markerRef = React.createRef();
 
       this.state = {
         zoom: 15,
@@ -68,7 +65,6 @@ class Map extends React.Component {
   */
  shouldComponentUpdate( nextProps, nextState ){
    if (
-     this.state.markerPosition.lat !== this.props.center.lat ||
      this.state.address !== nextState.address ||
      this.state.city !== nextState.city ||
      this.state.area !== nextState.area ||
@@ -170,52 +166,23 @@ class Map extends React.Component {
      lngValue = place.geometry.location.lng();
   // Set these values in the state.
     this.setState({
+       zoom: 19,
+      // eslint-disable-next-line
+       mapType: google.maps.MapTypeId.SATELLITE,
        address: ( address ) ? address : '',
        area: ( area ) ? area : '',
        city: ( city ) ? city : '',
        state: ( state ) ? state : '',
-       markerPosition: {
-        lat: latValue,
-        lng: lngValue
-       },
        mapPosition: {
         lat: latValue,
         lng: lngValue
        },
+       markerPosition: {
+         lat: latValue,
+         lng: lngValue
+       }
     })
   };
-/**
-  * When the marker is dragged you get the lat and long using the functions available from event object.
-  * Use geocode to get the address, city, area and state from the lat and lng positions.
-  * And then set those values in the state.
-  *
-  * @param event
-  */
- onMarkerDragEnd = ( event ) => {
-  console.log( 'event', event );
-  let newLat = event.latLng.lat(),
-   newLng = event.latLng.lng(),
-   // eslint-disable-next-line
-   addressArray = [];
-Geocode.fromLatLng( newLat , newLng ).then(
-   response => {
-    const address = response.results[0].formatted_address,
-     addressArray =  response.results[0].address_components,
-     city = this.getCity( addressArray ),
-     area = this.getArea( addressArray ),
-     state = this.getState( addressArray );
-this.setState( {
-     address: ( address ) ? address : '',
-     area: ( area ) ? area : '',
-     city: ( city ) ? city : '',
-     state: ( state ) ? state : ''
-    } )
-   },
-   error => {
-    console.error(error);
-   }
-  );
- };
 
 calcArea = () => {
   // eslint-disable-next-line
@@ -232,6 +199,8 @@ setPoly = poly => {
   google.maps.event.addListener(poly.getPath(), 'set_at', this.calcArea);
     // eslint-disable-next-line
   google.maps.event.addListener(poly.getPath(), 'insert_at', this.calcArea);
+
+  this.calcArea()
 }
 
 render () {
@@ -243,7 +212,11 @@ render () {
           defaultZoom={this.state.zoom}
           onZoomChanged={this.setZoom}
           defaultCenter={{ lat: this.state.mapPosition.lat, lng: this.state.mapPosition.lng }}
-          options={function (maps) { return { mapTypeId: "satellite" } }}
+          defaultOptions={{
+            streetViewControl: false,
+            mapTypeControl: false
+          }}
+          mapTypeId={this.state.mapType}
          >
          <DrawingManager
           onPolygonComplete={this.setPoly}
@@ -279,7 +252,7 @@ render () {
           {/*Marker*/}
           <Marker
             google={this.props.google}
-            draggable={true}
+            draggable={false}
             // onDragEnd={this.onMarkerDragEnd}
             position={{ lat: this.state.markerPosition.lat, lng: this.state.markerPosition.lng }}
           />
