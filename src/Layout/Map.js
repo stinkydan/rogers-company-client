@@ -166,7 +166,7 @@ class Map extends React.Component {
      lngValue = place.geometry.location.lng();
   // Set these values in the state.
     this.setState({
-       zoom: 19,
+       zoom: 20,
       // eslint-disable-next-line
        mapType: google.maps.MapTypeId.SATELLITE,
        address: ( address ) ? address : '',
@@ -184,12 +184,17 @@ class Map extends React.Component {
     })
   };
 
+// CALCULATE AREA OF POLYGON
 calcArea = () => {
   // eslint-disable-next-line
   const area = google.maps.geometry.spherical.computeArea(this.state.polygon.getPath())
   console.log(area, 'AREA*****')
+
+  this.props.updateArea(area)
 }
 
+// SET EVENT LISTENERS IN GOOGLE MAP FOR POLYGON
+// CALC AREA WHEN USER COMPLETES A POLYGON
 setPoly = poly => {
   console.log(poly, 'POLY SET RAN')
 

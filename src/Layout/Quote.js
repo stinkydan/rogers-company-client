@@ -11,7 +11,8 @@ class Quote extends Component {
       email: '',
       phone: '',
       address: '',
-      jobType: null
+      jobRate: 50,
+      area: ''
     }
   }
 
@@ -27,16 +28,47 @@ calendlyWidget = () => {
   });
 }
 
-getQuote = () => {
-  return axios({
-    method: 'GET',
-    url: 'http://localhost:4741/get-quote',
-  })
-  .then(res => console.log(res))
+calcQuote = () => {
+  const { name, email, phone, address, jobRate, area } = this.state
+
+  const timeInMin = area * 2
+
+  const timeInHours = timeInMin / 60
+
+  const quote = jobRate * timeInHours
+
+  const job = {
+    client_name: name,
+    client_email: email,
+    client_phone: phone,
+    client_address: address,
+    job_rate: jobRate,
+    area: area,
+    time_in_min: timeInMin,
+    quote: quote
+  }
+
+  return this.getQuote(job)
+}
+
+getQuote = job => {
+  return axios(
+    {
+      method: 'POST',
+      url: 'http://localhost:4741/jobs',
+      data: { job }
+    }
+  )
+  .then(res => console.log(res.data.job.quote, 'API QUOTE'))
 }
 
 handleChange = event => {
   this.setState({ [event.target.name]: event.target.value })
+}
+
+updateArea = newArea => {
+  console.log(newArea, '^^^updateArea ran')
+  this.setState({ area: newArea })
 }
 
 // <Map
@@ -58,18 +90,19 @@ handleChange = event => {
           center={{lat: 42.3601, lng: -71.0589}}
           height='100%'
           zoom={15}
+          updateArea={this.updateArea}
         />
 
           <div className="quote-form-container">
-            <select className="job-dropdown" name="jobType">
-              <option value="landscaping">Landscaping</option>
-              <option value="weeding">Weeding</option>
-              <option value="lawn-care">Lawn Care</option>
-              <option value="garden-clearance">Garden Clearance</option>
-              <option value="weed-wacking">Weed Wacking</option>
-              <option value="grass-installation">Grass Installation</option>
-              <option value="trimming-pruning">Trimming & Pruning</option>
-              <option value="mulch">Mulch</option>
+            <select className="job-dropdown" name="jobRate">
+              <option value="50">Landscaping</option>
+              <option value="50">Weeding</option>
+              <option value="50">Lawn Care</option>
+              <option value="55">Garden Clearance</option>
+              <option value="55">Weed Wacking</option>
+              <option value="55">Grass Installation</option>
+              <option value="55">Trimming & Pruning</option>
+              <option value="55">Mulch</option>
             </select>
 
             <label>Name</label>
@@ -84,7 +117,7 @@ handleChange = event => {
             <label>Address</label>
             <input name="address" type="text" placeholder="Address" value={address} onChange={(event) => this.handleChange(event)} className="quote-input"/>
 
-            <button className="get-quote-button" onClick={() => this.getQuote()}>Get Quote</button>
+            <button className="get-quote-button" onClick={this.calcQuote}>Get Quote</button>
           </div>
         </div>
       </>
