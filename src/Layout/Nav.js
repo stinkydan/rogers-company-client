@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import SnowSite from '../images/snow_removal_site.PNG'
+import SnowSite from '../images/snow_removal_site.PNG';
 
 class Nav extends Component {
   constructor() {
