@@ -755,6 +755,7 @@ $grass: rgba(123, 158, 54, 1);
     background: inherit;
     width: 90%;
     padding: 0 5%;
+    text-shadow: 1px 1px 1px #000000;
 
     h1 {
       margin-top: 15vh;
@@ -764,7 +765,7 @@ $grass: rgba(123, 158, 54, 1);
 
     p {
       position: absolute;
-      margin-top: 42vh;
+      margin-top: 40vh;
       font-family: avenir, sans-serif;
       font-size: calc(18px + 1vw);
       font-weight: 600;
@@ -772,14 +773,14 @@ $grass: rgba(123, 158, 54, 1);
 
     span {
       position: absolute;
-      margin-top: 50vh;
+      margin-top: 48vh;
       font-family: avenir, sans-serif;
-      font-size: calc(22px + 1vw);
-      font-weight: bolder;
+      font-size: calc(22px + 2vw);
+      font-weight: 600;
     }
 
     .down-arrow {
-      margin-top: 75vh;
+      margin-top: 72vh;
       font-size: 33px;
       border: 2px solid white;
       border-radius: 100%;
@@ -792,6 +793,7 @@ $grass: rgba(123, 158, 54, 1);
     }
   }
 
+  // CSS FOR FROSTED PANE OVER IMAGE
   // .confirmation-page-greeting:before {
   //   content: '';
   //   display: flex;
@@ -819,31 +821,96 @@ $grass: rgba(123, 158, 54, 1);
   z-index: 110;
 
   h2 {
-    margin-top: 15%;
-    
+    margin-top: 12vh;
+    font-family: avenir, sans-serif;
+    font-size: calc(26px + 2vw);
+  }
+
+  p {
+    font-family: avenir, sans-serif;
+    font-size: calc(14px + 1vw);
+    line-height: 1.5;
+    margin-top: 0;
+    margin-bottom: 7vh;
+  }
+
+  p:nth-of-type(2) {
+    font-size: calc(10px + 1vw);
+    margin-top: 7vh;
+    margin-bottom: 0;
+  }
+
+  span {
+    font-family: avenir, sans-serif;
+    font-size: calc(18px + 1vw);
+    font-weight: 600;
+  }
+
+  .confirmation-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: auto;
+    margin-bottom: auto;
+
+    button:first-of-type {
+      margin-right: 15px;
+    }
+
+    button:nth-of-type(2) {
+      margin-left: 15px;
+      color: #FFFFFF;
+      background-color: $grass;
+    }
+
+    button {
+      padding: 15px 25px;
+      border: 2px solid transparent;
+      border-radius: 3px;
+      font-family: avenir, sans-serif;
+      font-size: 16px;
+    }
   }
 }
 
-.confirmation-buttons {
+// USED TO PRELOAD IMAGES WHILE LOADING SCREEN DISPLAYS
+.hidden {
+  display: none;
+}
+
+// LOADING PAGE ANIMATION AND LAYOUT
+.loading-page-wrapper {
+  position: absolute;
+  z-index: 110;
+  background-color: #2DB82D;
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
 
-  button:first-of-type {
-    margin-right: 15px;
+  svg {
+    position: relative;
+    z-index: 115;
+    height: 25vh;
+    width: 25vh;
+    animation: svg 2s linear infinite;
   }
 
-  button:nth-of-type(2) {
-    margin-left: 15px;
-    color: #FFFFFF;
-    background-color: $grass;
-  }
-
-  button {
-    padding: 15px 25px;
-    border: 2px solid transparent;
-    border-radius: 3px;
-    font-family: avenir, sans-serif;
-    font-size: 16px;
+  @keyframes svg {
+    from {
+      height: 25vh;
+      width: 25vh;
+      animation-timing-function: ease-out;
+    }
+    50% {
+      height: 30vh;
+      width: 30vh;
+    }
+    to {
+      height: 25vh;
+      width: 25vh;
+    }
   }
 }
