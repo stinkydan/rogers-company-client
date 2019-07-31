@@ -1,19 +1,23 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
+import { Redirect } from 'react-router';
 
-import { getQuote } from './../Api/quoteApi'
+import { getQuote } from './../Api/quoteApi';
 
-import Map from './Map'
+import Map from './Map';
+import Form from './Form';
 
 class Quote extends Component {
   constructor() {
     super()
     this.state = {
-      name: '',
-      email: '',
-      phone: '',
-      address: '',
-      jobType: '',
-      area: ''
+      name: null,
+      email: null,
+      phone: null,
+      address: null,
+      jobType: "Landscaping",
+      area: null,
+      shouldRedirect: false
     }
   }
 
@@ -42,13 +46,24 @@ calcQuote = () => {
   }
 
   getQuote(job)
-    .then(
-      res => console.log(res.data, 'API QUOTE')
-    )
+    .then((res) => {
+    console.log(res)
+    this.setState({
+      quote: res.data.price,
+      jobRate: res.data.jobRate,
+      time: res.data.time
+    }
+  )})
 }
 
 handleChange = event => {
   this.setState({ [event.target.name]: event.target.value })
+}
+
+validateForm = (e) => {
+  e.preventDefault()
+
+  this.state.area ? this.calcQuote() : console.log("FUCK NO")
 }
 
 updateArea = newArea => {
@@ -57,7 +72,22 @@ updateArea = newArea => {
 }
 
   render() {
-    const { name, email, phone, address } = this.state
+    if (this.state.quote) {
+      return (
+        <Redirect
+          to={{
+            pathname: '/quote-confirmation',
+            state: {
+              name: this.state.name,
+              quote: this.state.quote,
+              time: this.state.time,
+              jobType: this.state.jobType,
+              jobRate: this.state.jobRate
+            }
+          }}
+        />
+      )
+    }
 
     return (
       <>
@@ -72,37 +102,14 @@ updateArea = newArea => {
           updateArea={this.updateArea}
         />
 
-          <div className="quote-form-container">
-            <select className="job-dropdown" name="jobType" onChange={(event) => this.handleChange(event)}>
-              <option>Select Job</option>
-              <option value="Landscaping">Landscaping</option>
-              <option value="Weeding">Weeding</option>
-              <option value="Lawn_Care">Lawn Care</option>
-              <option value="Garden_Clearance">Garden Clearance</option>
-              <option value="Weed_Wacking">Weed Wacking</option>
-              <option value="Grass_Installation">Grass Installation</option>
-              <option value="Trimming&Pruning">Trimming & Pruning</option>
-              <option value="Mulch">Mulch</option>
-            </select>
-
-            <label>Name</label>
-            <input name="name" type="text" placeholder="John Doe" value={name} onChange={(event) => this.handleChange(event)} className="quote-input"/>
-
-            <label>Email</label>
-            <input name="email" type="text" placeholder="example@email.com" value={email} onChange={(event) => this.handleChange(event)} className="quote-input"/>
-
-            <label>Phone Number</label>
-            <input name="phone" type="tel" placeholder="555-555-5555" value={phone} onChange={(event) => this.handleChange(event)} className="quote-input"/>
-
-            <label>Address</label>
-            <input name="address" type="text" placeholder="Address" value={address} onChange={(event) => this.handleChange(event)} className="quote-input"/>
-
-            <button className="get-quote-button" onClick={this.calcQuote}>Get Quote</button>
-          </div>
+        <Form
+          handleChange={this.handleChange}
+          validateForm={this.validateForm}
+        />
         </div>
       </>
     )
   }
 }
 
-export default Quote
+export default withRouter(Quote)

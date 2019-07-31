@@ -7,6 +7,8 @@ import Quote from './Layout/Quote'
 import About from './Layout/About'
 import Testimonials from './Layout/Testimonials'
 import GalleryPage from './Layout/GalleryPage'
+import QuoteConfirmation from './Layout/QuoteConfirmation'
+
 import Footer from './Layout/Footer'
 
 import { Route } from 'react-router-dom'
@@ -40,12 +42,19 @@ class App extends Component {
         <Route
           exact path="/about"
           render={() =>  <About /> } />
+
         <Route
           exact path="/testimonials"
           render={() =>  <Testimonials /> } />
+
         <Route
           exact path="/gallery"
           render={() =>  <GalleryPage /> } />
+
+        <Route
+          exact path="/quote-confirmation"
+          render={() =>  <QuoteConfirmation /> } />
+
         <Route
           path="/"
           render={() =>  <Footer /> } />

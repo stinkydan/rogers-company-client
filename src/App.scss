@@ -431,10 +431,16 @@ $grass: rgba(123, 158, 54, 1);
     box-shadow: 1px 2px 5px 1px rgba(0,0,0,0.35);
     overflow-y: auto;
 
+    label:first-of-type {
+      margin-top: 10px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
     .job-dropdown {
       width: 135px;
       padding: 7px 10px;
-      margin: auto auto;
+      margin: 0 auto;
     }
 
     label {
@@ -720,5 +726,124 @@ $grass: rgba(123, 158, 54, 1);
         margin-left: 2.5%;
       }
     }
+  }
+}
+
+// QUOTE CONFIRMATION PAGE
+.confirmation-page-wrapper {
+  position: relative;
+  z-index: 110;
+  background: url('./images/cut-grass.jpg');
+  background-attachment: fixed;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: 100vh;
+  overflow-x: hidden;
+
+  .confirmation-page-greeting {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+    text-align: center;
+    color: #FFFFFF;
+    z-index: 120;
+    background: inherit;
+    width: 90%;
+    padding: 0 5%;
+
+    h1 {
+      margin-top: 15vh;
+      font-family: avenir, sans-serif;
+      font-size: calc(26px + 2vw);
+    }
+
+    p {
+      position: absolute;
+      margin-top: 42vh;
+      font-family: avenir, sans-serif;
+      font-size: calc(18px + 1vw);
+      font-weight: 600;
+    }
+
+    span {
+      position: absolute;
+      margin-top: 50vh;
+      font-family: avenir, sans-serif;
+      font-size: calc(22px + 1vw);
+      font-weight: bolder;
+    }
+
+    .down-arrow {
+      margin-top: 75vh;
+      font-size: 33px;
+      border: 2px solid white;
+      border-radius: 100%;
+      padding: 4px 19px 12px;
+      transition: 0.35s;
+    }
+
+    .down-arrow:hover {
+      background-color: rgba(255, 255, 255, .3)
+    }
+  }
+
+  // .confirmation-page-greeting:before {
+  //   content: '';
+  //   display: flex;
+  //   position: absolute;
+  //   background: inherit;
+  //   height: 100vh;
+  //   width: 100%;
+  //   z-index: -1;
+  //   box-shadow: inset 0 0 2000px rgba(255, 255, 255, .5);
+  //   filter: blur(px);
+  // }
+}
+
+.confirmation-info {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  height: 100vh;
+  width: 90%;
+  padding: 0 5%;
+  color: #FFFFFF;
+  background-color: rgba(35, 50, 43, 1);
+  z-index: 110;
+
+  h2 {
+    margin-top: 15%;
+    
+  }
+}
+
+.confirmation-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  button:first-of-type {
+    margin-right: 15px;
+  }
+
+  button:nth-of-type(2) {
+    margin-left: 15px;
+    color: #FFFFFF;
+    background-color: $grass;
+  }
+
+  button {
+    padding: 15px 25px;
+    border: 2px solid transparent;
+    border-radius: 3px;
+    font-family: avenir, sans-serif;
+    font-size: 16px;
   }
 }
