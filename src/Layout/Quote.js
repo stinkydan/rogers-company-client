@@ -72,7 +72,7 @@ updateArea = newArea => {
 }
 
   render() {
-    if (this.state.quote) {
+    if (this.state.quote && this.state.time) {
       return (
         <Redirect
           to={{
