@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import axios from 'axios'
+
+import { getQuote } from './../Api/quoteApi'
 
 import Map from './Map'
 
@@ -11,7 +12,7 @@ class Quote extends Component {
       email: '',
       phone: '',
       address: '',
-      jobRate: 50,
+      jobType: '',
       area: ''
     }
   }
@@ -29,37 +30,21 @@ calendlyWidget = () => {
 }
 
 calcQuote = () => {
-  const { name, email, phone, address, jobRate, area } = this.state
-
-  const timeInMin = area * 2
-
-  const timeInHours = timeInMin / 60
-
-  const quote = jobRate * timeInHours
+  const { name, email, phone, address, jobType, area } = this.state
 
   const job = {
     client_name: name,
     client_email: email,
     client_phone: phone,
     client_address: address,
-    job_rate: jobRate,
-    area: area,
-    time_in_min: timeInMin,
-    quote: quote
+    job_type: jobType,
+    area: area
   }
 
-  return this.getQuote(job)
-}
-
-getQuote = job => {
-  return axios(
-    {
-      method: 'POST',
-      url: 'http://localhost:4741/jobs',
-      data: { job }
-    }
-  )
-  .then(res => console.log(res.data.job.quote, 'API QUOTE'))
+  getQuote(job)
+    .then(
+      res => console.log(res.data, 'API QUOTE')
+    )
 }
 
 handleChange = event => {
@@ -71,12 +56,6 @@ updateArea = newArea => {
   this.setState({ area: newArea })
 }
 
-// <Map
-//    google={this.props.google}
-//    center={{lat: 42.3601, lng: -71.0589}}
-//    height='100%'
-//    zoom={15}
-// />
   render() {
     const { name, email, phone, address } = this.state
 
@@ -94,15 +73,16 @@ updateArea = newArea => {
         />
 
           <div className="quote-form-container">
-            <select className="job-dropdown" name="jobRate">
-              <option value="50">Landscaping</option>
-              <option value="50">Weeding</option>
-              <option value="50">Lawn Care</option>
-              <option value="55">Garden Clearance</option>
-              <option value="55">Weed Wacking</option>
-              <option value="55">Grass Installation</option>
-              <option value="55">Trimming & Pruning</option>
-              <option value="55">Mulch</option>
+            <select className="job-dropdown" name="jobType" onChange={(event) => this.handleChange(event)}>
+              <option>Select Job</option>
+              <option value="Landscaping">Landscaping</option>
+              <option value="Weeding">Weeding</option>
+              <option value="Lawn_Care">Lawn Care</option>
+              <option value="Garden_Clearance">Garden Clearance</option>
+              <option value="Weed_Wacking">Weed Wacking</option>
+              <option value="Grass_Installation">Grass Installation</option>
+              <option value="Trimming&Pruning">Trimming & Pruning</option>
+              <option value="Mulch">Mulch</option>
             </select>
 
             <label>Name</label>
