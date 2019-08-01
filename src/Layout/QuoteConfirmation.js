@@ -5,8 +5,8 @@ import LoadingPage from './LoadingPage';
 import image from './../images/cut-grass.jpg';
 
 class QuoteConfirmation extends Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
     this.infoRef = React.createRef();
 
     this.state = {
@@ -36,6 +36,8 @@ class QuoteConfirmation extends Component {
     // Remove underscores ( _ ) from jobType and make it lowercase
     // so it can be used in a sentence.
     const jobType = this.props.location.state.jobType.split('_').join(' ')
+
+    console.log('**CONIFRmATION STATE**', this.props.location.state)
 
     const confirmationPage = (
       <>

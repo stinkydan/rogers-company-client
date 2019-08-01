@@ -46,14 +46,14 @@ calcQuote = () => {
   }
 
   getQuote(job)
-    .then((res) => {
+    .then(res => {
     console.log(res)
     this.setState({
       quote: res.data.price,
       jobRate: res.data.jobRate,
       time: res.data.time
-    }
-  )})
+    })
+  })
 }
 
 handleChange = event => {
@@ -86,29 +86,28 @@ updateArea = newArea => {
             }
           }}
         />
-      )
+      );
+    } else {
+      return (
+        <>
+          <div className="quote-page-container">
+          <Map
+            className="google-map"
+            google={this.props.google}
+            center={{lat: 42.3601, lng: -71.0589}}
+            height='100%'
+            zoom={15}
+            updateArea={this.updateArea}
+          />
+
+          <Form
+            handleChange={this.handleChange}
+            validateForm={this.validateForm}
+          />
+          </div>
+        </>
+      );
     }
-
-    return (
-      <>
-        <div className="quote-page-container">
-
-        <Map
-          className="google-map"
-          google={this.props.google}
-          center={{lat: 42.3601, lng: -71.0589}}
-          height='100%'
-          zoom={15}
-          updateArea={this.updateArea}
-        />
-
-        <Form
-          handleChange={this.handleChange}
-          validateForm={this.validateForm}
-        />
-        </div>
-      </>
-    )
   }
 }
 
