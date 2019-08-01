@@ -26,12 +26,12 @@ class QuoteConfirmation extends Component {
   }
 
   render() {
-    const { name, jobRate } = this.props.location.state
+    const { name, jobRate, quote, time } = this.props.location.state
 
     // Truncate numbers to 2 decimal places for readability
-    const quote = this.props.location.state.quote.toFixed(2)
-
-    const time = this.props.location.state.time.toFixed(2)
+    // const quote = this.props.location.state.quote.toFixed(2)
+    // 
+    // const time = this.props.location.state.time.toFixed(2)
 
     // Remove underscores ( _ ) from jobType and make it lowercase
     // so it can be used in a sentence.

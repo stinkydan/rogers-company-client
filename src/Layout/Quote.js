@@ -53,7 +53,7 @@ calcQuote = () => {
       jobRate: res.data.jobRate,
       time: res.data.time
     })
-  })
+  }).catch(err => console.log('ERROR', err))
 }
 
 handleChange = event => {
