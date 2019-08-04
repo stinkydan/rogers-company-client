@@ -6,6 +6,8 @@ import { getQuote } from './../Api/quoteApi';
 
 import Map from './Map';
 import Form from './Form';
+import LoadingPage from './LoadingPage'
+import ErrorMessage from './ErrorMessage'
 
 class Quote extends Component {
   constructor() {
@@ -17,23 +19,60 @@ class Quote extends Component {
       address: null,
       jobType: "Landscaping",
       area: null,
-      shouldRedirect: false
+      shouldRedirect: false,
+      showLoadingPage: false,
+      calcQuoteError: false
     }
   }
 
-calendlyWidget = () => {
-  // eslint-disable-next-line
-  Calendly.initPopupWidget({
-    url: 'https://calendly.com/mverost4422?hide_landing_page_details=1',
-    parentElement: document.getElementById('calendly-widget'),
-    text: 'Schedule time with me',
-    color: '#00a2ff',
-    textColor: '#ffffff',
-    branding: true
-  });
+handleChange = event => {
+  this.setState({ [event.target.name]: event.target.value });
 }
 
-calcQuote = () => {
+initLoadingPage = () => {
+  this.setState({ showLoadingPage: true });
+}
+
+initError = () => {
+  this.setState({ calcQuoteError: true });
+
+    setTimeout(() => this.setState({
+      calcQuoteError: false
+    }),
+    5000
+  );
+}
+
+// WILL BE USED ON PAYMENT SUCCESS
+
+// calendlyWidget = () => {
+//   // eslint-disable-next-line
+//   Calendly.initPopupWidget({
+//     url: 'https://calendly.com/mverost4422?hide_landing_page_details=1',
+//     parentElement: document.getElementById('calendly-widget'),
+//     text: 'Schedule time with me',
+//     color: '#00a2ff',
+//     textColor: '#ffffff',
+//     branding: true
+//   });
+// }
+
+calcQuote = job => {
+  getQuote(job)
+    .then(res => {
+    this.setState({
+      quote: res.data.price,
+      jobRate: res.data.jobRate,
+      time: res.data.time
+    })
+  })
+  .catch(() => {
+    this.setState({ showLoadingPage: false })
+    this.initError()
+  })
+}
+
+onValidateSuccess = () => {
   const { name, email, phone, address, jobType, area } = this.state
 
   const job = {
@@ -44,26 +83,14 @@ calcQuote = () => {
     job_type: jobType,
     area: area
   }
-
-  getQuote(job)
-    .then(res => {
-    console.log(res)
-    this.setState({
-      quote: res.data.price,
-      jobRate: res.data.jobRate,
-      time: res.data.time
-    })
-  }).catch(err => console.log('ERROR', err))
-}
-
-handleChange = event => {
-  this.setState({ [event.target.name]: event.target.value })
+  this.initLoadingPage()
+  this.calcQuote(job)
 }
 
 validateForm = (e) => {
   e.preventDefault()
 
-  this.state.area ? this.calcQuote() : console.log("FUCK NO")
+  this.state.area ? this.onValidateSuccess() : console.log("FUCK NO")
 }
 
 updateArea = newArea => {
@@ -71,7 +98,13 @@ updateArea = newArea => {
   this.setState({ area: newArea })
 }
 
+dismissMessage = () => {
+  this.setState({ calcQuoteError: false })
+}
+
   render() {
+    // If this.state.time exists, then a quote was successfully calculated
+    // and we should redirect to the confirmation page.
     if (this.state.time) {
       return (
         <Redirect
@@ -90,6 +123,10 @@ updateArea = newArea => {
     } else {
       return (
         <>
+          {this.state.showLoadingPage ? <LoadingPage /> : ''}
+
+          {this.state.calcQuoteError ? <ErrorMessage dismissMessage={this.dismissMessage} /> : ''}
+
           <div className="quote-page-container">
           <Map
             className="google-map"

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router';
+import { Link } from 'react-router-dom';
 import LoadingPage from './LoadingPage';
 
 import image from './../images/cut-grass.jpg';
@@ -26,12 +27,12 @@ class QuoteConfirmation extends Component {
   }
 
   render() {
-    const { name, jobRate, quote, time } = this.props.location.state
+    const { name, jobRate } = this.props.location.state
 
     // Truncate numbers to 2 decimal places for readability
-    // const quote = this.props.location.state.quote.toFixed(2)
-    // 
-    // const time = this.props.location.state.time.toFixed(2)
+    const quote = this.props.location.state.quote.toFixed(2)
+
+    const time = this.props.location.state.time.toFixed(2)
 
     // Remove underscores ( _ ) from jobType and make it lowercase
     // so it can be used in a sentence.
@@ -60,7 +61,7 @@ class QuoteConfirmation extends Component {
           <p>This is just an estimate based off of our average time/costs. We'll only charge for the time it takes us to finish!</p>
 
           <div className="confirmation-buttons">
-            <button>No thanks.</button>
+            <button><Link to="/quote">No thanks.</Link></button>
 
             <button>Let's go!</button>
           </div>
