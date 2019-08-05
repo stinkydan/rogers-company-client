@@ -38,8 +38,6 @@ class QuoteConfirmation extends Component {
     // so it can be used in a sentence.
     const jobType = this.props.location.state.jobType.split('_').join(' ')
 
-    console.log('**CONIFRmATION STATE**', this.props.location.state)
-
     const confirmationPage = (
       <>
         <div className="confirmation-page-wrapper">
