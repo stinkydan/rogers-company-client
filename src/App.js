@@ -13,7 +13,7 @@ import Footer from './Layout/Footer'
 
 import { Route } from 'react-router-dom'
 
-import getKey from './getKey'
+import getKey from './Api/getKey'
 
 import './App.scss';
 
