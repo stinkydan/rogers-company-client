@@ -128,19 +128,24 @@ dismissMessage = () => {
           {this.state.calcQuoteError ? <ErrorMessage dismissMessage={this.dismissMessage} /> : ''}
 
           <div className="quote-page-container">
-          <Map
-            className="google-map"
-            google={this.props.google}
-            center={{lat: 42.3601, lng: -71.0589}}
-            height='100%'
-            zoom={15}
-            updateArea={this.updateArea}
-          />
+          {// Only render map if api key is present. (Prevents errors if the page is refreshed)
+            // Render transparent placeholder div if map isn't present for UI purposes.
+            this.props.apiKey ?
+            <Map
+              className="google-map"
+              google={this.props.google}
+              center={{lat: 42.3601, lng: -71.0589}}
+              height='100%'
+              zoom={15}
+              updateArea={this.updateArea}
+              apiKey={this.props.apiKey}
+            />
+            : <div className="google-map-placeholder"></div>}
 
-          <Form
-            handleChange={this.handleChange}
-            validateForm={this.validateForm}
-          />
+            <Form
+              handleChange={this.handleChange}
+              validateForm={this.validateForm}
+            />
           </div>
         </>
       );

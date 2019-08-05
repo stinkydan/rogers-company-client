@@ -397,7 +397,11 @@ $grass: rgba(123, 158, 54, 1);
   height: calc(100vh - 160px);
   padding: 160px 2% 0px 2%;
 
-  .google-map {
+  .google-map-placeholder {
+    background-color: transparent;
+  }
+
+  .google-map, .google-map-placeholder {
     position: relative;
     width: 60%;
     height: 98%;

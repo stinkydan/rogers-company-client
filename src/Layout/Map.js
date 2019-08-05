@@ -3,10 +3,6 @@ import { withGoogleMap, GoogleMap, withScriptjs, Marker } from "react-google-map
 import { DrawingManager } from 'react-google-maps/lib/components/drawing/DrawingManager'
 import Autocomplete from 'react-google-autocomplete';
 import Geocode from "react-geocode";
-// import MeasureTool from 'measuretool-googlemaps-v3'
-
-Geocode.setApiKey("AIzaSyCDz0crm3ADVeHrUC_6r2Ye-bDZG5Bofrk");
-Geocode.enableDebug();
 
 class Map extends React.Component {
   constructor( props ){
@@ -34,6 +30,9 @@ class Map extends React.Component {
   * Get the current address from the default map position and set those values in the state
   */
  componentDidMount() {
+  Geocode.setApiKey(this.props.apiKey);
+  Geocode.enableDebug();
+
   Geocode.fromLatLng( this.state.mapPosition.lat , this.state.mapPosition.lng )
   .then(response => {
     const address = response.results[0].formatted_address,
@@ -269,7 +268,7 @@ render () {
     if( this.props.center.lat !== undefined ) {
      map = <div className="google-map">
                <AsyncMap
-               googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyCDz0crm3ADVeHrUC_6r2Ye-bDZG5Bofrk&libraries=places,drawing,geometry"
+               googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${this.props.apiKey}&libraries=places,drawing,geometry`}
                loadingElement={
                 <div style={{ height: `100%` }} />
                }

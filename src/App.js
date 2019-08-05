@@ -13,9 +13,28 @@ import Footer from './Layout/Footer'
 
 import { Route } from 'react-router-dom'
 
+import getKey from './getKey'
+
 import './App.scss';
 
 class App extends Component {
+  constructor() {
+    super()
+    this.state = {
+      apiKey: false
+    }
+  }
+
+  componentDidMount() {
+    getKey()
+      .then(res =>
+      {
+        console.log(res)
+        this.setState({ apiKey: res.data.googleKey })
+      }
+    ).catch(err => console.log(err, 'ERR GETKEY'))
+  }
+
   render() {
     return (
       <>
@@ -37,7 +56,7 @@ class App extends Component {
 
         <Route
           exact path="/quote"
-          render={() =>  <Quote /> } />
+          render={() =>  <Quote apiKey={this.state.apiKey} /> } />
 
         <Route
           exact path="/about"
