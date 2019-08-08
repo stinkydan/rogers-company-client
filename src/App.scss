@@ -4,70 +4,77 @@ $grass: rgba(123, 158, 54, 1);
 .main-nav {
   display: flex;
   background-color: rgb(230, 230, 230);
-  height: 83px;
+  height: 75px;
   margin: 0;
   width: 100%;
   position: fixed;
   z-index: 100;
 
-  svg {
-    align-self: center;
-    margin-left: 40px;
-  }
+  .logo-name {
+    display: flex;
+    width: 30%;
+    height: 100%;
 
-  .company-name {
-    align-self: center;
-    color: #25352C;
-    margin-left: 15px;
-    text-align: center;
-    font-style: normal;
-    font-variant-ligatures: normal;
-    font-variant-caps: normal;
-    font-variant-numeric: normal;
-    font-variant-east-asian: normal;
-    font-weight: 550;
-    font-stretch: normal;
-    font-size: 1.2em;
-    line-height: 1.4em;
-    font-family: avenir, sans-serif;
-
-    .snow-link {
-      color: #02537e;
-      text-decoration: none;
+    svg {
+      align-self: center;
+      margin-left: 40px;
     }
 
-    .landscape-link {
+    .company-name {
+      align-self: center;
+      color: #25352C;
+      margin-left: 15px;
+      text-align: center;
+      font-style: normal;
+      font-variant-ligatures: normal;
+      font-variant-caps: normal;
+      font-variant-numeric: normal;
+      font-variant-east-asian: normal;
+      font-weight: 400;
+      font-stretch: normal;
+      font-size: 1.2em;
+      line-height: 1.4em;
+      font-family: avenir, sans-serif;
+
+      .snow-link {
+        color: #000000;
+        text-decoration: none;
+      }
+
+      span:first-of-type {
+        font-weight: 400;
+      }
+
+      .landscape-link {
+        color: #000000;
+      }
+    }
+  }
+
+  .main-nav-links {
+    display: flex;
+    justify-content: center;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    height: 100%;
+    width: 70%;
+    z-index: 100;
+
+    .nav-link {
+      align-self: center;
+      margin: 0 20px;
+      font-family: avenir, sans-serif;
+      text-decoration: none;
+      color: #25352C;
+      transition: 0.3s;
+    }
+
+    .nav-link:hover {
       color: rgba(123, 158, 54, 1);
     }
   }
 }
 
-// CALL TO ACTION IN TOP-NAV
-.call-to-action {
-  display: flex;
-  justify-content: center;
-  background-color: $grass;
-  height: auto;
-  width: 348px;
-  margin-left: auto;
-
-  span {
-    align-self: center;
-    text-align: center;
-    color: #FFFFFF;
-    font-family: avenir, sans-serif;
-    font-size: 18px;
-    font-weight: 600;
-
-  }
-}
-
-//TOP-NAV MOBILE VIEW
-@media (max-width: 470px) {
-  .call-to-action {
-    display: none;
-  }
-}
 // IFRAME TOOLTIP IN TOP-NAV LINK TO SNOW REMOVAL
 .thumbnail img {
   position: absolute;
@@ -76,39 +83,13 @@ $grass: rgba(123, 158, 54, 1);
   margin-top: 45px;
   margin-left: 140px;
   z-index: 30;
-
-}
-// SUB NAVBAR
-.sub-nav {
-  position: fixed;
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  margin-top: 83px;
-  height: 70px;
-  width: 100%;
-  background-color: rgb(240, 240, 240);
-  z-index: 100;
-
-  .nav-link {
-    align-self: center;
-    margin: 0 20px;
-    font-family: avenir, sans-serif;
-    text-decoration: none;
-    color: #25352C;
-    transition: 0.3s;
-  }
-
-  .nav-link:hover {
-    color: rgba(123, 158, 54, 1);
-  }
 }
 
 // HERO IMAGE AND TITLE SECTION
 .hero-img {
   height: auto;
   width: 100%;
-  margin-top: 153px;
+  margin-top: 71px;
 }
 
 .hero-block {
@@ -192,7 +173,7 @@ $grass: rgba(123, 158, 54, 1);
   align-items: center;
   width: 100%;
   height: auto;
-  background-color: rgb(230, 230, 230);
+  background-color: rgba(230, 230, 230, .5);
   padding-bottom: 50px;
 
   .info-box {
@@ -221,54 +202,56 @@ $grass: rgba(123, 158, 54, 1);
 }
 
 // SERVICES PAGE *Landscaping
-.page-container {
-  width: 100%;
-  height: auto;
-  background-color: rgb(230, 230, 230);
-  padding-top: 160px;
-  padding-bottom: 50px;
-  text-align: center;
+@media (max-width: 1250px) and (min-width: 801px) {
+  .page-container {
+    width: 100%;
+    height: auto;
+    background-color: rgba(230, 230, 230, .5);
+    padding-top: 75px;
+    padding-bottom: 50px;
+    text-align: center;
 
-  .service-container {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    flex-wrap: wrap;
-    align-items: center;
-
-    .service-block {
+    .service-container {
       display: flex;
-      flex-direction: column;
-      height: 36vw;
-      width: 27vw;
-      background-color: white;
-      margin: 1.5vw 1vw;
-      padding-bottom: 20px;
+      flex-direction: row;
+      justify-content: center;
+      flex-wrap: wrap;
+      align-items: center;
 
-      img {
-        width: 100%;
-        height: auto;
-      }
+      .service-block {
+        display: flex;
+        flex-direction: column;
+        height: 36vw;
+        width: 27vw;
+        background-color: white;
+        margin: 1.5vw 1vw;
+        padding-bottom: 20px;
 
-      .book-service {
-        height: auto;
-        width: 100%;
-        background-color: inherit;
-
-        h2 {
-          font-size: calc(2vw + 5px);
+        img {
+          width: 100%;
+          height: auto;
         }
 
-        .book-button {
-          width: 115px;
-          height: 40px;
-          border: 1px solid #5E801A;
-          background-color: #5E801A;
-          color: #FFFFFF;
-          font-size: 15px;
-          line-height: 22px;
-          font-family: avenir-lt, sans-serif;
-          font-weight: 600;
+        .book-service {
+          height: auto;
+          width: 100%;
+          background-color: inherit;
+
+          h2 {
+            font-size: calc(2vw + 5px);
+          }
+
+          .book-button {
+            width: 115px;
+            height: 40px;
+            border: 1px solid #5E801A;
+            background-color: #5E801A;
+            color: #FFFFFF;
+            font-size: 15px;
+            line-height: 22px;
+            font-family: avenir-lt, sans-serif;
+            font-weight: 600;
+          }
         }
       }
     }
@@ -280,8 +263,8 @@ $grass: rgba(123, 158, 54, 1);
   .page-container {
     width: 100%;
     height: auto;
-    background-color: rgb(230, 230, 230);
-    padding-top: 160px;
+    background-color: rgba(230, 230, 230, .5);
+    padding-top: 75px;
     padding-bottom: 50px;
     text-align: center;
 
@@ -301,7 +284,7 @@ $grass: rgba(123, 158, 54, 1);
 
         img {
           align-self: flex-start;
-          width: 50vw;
+          width: 50%;
           height: auto;
         }
 
@@ -336,8 +319,8 @@ $grass: rgba(123, 158, 54, 1);
   .page-container {
     width: 100%;
     height: auto;
-    background-color: rgb(230, 230, 230);
-    padding-top: 160px;
+    background-color: rgba(230, 230, 230, .5);
+    padding-top: 80px;
     padding-bottom: 50px;
     text-align: center;
 
@@ -355,7 +338,7 @@ $grass: rgba(123, 158, 54, 1);
         height: 470px;
         width: 337px;
         background-color: white;
-        margin: 50px 25px;
+        margin: 25px 25px;
         padding-bottom: 20px;
 
         img {
@@ -394,8 +377,9 @@ $grass: rgba(123, 158, 54, 1);
   display: flex;
   flex-direction: row;
   width: 96%;
-  height: calc(100vh - 160px);
-  padding: 160px 2% 0px 2%;
+  height: calc(100vh - 85px);
+  padding: 85px 2% 0px 2%;
+  background-color: rgba(230, 230, 230, .5);
 
   .google-map-placeholder {
     background-color: transparent;
@@ -404,7 +388,7 @@ $grass: rgba(123, 158, 54, 1);
   .google-map, .google-map-placeholder {
     position: relative;
     width: 60%;
-    height: 98%;
+    height: 95%;
     margin: 0 auto;
 
     .google-maps-input {
@@ -428,7 +412,7 @@ $grass: rgba(123, 158, 54, 1);
     justify-content: center;
     margin: 0 auto;
     width: 36%;
-    height: 98%;
+    height: 95%;
     background-color: #F9F9F9;
     border: 1px solid transparent;
     border-radius: 5px;
@@ -436,15 +420,17 @@ $grass: rgba(123, 158, 54, 1);
     overflow-y: auto;
 
     label:first-of-type {
-      margin-top: 10px;
-      margin-left: auto;
-      margin-right: auto;
+      margin: 25px auto 5px auto;
     }
 
     .job-dropdown {
       width: 135px;
       padding: 7px 10px;
       margin: 0 auto;
+      border-radius: 8px;
+      box-sizing: border-box;
+      border: 1px solid transparent;
+      box-shadow: 0px 1px 3px 1px rgba(0,0,0,0.25);
     }
 
     label {
@@ -453,7 +439,8 @@ $grass: rgba(123, 158, 54, 1);
       font-weight: 500;
       font-size: 14px;
       margin-left: 6%;
-      margin-top: 2%;
+      margin-top: 5px;
+      margin-bottom: 3px;
     }
 
     .quote-input {
@@ -489,8 +476,8 @@ $grass: rgba(123, 158, 54, 1);
   align-items: center;
   width: 100%;
   height: auto;
-  background-color: rgb(230, 230, 230);
-  padding-top: 160px;
+  background-color: rgba(230, 230, 230, .5);
+  padding-top: 85px;
   padding-bottom: 50px;
   text-align: left;
 
@@ -590,47 +577,56 @@ $grass: rgba(123, 158, 54, 1);
 
 // TESTIMONIALS PAGE
 .testimonial-page-container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
   width: 100%;
-  height: auto;
-  background-color: rgb(230, 230, 230);
-  padding-top: 160px;
+  height: 100vh;
+  background-color: rgba(230, 230, 230, .5);
   text-align: center;
-  overflow-y: hidden;
 
   .testimonials-container {
     display: flex;
+    height: calc(100vh - 75px);
+    width: inherit;
+    margin-top: auto;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 
+    h1 {
+      margin: auto;
+    }
+
     .presentation-mode {
-      width: 90vw;
-      height: 50vh;
+      width: 95%;
+      height: auto;
 
       .slide {
         display: flex;
         justify-content: space-around;
         align-items: center;
         background-color: $grass;
-        height: 52vh;
-        padding: 10px 8%;
+        height: auto;
+        padding: 0 5%;
         color: #FFFFFF;
 
         p {
-          font-size: calc(18px + 3%);
+          font-size: calc(18px + 2%);
         }
       }
     }
-  }
-  a {
-    background-color: #d32323;
-    color: #FFFFFF;
-    padding: 15px 25px;
-    border: 1px solid #d32323;
-    border-radius: 3px;
-    margin: 30px auto;
-    font-size: 18px;
-    text-decoration: none;
+    a {
+      background-color: #d32323;
+      color: #FFFFFF;
+      padding: 15px 25px;
+      border: 1px solid #d32323;
+      border-radius: 3px;
+      margin: auto;
+      font-size: 18px;
+      text-decoration: none;
+    }
   }
 }
 
@@ -638,8 +634,8 @@ $grass: rgba(123, 158, 54, 1);
 .gallery-page-container {
   width: 100%;
   height: auto;
-  background-color: rgb(230, 230, 230);
-  padding-top: 160px;
+  background-color: rgba(230, 230, 230, .5);
+  padding-top: 80px;
   text-align: center;
 
   .gallery-container {
