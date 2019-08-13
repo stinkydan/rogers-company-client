@@ -28,10 +28,10 @@ class Nav extends Component {
               </g>
             </svg>
 
-            <span className="company-name">
+            {/*<span className="company-name">
               Roger's Snow<span> &amp; </span>
               <span className="landscape-link">Landscaping</span>
-            </span>
+            </span>*/}
           </div>
 
           {this.state.isHovering ? tooltip : ''}

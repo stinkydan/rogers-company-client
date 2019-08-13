@@ -4,7 +4,7 @@ export default function getKey () {
   return axios(
     {
       method: 'GET',
-      url: 'https://guarded-shore-72344.herokuapp.com/get-key'
+      url: ' http://localhost:4741/get-key'
     }
   )
 }
