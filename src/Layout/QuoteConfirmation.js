@@ -32,8 +32,10 @@ class QuoteConfirmation extends Component {
   render() {
     const { name, jobRate } = this.props.location.state
 
+    const fullPrice = this.props.location.state.quote
+
     // Truncate numbers to 2 decimal places for readability
-    const quote = this.props.location.state.quote.toFixed(2)
+    const quote = fullPrice.toFixed(2)
 
     const time = this.props.location.state.time.toFixed(2)
 
@@ -46,7 +48,8 @@ class QuoteConfirmation extends Component {
         <StripeProvider apiKey="pk_test_aHCGfI44J5xIBeYr3aptiYw700c4gxEais">
             <Elements>
               <CheckoutForm
-                price={quote}
+                price={quote.toString().replace('.', '')}
+                fullPrice={fullPrice}
               />
             </Elements>
         </StripeProvider>

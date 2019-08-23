@@ -8,6 +8,7 @@ import About from './Layout/About'
 import Testimonials from './Layout/Testimonials'
 import GalleryPage from './Layout/GalleryPage'
 import QuoteConfirmation from './Layout/QuoteConfirmation'
+import Scheduling from './Layout/Scheduling'
 
 import Footer from './Layout/Footer'
 
@@ -73,6 +74,10 @@ class App extends Component {
         <Route
           exact path="/quote-confirmation"
           render={() =>  <QuoteConfirmation /> } />
+
+        <Route
+          exact path="/scheduling"
+          render={() =>  <Scheduling /> } />
 
         <Route
           path="/"

@@ -648,7 +648,7 @@ $grass: rgba(123, 158, 54, 1);
 
 .footer-container {
   position: relative;
-  z-index: 130;
+  z-index: 100;
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -944,5 +944,69 @@ $grass: rgba(123, 158, 54, 1);
     align-self: flex-start;
     color: black;
     margin: 0 5%;
+  }
+}
+
+.schedule-page-container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: calc(100vh - 75px);
+  padding-top: 75px;
+  background-color: rgba(230, 230, 230, .5);
+
+  .instructions {
+    display: flex;
+    justify-content: center;
+    height: 10%;
+    width: 90vw;
+  }
+
+  .calendar-container {
+    position: relative;
+    z-index: 130;
+    max-width: 800px;
+    width: 90vw;
+    height: auto;
+    background-color: #F9F9F9;
+    border: 1px solid transparent;
+    border-radius: 5px;
+    box-shadow: 1px 2px 5px 1px rgba(0,0,0,0.35);
+    padding: 0 0 3% 0;
+
+    .calendar {
+      width: 100%;
+      height: auto;
+      background-color: #F9F9F9;
+      border: none;
+    }
+
+    .time-tile-container {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: row;
+      flex-wrap: wrap;
+      width: 90%;
+      height: auto;
+      padding: 3% 5% 0 5%;
+      background-color: inherit;
+
+      .time-tile {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 33px;
+        width: 69px;
+        padding: 0;
+        margin: 0 3%;
+        border: 1px solid transparent;
+        border-radius: 5px;
+        box-shadow: 1px 2px 5px 1px rgba(0,0,0,0.25);
+      }
+    }
   }
 }

@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Redirect } from 'react-router'
 import StripeCheckout from 'react-stripe-checkout';
 import { injectStripe } from 'react-stripe-elements';
 import axios from 'axios'
@@ -6,7 +7,7 @@ import axios from 'axios'
 class CheckoutForm extends Component {
   constructor(props) {
     super(props);
-    this.state = {complete: false};
+    this.state = { complete: false };
     this.submit = this.submit.bind(this);
   }
 
@@ -20,18 +21,26 @@ async submit(ev) {
     data: {
       job: {
         token: ev.id,
-        price: this.props.price
+        price: Number.parseInt(this.props.price),
+        fullPrice: this.props.fullPrice
       }
     }
-  }).then(res => console.log(res))
+  }).then((res) => {
+    console.log(res)
+    this.setState({ complete: true })
+  })
   .catch((err) => console.log(err));
 }
 
   render() {
-    if (this.state.complete) return <h1>Purchase Complete</h1>;
+    if (this.state.complete) return (
+      <Redirect
+        to='/scheduling'
+      />
+    );
     return (
       <StripeCheckout
-        amount={50}
+        amount={Number.parseInt(this.props.price)}
         billingAddress
         name="Roger's Snow Removal & Landscaping LLC"
         stripeKey="pk_test_aHCGfI44J5xIBeYr3aptiYw700c4gxEais"
