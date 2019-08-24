@@ -18,7 +18,7 @@ class CheckoutForm extends Component {
 async submit(ev) {
   console.log('EVENT ON SUBMIT', ev)
   return axios({
-    url: "http://localhost:4741/charges",
+    url: "https://guarded-shore-72344.herokuapp.com/charges",
     method: 'POST',
     headers: {"Content-Type": "Application/json"},
     data: {
