@@ -2,7 +2,10 @@ import React, { Component } from 'react'
 import { Redirect } from 'react-router'
 import StripeCheckout from 'react-stripe-checkout';
 import { injectStripe } from 'react-stripe-elements';
-import axios from 'axios'
+
+import LoadingPage from './../Layout/LoadingPage';
+
+import axios from 'axios';
 
 class CheckoutForm extends Component {
   constructor(props) {
@@ -34,9 +37,12 @@ async submit(ev) {
 
   render() {
     if (this.state.complete) return (
-      <Redirect
-        to='/scheduling'
-      />
+      <>
+        <LoadingPage />
+        <Redirect
+          to='/scheduling'
+        />
+      </>
     );
     return (
       <StripeCheckout
