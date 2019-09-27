@@ -1,63 +1,72 @@
 import React, { Component } from 'react'
-import { Redirect } from 'react-router'
+
+import { withRouter } from 'react-router-dom';
+import { Redirect } from 'react-router';
+
 import StripeCheckout from 'react-stripe-checkout';
 import { injectStripe } from 'react-stripe-elements';
 
-import LoadingPage from './../Layout/LoadingPage';
-
-import axios from 'axios';
+import { makeDeposit } from './../Api/chargeApi';
+import { createJob } from './../Api/jobApi';
 
 class CheckoutForm extends Component {
   constructor(props) {
     super(props);
-    this.state = { complete: false };
+    this.state = {
+      complete: false,
+      jobConfirmation: ''
+    };
     this.submit = this.submit.bind(this);
   }
 
 
 async submit(ev) {
-  console.log('EVENT ON SUBMIT', ev)
-  return axios({
-    url: "https://guarded-shore-72344.herokuapp.com/charges",
-    method: 'POST',
-    headers: {"Content-Type": "Application/json"},
-    data: {
-      job: {
-        token: ev.id,
-        price: Number.parseInt(this.props.price),
-        fullPrice: this.props.fullPrice
-      }
-    }
-  }).then((res) => {
-    console.log(res)
-    this.setState({ complete: true })
-  })
-  .catch((err) => console.log(err));
+  const token = ev.id
+
+  const { userId, deposit, userToken, job, depositForStripe } = this.props
+  console.log(deposit, 'DEPOSIT FROM PROPS')
+
+  console.log(depositForStripe, "DEPOSIT FOR STRIPE")
+
+  try {
+    await makeDeposit(token, depositForStripe)
+
+    const jobConfirmation = await createJob(userId, userToken, job)
+
+    this.setState({ jobConfirmation: jobConfirmation, complete: true })
+  }
+  catch(err) {
+    console.log(err)
+  }
 }
 
   render() {
-    if (this.state.complete) return (
-      <>
-        <LoadingPage />
-        <Redirect
-          to='/scheduling'
-        />
-      </>
+    if (this.state.complete)
+    return (
+      <Redirect
+        to={{
+          pathname: '/',
+          state: {
+            userId: this.props.userId,
+            job: this.state.jobConfirmation,
+          }
+        }}
+      />
     );
     return (
       <StripeCheckout
         amount={Number.parseInt(this.props.price)}
-        billingAddress
         name="Roger's Snow Removal & Landscaping LLC"
         stripeKey="pk_test_aHCGfI44J5xIBeYr3aptiYw700c4gxEais"
+        email={this.props.user.client_email}
         token={this.submit}
       >
-        <button className="stripe-button-custom">
-          Let's go!
+        <button className="payment-button">
+          Let's Go!
         </button>
       </StripeCheckout>
     );
   }
 }
 
-export default injectStripe(CheckoutForm);
+export default withRouter(injectStripe(CheckoutForm));

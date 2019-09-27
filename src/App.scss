@@ -12,12 +12,12 @@ $grass: rgba(123, 158, 54, 1);
 
   .logo-name {
     display: flex;
+    justify-content: center;
     width: 10%;
     height: 100%;
 
     svg {
       align-self: center;
-      margin-left: 25px;
     }
 
     .company-name {
@@ -56,7 +56,8 @@ $grass: rgba(123, 158, 54, 1);
     justify-content: center;
     flex-wrap: wrap;
     height: 100%;
-    width: 90%;
+    width: 80%;
+    padding-right: 10%;
     z-index: 100;
 
     .nav-link {
@@ -66,6 +67,10 @@ $grass: rgba(123, 158, 54, 1);
       text-decoration: none;
       color: #25352C;
       transition: 0.3s;
+    }
+
+    .nav-link:first-of-type {
+      margin: 0 20px 0 0;
     }
 
     .nav-link:hover {
@@ -374,34 +379,99 @@ $grass: rgba(123, 158, 54, 1);
 // QUOTES page
 .quote-page-container {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   width: 96%;
-  height: calc(100vh - 85px);
+  height: auto;
   padding: 85px 2% 0px 2%;
   background-color: rgba(230, 230, 230, .5);
 
-  .google-map-placeholder {
-    background-color: transparent;
+  .quote-directions {
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: column;
+    height: calc(100vh - 85px);
+
+    h1 {
+      font-family: omnes-cond, sans-serif;
+      font-style: normal;
+      font-weight: 500;
+      font-size: calc(30px + 2%);
+      color: black;
+      word-spacing: 5px;
+    }
+
+    p {
+      margin-top: auto;
+      font-family: omnes-cond, sans-serif;
+      font-style: normal;
+      font-weight: 400;
+      font-size: 18px;
+      color: black;
+      line-height: 1.5;
+    }
+
+    p:nth-of-type(2) {
+      margin-top: auto;
+      margin-bottom: 15px;
+    }
+
+    .quote-down-arrow {
+      position: relative;
+      cursor: pointer;
+      font-size: 33px;
+      border: 2px solid black;
+      border-radius: 100%;
+      padding: 6px 22px 11px;
+      margin-bottom: auto;
+      transition: 0.35s;
+    }
+
+    .quote-down-arrow:hover {
+      background-color: rgba(0, 0, 0, .9);
+      color: #FFFFFF;
+    }
   }
 
-  .google-map, .google-map-placeholder {
+  .quote-map-container {
+    display: flex;
+    flex-direction: column;
     position: relative;
-    width: 60%;
-    height: 95%;
-    margin: 0 auto;
+    width: 100%;
+    height: calc(100vh - 90px);
+    padding-top: 75px;
 
-    .google-maps-input {
-      position: absolute;
-      margin-top: -43px;
-      margin-left: 5px;
-      margin-right: auto;
-      width: 50%;
-      max-width: 350px;
-      background: #fff;
-      border-radius: 8px;
-      box-sizing: border-box;
-      border: 1px solid transparent;
-      padding: 12px 75px 11px 10px;
+    .map-directions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      text-align: left;
+      width: 100%;
+      height: auto;
+    }
+
+    .google-map-placeholder {
+      background-color: transparent;
+    }
+
+    .google-map, .google-map-placeholder {
+      height: 100%;
+
+      .google-maps-input {
+        position: absolute;
+        margin-top: calc(-100vh + 212px);
+        margin-left: 5px;
+        margin-right: auto;
+        width: 50%;
+        max-width: 350px;
+        background: #fff;
+        border-radius: 8px;
+        box-sizing: border-box;
+        border: 1px solid transparent;
+        padding: 12px 75px 11px 10px;
+      }
     }
   }
 
@@ -409,9 +479,10 @@ $grass: rgba(123, 158, 54, 1);
     display: flex;
     flex-direction: column;
     justify-content: center;
-    margin: 0 auto;
-    width: 36%;
-    height: 95%;
+    margin: 15px auto;
+    width: 90%;
+    max-width: 700px;
+    height: calc(100vh - 90px);
     background-color: #F9F9F9;
     border: 1px solid transparent;
     border-radius: 5px;
@@ -850,7 +921,7 @@ $grass: rgba(123, 158, 54, 1);
       color: #000000;
     }
 
-    .stripe-button-custom {
+    .confirm-quote-button {
       margin-left: 15px;
       color: #FFFFFF;
       background-color: $grass;
@@ -953,32 +1024,32 @@ $grass: rgba(123, 158, 54, 1);
   flex-direction: column;
   align-items: center;
   width: 100%;
-  height: calc(100vh - 75px);
-  padding-top: 75px;
+  height: calc(100vh - 60px);
+  padding-top: 60px;
   background-color: rgba(230, 230, 230, .5);
 
   .instructions {
     display: flex;
     justify-content: center;
-    height: 10%;
+    align-items: center;
+    margin: 0 auto 6px auto;
+    height: 5%;
     width: 90vw;
   }
 
   .calendar-container {
     position: relative;
-    z-index: 130;
     max-width: 800px;
     width: 90vw;
-    height: auto;
+    height: 85%;
     background-color: #F9F9F9;
     border: 1px solid transparent;
     border-radius: 5px;
     box-shadow: 1px 2px 5px 1px rgba(0,0,0,0.35);
-    padding: 0 0 3% 0;
 
     .calendar {
       width: 100%;
-      height: auto;
+      height: 65%;
       background-color: #F9F9F9;
       border: none;
     }
@@ -991,22 +1062,159 @@ $grass: rgba(123, 158, 54, 1);
       flex-direction: row;
       flex-wrap: wrap;
       width: 90%;
-      height: auto;
-      padding: 3% 5% 0 5%;
+      height: 35%;
+      padding: 0 5%;
       background-color: inherit;
+      overflow-y: scroll;
 
       .time-tile {
         display: flex;
         align-items: center;
         justify-content: center;
         height: 33px;
-        width: 69px;
+        width: 75px;
         padding: 0;
-        margin: 0 3%;
+        margin: 10px 3%;
         border: 1px solid transparent;
         border-radius: 5px;
         box-shadow: 1px 2px 5px 1px rgba(0,0,0,0.25);
       }
+    }
+  }
+
+.popup-overlay > .popup-content {
+  width: 80vw !important;
+  max-width: 600px;
+  height: auto;
+  border: 1px solid transparent !important;
+  border-radius: 4px !important;
+  padding: 0;
+
+    .schedule-modal {
+      display: flex;
+      flex-direction: column;
+      justify-content: center !important;
+      align-items: center !important;
+      width: 100% !important;
+      font-family: avenir-lt, sans-serif;
+
+      .close {
+        align-self: flex-start;
+        cursor: pointer;
+        padding: 4px 9px;
+        margin-top: -13px;
+        margin-left: -14px;
+        border: 1px solid transparent;
+        border-radius: 100%;
+        color: #000000;
+        background-color: rgba(235, 235, 235, 1);
+        font-size: 20px;
+      }
+
+      .close:hover {
+        background-color: rgba(255, 25, 0, 1);
+        transition: 0.3s;
+      }
+
+      .modal-text {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+        flex-wrap: wrap;
+        margin: 10px auto;
+        padding: 0 10%;
+        font-size: 18px;
+
+        .date-time-confirmation {
+          margin: 25px auto;
+          font-size: 20px;
+          font-weight: 600;
+        }
+
+        .deposit-text {
+          font-size: 18px;
+        }
+      }
+
+      .payment-button {
+        display: flex;
+        align-self: center;
+        align-content: center;
+        justify-content: center;
+        width: 50vw;
+        max-width: 300px;
+        padding: 15px 10% 15px 10%;
+        margin: 20px 0;
+        border: 2px solid transparent;
+        border-radius: 3px;
+        color: #FFFFFF;
+        background-color: $grass;
+        font-family: avenir, sans-serif;
+        font-size: 16px;
+      }
+    }
+  }
+}
+
+// SIGN UP FORM
+.signup-backdrop {
+  display: flex;
+  position: absolute;
+  width: 100%;
+  height: 100vh;
+  z-index: 150;
+  background-color: #FFFFFF;
+
+  .signup-form-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: auto;
+    width: 70%;
+    max-width: 500px;
+    height: 90%;
+    background-color: #F9F9F9;
+    border: 1px solid transparent;
+    border-radius: 5px;
+    box-shadow: 1px 2px 5px 1px rgba(0,0,0,0.35);
+    overflow-y: auto;
+
+    label:first-of-type {
+      margin-top: 20px;
+    }
+
+    label {
+      font-family: omnes-cond, sans-serif;
+      font-style: normal;
+      font-weight: 500;
+      font-size: 14px;
+      margin-left: 6%;
+      margin-top: 5px;
+      margin-bottom: 3px;
+    }
+
+    .form-input {
+      width: 90%;
+      background: #fff;
+      border-radius: 8px;
+      box-sizing: border-box;
+      border: 1px solid transparent;
+      padding: 12px 75px 11px 10px;
+      margin: 3px auto;
+      box-shadow: 0px 1px 3px 1px rgba(0,0,0,0.25);
+    }
+
+    .signup-button {
+      align-self: center;
+      width: 160px;
+      height: auto;
+      padding: 10px 20px;
+      background-color: #003C7B;
+      color: #FFFFFF;
+      border: 1px solid transparent;
+      border-radius: 33px;
+      margin: auto;
     }
   }
 }

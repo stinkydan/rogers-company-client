@@ -1,20 +1,21 @@
 import React, { Component } from 'react';
-import Nav from './Layout/Nav'
-import Hero from './Layout/Hero'
-import Info from './Layout/Info'
-import Services from './Layout/Services'
-import Quote from './Layout/Quote'
-import About from './Layout/About'
-import Testimonials from './Layout/Testimonials'
-import GalleryPage from './Layout/GalleryPage'
-import QuoteConfirmation from './Layout/QuoteConfirmation'
-import Scheduling from './Layout/Scheduling'
 
-import Footer from './Layout/Footer'
+import Nav from './Layout/Nav';
+import Hero from './Layout/Hero';
+import Info from './Layout/Info';
+import Services from './Layout/Services';
+import Quote from './Layout/Quote';
+import About from './Layout/About';
+import Testimonials from './Layout/Testimonials';
+import GalleryPage from './Layout/GalleryPage';
+import QuoteConfirmation from './Layout/QuoteConfirmation';
+import Scheduling from './Layout/Scheduling';
 
-import { Route } from 'react-router-dom'
+import Footer from './Layout/Footer';
 
-import getKey from './Api/getKey'
+import { Route } from 'react-router-dom';
+
+import getKey from './Api/getKey';
 
 import './App.scss';
 
@@ -30,7 +31,6 @@ class App extends Component {
     getKey()
       .then(res =>
       {
-        console.log(res)
         this.setState({ apiKey: res.data.googleKey })
       }
     ).catch(err => console.log(err, 'ERR GETKEY'))

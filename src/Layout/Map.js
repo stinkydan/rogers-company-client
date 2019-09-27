@@ -163,6 +163,8 @@ class Map extends React.Component {
      state = this.getState( addressArray ),
      latValue = place.geometry.location.lat(),
      lngValue = place.geometry.location.lng();
+
+     this.props.addressChange(address)
   // Set these values in the state.
     this.setState({
        zoom: 20,
@@ -210,6 +212,13 @@ setPoly = poly => {
 render () {
   const AsyncMap = withScriptjs(
     withGoogleMap(props => (
+      <>
+        <Autocomplete
+          className="google-maps-input"
+          onPlaceSelected={ this.onPlaceSelected }
+          types={['address']}
+          componentRestrictions={{ country: "us" }}
+        />
         <GoogleMap
           ref={this.mapRef}
           google={this.props.google}
@@ -230,7 +239,7 @@ render () {
              drawingControl: true,
              drawingControlOptions: {
                   // eslint-disable-next-line
-               position: google.maps.ControlPosition.TOP_CENTER,
+               position: google.maps.ControlPosition.RIGHT_CENTER,
                drawingModes: [
                     // eslint-disable-next-line
                  google.maps.drawing.OverlayType.POLYGON
@@ -246,13 +255,6 @@ render () {
              }
             }}
           />
-          {/* For Auto complete Search Box */}
-          <Autocomplete
-             className="google-maps-input"
-             onPlaceSelected={ this.onPlaceSelected }
-             types={['address']}
-             componentRestrictions={{ country: "us" }}
-          />
           {/*Marker*/}
           <Marker
             google={this.props.google}
@@ -261,6 +263,7 @@ render () {
             position={{ lat: this.state.markerPosition.lat, lng: this.state.markerPosition.lng }}
           />
       </GoogleMap>
+      </>
     )
   )
 );

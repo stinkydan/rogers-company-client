@@ -22,6 +22,7 @@
     "react-scripts": "2.1.8",
     "react-stripe-checkout": "^2.6.3",
     "react-stripe-elements": "^4.0.0",
+    "reactjs-popup": "^1.5.0",
     "recompose": "^0.30.0"
   },
   "scripts": {

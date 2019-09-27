@@ -1,6 +1,15 @@
 import React, { Component } from 'react'
 
 export default class Form extends Component {
+
+  shouldComponentUpdate(nextProps) {
+    if (this.props.address !== nextProps.address) {
+      return true
+    } else {
+      return false
+    }
+  }
+
   render() {
     return (
       <form className="quote-form-container" onSubmit={this.props.validateForm}>
@@ -27,7 +36,7 @@ export default class Form extends Component {
         <input name="phone" type="tel" placeholder="555-555-5555" onChange={(event) => this.props.handleChange(event)} className="quote-input" required/>
 
         <label>Address</label>
-        <input name="address" type="text" placeholder="Address" onChange={(event) => this.props.handleChange(event)} className="quote-input" required/>
+        <input name="address" type="text" placeholder="Address" value={this.props.address} onChange={(event) => this.props.handleChange(event)} className="quote-input" required/>
 
         <button className="get-quote-button" type="submit">Get Quote</button>
       </form>

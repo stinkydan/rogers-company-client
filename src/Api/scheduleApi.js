@@ -1,13 +1,15 @@
 import axios from 'axios'
+import apiUrl from './apiConfig.js'
 
-// DEVELOPMENT URL http://localhost:4741/
-// PRODUCTION URL https://guarded-shore-72344.herokuapp.com/
-
-export const checkAvailability = day => {
+export const checkAvailability = (day, userToken) => {
   return axios(
     {
       method: 'post',
-      url: 'https://guarded-shore-72344.herokuapp.com/check-availability',
+      url: `${apiUrl}/check-availability`,
+      headers: {
+        "Content-Type": "Application/json",
+        'Authorization': `Token token=${userToken}`
+      },
       data: { day }
     }
   )
