@@ -53,7 +53,7 @@ async handleUserInfo(job, user) {
       const res = await getQuote(job)
 
       job.quote = res.data.price
-      job.time = res.data.time_in_min
+      job.time = res.data.time_in_hours
       job.jobRate = res.data.jobRate
       job.jobType = res.data.jobType
 
