@@ -1,5 +1,5 @@
 import React from 'react'
-import { withGoogleMap, GoogleMap, withScriptjs, Marker } from "react-google-maps";
+import { withGoogleMap, GoogleMap, withScriptjs, Marker, InfoWindow } from "react-google-maps";
 import { DrawingManager } from 'react-google-maps/lib/components/drawing/DrawingManager'
 import Autocomplete from 'react-google-autocomplete';
 import Geocode from "react-geocode";
@@ -24,6 +24,7 @@ class Map extends React.Component {
         lng: this.props.center.lng
      },
      measurementMarkers: [],
+     isOpen: false
    }
  }
 /**
@@ -185,31 +186,50 @@ class Map extends React.Component {
     })
   };
 
+openPopUp = () => {
+  this.setState({ isOpen: true })
+}
+
 // CALCULATE AREA OF POLYGON
 calcArea = () => {
   // eslint-disable-next-line
-  const area = google.maps.geometry.spherical.computeArea(this.state.polygon.getPath())
+  const area = google.maps.geometry.spherical.computeArea(this.state.polygon)
   console.log(area, 'AREA*****')
 
-  this.props.updateArea(area)
+  this.props.handleArea(area)
 }
 
 // SET EVENT LISTENERS IN GOOGLE MAP FOR POLYGON
 // CALC AREA WHEN USER COMPLETES A POLYGON
 setPoly = poly => {
-  console.log(poly, 'POLY SET RAN')
-
-  this.setState({ polygon: poly })
+  this.setState({ polygon: poly.getPath() })
 
   // eslint-disable-next-line
   google.maps.event.addListener(poly.getPath(), 'set_at', this.calcArea);
-    // eslint-disable-next-line
+  // eslint-disable-next-line
   google.maps.event.addListener(poly.getPath(), 'insert_at', this.calcArea);
 
   this.calcArea()
+  this.openPopUp()
 }
 
 render () {
+  const infoWindow = (
+    <InfoWindow
+       defaultPosition={{ lat: this.state.mapPosition.lat, lng: this.state.mapPosition.lng }}
+       options={{ enableEventPropagation: true }}
+       className="info-box"
+     >
+     <div style={{ backgroundColor: `white`, padding: `12px` }}>
+       <div style={{ fontSize: `16px`, fontColor: `#08233B` }}>
+         Do you want to draw another area for this job type?
+       </div>
+       <button className="info-box-yes">Continue Drawing</button>
+       <button className="info-box-done">Finish</button>
+     </div>
+   </InfoWindow>
+  )
+
   const AsyncMap = withScriptjs(
     withGoogleMap(props => (
       <>
@@ -231,8 +251,9 @@ render () {
           }}
           mapTypeId={this.state.mapType}
          >
+          {this.state.isOpen && infoWindow}
          <DrawingManager
-          onPolygonComplete={this.setPoly}
+           onPolygonComplete={this.setPoly}
              // eslint-disable-next-line
            defaultDrawingMode={google.maps.drawing.OverlayType.POLYGON}
            defaultOptions={{

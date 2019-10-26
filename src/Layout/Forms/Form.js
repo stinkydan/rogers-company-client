@@ -14,18 +14,6 @@ export default class Form extends Component {
     return (
       <form className="quote-form-container" onSubmit={this.props.validateForm}>
 
-        <label>Please Select a Job</label>
-        <select className="job-dropdown" name="jobType" onChange={(event) => this.props.handleChange(event)}>
-          <option value="Landscaping">Landscaping</option>
-          <option value="Weeding">Weeding</option>
-          <option value="Lawn_Care">Lawn Care</option>
-          <option value="Garden_Clearance">Garden Clearance</option>
-          <option value="Weed_Wacking">Weed Wacking</option>
-          <option value="Grass_Installation">Grass Installation</option>
-          <option value="Trimming_and_Pruning">Trimming & Pruning</option>
-          <option value="Mulching">Mulch</option>
-        </select>
-
         <label>Name</label>
         <input name="name" type="text" placeholder="John Doe" onChange={(event) => this.props.handleChange(event)} className="quote-input" required/>
 

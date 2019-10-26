@@ -18,11 +18,11 @@ class Quote extends Component {
       email: null,
       phone: null,
       address: '',
-      jobType: "Landscaping",
-      area: null,
+      jobType: false,
       redirect: false,
       showLoadingPage: false,
-      calcQuoteError: false
+      calcQuoteError: false,
+      jobTypeAreas: {}
     }
   }
 
@@ -48,18 +48,17 @@ addressChange = address => {
   this.setState({ address: address })
 }
 
-async handleUserInfo(job, user) {
+async handleUserInfo(jobInfo, user) {
   try {
-      const res = await getQuote(job)
-
-      job.quote = res.data.price
-      job.time = res.data.time_in_hours
-      job.jobRate = res.data.jobRate
-      job.jobType = res.data.jobType
+      const res = await getQuote(jobInfo)
+      console.log(res, "QUOTE RES")
+      jobInfo.price = res.data.price
+      jobInfo.time = res.data.totalTimeInHours
+      jobInfo.jobDetails = res.data.jobDetails
 
       this.setState({
         user: user,
-        job: job,
+        jobInfo: jobInfo,
         redirect: true
       })
     }
@@ -71,11 +70,10 @@ async handleUserInfo(job, user) {
 }
 
 onValidateSuccess = () => {
-  const { name, email, phone, address, jobType, area } = this.state
+  const { name, email, phone, address, jobTypeAreas } = this.state
 
-  const job = {
-    job_type: jobType,
-    area: area
+  const jobInfo = {
+    job_type_areas: jobTypeAreas,
   }
 
   const user = {
@@ -86,20 +84,41 @@ onValidateSuccess = () => {
   }
 
   this.initLoadingPage();
-  this.handleUserInfo(job, user);
+  this.handleUserInfo(jobInfo, user);
 }
 
 validateForm = (e) => {
   e.preventDefault()
 
-  this.state.area ? this.onValidateSuccess() : console.log("FUCK NO")
+  this.state.jobTypeAreas ? this.onValidateSuccess() : console.log("someting iz rong my bruddah")
 }
 
-updateArea = newArea => {
-  console.log(newArea, '^^^updateArea ran')
-  this.setState({ area: newArea })
+// Job Type and Map Area Functionality
+handleArea = newArea => {
+  let { jobType, jobTypeAreas } = this.state
+
+  if (!jobTypeAreas[jobType]) {
+
+    jobTypeAreas[jobType] = [newArea]
+
+    this.setState({ jobTypeAreas: jobTypeAreas })
+
+  } else if (jobTypeAreas[jobType]) {
+
+    jobTypeAreas[jobType] = jobTypeAreas[jobType].concat(newArea)
+
+    this.setState({ jobTypeAreas: jobTypeAreas })
+
+  } else {
+    console.log("shit handle area got fucked")
+  }
 }
 
+onTileClick = jobType => {
+  this.setState({ jobType: jobType })
+}
+
+// Utilities
 dismissMessage = () => {
   this.setState({ calcQuoteError: false })
 }
@@ -121,7 +140,7 @@ scrollDown = () => {
             pathname: '/quote-confirmation',
             state: {
               user: this.state.user,
-              job: this.state.job
+              jobInfo: this.state.jobInfo
             }
           }}
         />
@@ -148,8 +167,18 @@ scrollDown = () => {
             <div className="quote-map-container" ref={this.mapRef}>
               <div className="map-directions">
                 <p>
-                  <strong>First,</strong> let's mark the land that needs some work.<br/>Enter your address to pull up your house. Next, click on the map to place points around the area you want completed- clicking the first point will complete the shape. The area will turn green when you're done!
+                  <strong>First,</strong> let's select a job below and mark the land that needs some work.<br/>
                 </p>
+              </div>
+
+              <div className="job-type-container">
+                <span className="job-type-tile" onClick={() => this.onTileClick("Weeding")}>Weeding</span>
+                <span className="job-type-tile" onClick={() => this.onTileClick("Lawn_Care")}>Lawn Care</span>
+                <span className="job-type-tile" onClick={() => this.onTileClick("Garden_Clearance")}>Garden Clearance</span>
+                <span className="job-type-tile" onClick={() => this.onTileClick("Weed_Wacking")}>Weed Wacking</span>
+                <span className="job-type-tile" onClick={() => this.onTileClick("Grass_Installation")}>Grass Installation</span>
+                <span className="job-type-tile" onClick={() => this.onTileClick("Trimming_and_Pruning")}>Trimming & Pruning</span>
+                <span className="job-type-tile" onClick={() => this.onTileClick("Mulching")}>Mulch</span>
               </div>
 
               <div className="google-map">
@@ -158,7 +187,7 @@ scrollDown = () => {
                   center={{lat: 42.3601, lng: -71.0589}}
                   height='100%'
                   zoom={15}
-                  updateArea={this.updateArea}
+                  handleArea={this.handleArea}
                   apiKey={this.props.apiKey}
                   addressChange={this.addressChange}
                 />

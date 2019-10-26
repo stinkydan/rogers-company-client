@@ -1,12 +1,12 @@
 import axios from 'axios'
 import apiUrl from './apiConfig.js'
 
-export const getQuote = job => {
+export const getQuote = jobInfo => {
   return axios(
     {
       method: 'POST',
       url: `${apiUrl}/quote_calculator`,
-      data: { job }
+      data: { jobInfo }
     }
   )
 }

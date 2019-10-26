@@ -383,7 +383,6 @@ $grass: rgba(123, 158, 54, 1);
   width: 96%;
   height: auto;
   padding: 85px 2% 0px 2%;
-  background-color: rgba(230, 230, 230, .5);
 
   .quote-directions {
     text-align: center;
@@ -394,22 +393,23 @@ $grass: rgba(123, 158, 54, 1);
     height: calc(100vh - 85px);
 
     h1 {
-      font-family: omnes-cond, sans-serif;
-      font-style: normal;
-      font-weight: 500;
-      font-size: calc(30px + 2%);
-      color: black;
-      word-spacing: 5px;
+      color: rgba(50, 65, 50, 1);
+      font-size: 3rem;
+      font-family: avenir, sans-serif;
+      text-align: center;
+      text-shadow: rgba(0, 0, 0, 0.4) 0px 4px 5px;
+      margin-bottom: 0;
     }
 
     p {
-      margin-top: auto;
+      margin-top: 0;
       font-family: omnes-cond, sans-serif;
       font-style: normal;
       font-weight: 400;
       font-size: 18px;
-      color: black;
+      color: rgba(50, 65, 50, 1);
       line-height: 1.5;
+      padding: 0px 8vw;
     }
 
     p:nth-of-type(2) {
@@ -418,10 +418,11 @@ $grass: rgba(123, 158, 54, 1);
     }
 
     .quote-down-arrow {
+      color: rgba(50, 65, 50, 1);
       position: relative;
       cursor: pointer;
       font-size: 33px;
-      border: 2px solid black;
+      border: 2px solid rgba(50, 65, 50, 1);
       border-radius: 100%;
       padding: 6px 22px 11px;
       margin-bottom: auto;
@@ -429,8 +430,8 @@ $grass: rgba(123, 158, 54, 1);
     }
 
     .quote-down-arrow:hover {
-      background-color: rgba(0, 0, 0, .9);
-      color: #FFFFFF;
+      background-color: rgba(50, 65, 50, 1);
+      color: white;
     }
   }
 
@@ -443,6 +444,7 @@ $grass: rgba(123, 158, 54, 1);
     padding-top: 75px;
 
     .map-directions {
+      color: rgba(50, 65, 50, 1);
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
@@ -452,6 +454,37 @@ $grass: rgba(123, 158, 54, 1);
       height: auto;
     }
 
+    .job-type-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: row;
+      flex-wrap: wrap;
+      width: 100%;
+      height: auto;
+      padding: 10px auto;
+      background-color: inherit;
+
+      .job-type-tile {
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 33px;
+        width: auto;
+        padding: 0 5px;
+        margin: 10px 3%;
+        border: 1px solid transparent;
+        border-radius: 5px;
+        box-shadow: 1px 2px 5px 1px rgba(0,0,0,0.25);
+        transition: 0.35s;
+      }
+      .job-type-tile-selected, .job-type-tile:hover {
+        background-color: $grass;
+        color: #FFFFFF;
+      }
+    }
+
     .google-map-placeholder {
       background-color: transparent;
     }
@@ -459,21 +492,42 @@ $grass: rgba(123, 158, 54, 1);
     .google-map, .google-map-placeholder {
       height: 100%;
 
-      .google-maps-input {
-        position: absolute;
-        margin-top: calc(-100vh + 212px);
-        margin-left: 5px;
-        margin-right: auto;
-        width: 50%;
-        max-width: 350px;
-        background: #fff;
-        border-radius: 8px;
-        box-sizing: border-box;
-        border: 1px solid transparent;
-        padding: 12px 75px 11px 10px;
+        .google-maps-input {
+          position: absolute;
+          margin-top: calc(-100vh + 280px);
+          margin-left: 5px;
+          margin-right: auto;
+          width: 50%;
+          max-width: 350px;
+          background: #fff;
+          border-radius: 8px;
+          box-sizing: border-box;
+          border: 1px solid transparent;
+          padding: 12px 75px 11px 10px;
+        }
+
+        .info-box {
+          .info-box-yes {
+            margin-left: 15px;
+            color: #FFFFFF;
+            background-color: $grass;
+            padding: 15px 25px;
+            border: 2px solid transparent;
+            border-radius: 3px;
+            font-family: avenir, sans-serif;
+            font-size: 16px;
+          }
+
+          .info-box-done {
+            padding: 15px 25px;
+            border: 2px solid transparent;
+            border-radius: 3px;
+            font-family: avenir, sans-serif;
+            font-size: 16px;
+          }
+        }
       }
     }
-  }
 
   .quote-form-container {
     display: flex;
@@ -880,36 +934,33 @@ $grass: rgba(123, 158, 54, 1);
   z-index: 110;
 
   h2 {
-    margin-top: 12vh;
+    margin-top: 8vh;
     font-family: avenir, sans-serif;
     font-size: calc(26px + 2vw);
   }
 
   p {
     font-family: avenir, sans-serif;
-    font-size: calc(14px + 1vw);
+    font-size: 20px;
     line-height: 1.5;
-    margin-top: 0;
-    margin-bottom: 7vh;
+    margin: 0 auto auto auto;
   }
 
   p:nth-of-type(2) {
-    font-size: calc(10px + 1vw);
-    margin-top: 7vh;
-    margin-bottom: 0;
+    font-size: 16px;
+    margin-top: auto;
   }
 
   span {
     font-family: avenir, sans-serif;
-    font-size: calc(18px + 1vw);
-    font-weight: 600;
+    font-size: 20px;
+    font-weight: 500;
   }
 
   .confirmation-buttons {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: auto;
     margin-bottom: auto;
 
     button:first-of-type {
