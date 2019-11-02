@@ -210,7 +210,7 @@ scrollDown = () => {
                 <p>
                   <strong>First,</strong> select a season and click the job/jobs you're interested in. Then, just enter your address and draw around the perimeter of the area in question.
                 </p>
-                <h2>{this.state.areaTotal}</h2>
+                <h2>{this.state.areaTotal.toFixed(2)}</h2>
               </div>
 
               <div className="map-and-instructions">
