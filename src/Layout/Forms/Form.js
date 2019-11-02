@@ -26,6 +26,9 @@ export default class Form extends Component {
         <label>Address</label>
         <input name="address" type="text" placeholder="Address" value={this.props.address} onChange={(event) => this.props.handleChange(event)} className="quote-input" required/>
 
+        <label>More Details</label>
+        <textarea typography="InputAlpha" rows="2" name="details" type="text" placeholder="Tell us more about your snow removal needs" value={this.props.userComments} onChange={(event) => this.props.handleChange(event)} className="quote-input" />
+
         <button className="get-quote-button" type="submit">Get Quote</button>
       </form>
     )

@@ -8,11 +8,12 @@ import Map from './Map';
 import Form from './Forms/Form';
 import LoadingPage from './LoadingPage'
 import ErrorMessage from './ErrorMessage'
+import JobTile from './JobTile'
 
 class Quote extends Component {
   constructor() {
     super()
-    this.mapRef = React.createRef();
+    this.quoteRef = React.createRef();
     this.state = {
       name: null,
       email: null,
@@ -22,7 +23,11 @@ class Quote extends Component {
       redirect: false,
       showLoadingPage: false,
       calcQuoteError: false,
-      jobTypeAreas: {}
+      jobTypeAreas: {},
+      selectedSeason: false,
+      summerJobArr: ["Weeding", "Lawn_Care", "Garden_Clearnce", "Weed_Wacking", "Grass_Installation", "Trimming_and_Pruning", "Mulching"],
+      winterJobArr: ["Snow_Removal", "Salting", "Snow_Removal_With_Salt"],
+      areaTotal: 0
     }
   }
 
@@ -45,7 +50,7 @@ initError = () => {
 }
 
 addressChange = address => {
-  this.setState({ address: address })
+  this.setState({ address: address, areaTotal: 0 })
 }
 
 async handleUserInfo(jobInfo, user) {
@@ -95,19 +100,25 @@ validateForm = (e) => {
 
 // Job Type and Map Area Functionality
 handleArea = newArea => {
-  let { jobType, jobTypeAreas } = this.state
+  let { jobType, jobTypeAreas, areaTotal } = this.state
 
   if (!jobTypeAreas[jobType]) {
 
     jobTypeAreas[jobType] = [newArea]
 
-    this.setState({ jobTypeAreas: jobTypeAreas })
+    this.setState({
+      jobTypeAreas: jobTypeAreas,
+      areaTotal: areaTotal += newArea
+    })
 
   } else if (jobTypeAreas[jobType]) {
 
     jobTypeAreas[jobType] = jobTypeAreas[jobType].concat(newArea)
 
-    this.setState({ jobTypeAreas: jobTypeAreas })
+    this.setState({
+      jobTypeAreas: jobTypeAreas,
+      areaTotal: areaTotal += newArea
+    })
 
   } else {
     console.log("shit handle area got fucked")
@@ -124,13 +135,46 @@ dismissMessage = () => {
 }
 
 scrollDown = () => {
-  this.mapRef.current.scrollIntoView({
+  this.quoteRef.current.scrollIntoView({
     behavior: 'smooth',
     block: 'start'
   })
 }
 
   render() {
+    const landscapingJobTypes = (
+      <>
+        <span className="job-type-tile tile-selected" onClick={() => this.setState({ selectedSeason: false })}>Back</span>
+        {this.state.summerJobArr.map((jobType, i) => (
+          <JobTile
+            key={i}
+            jobType={jobType}
+            onTileClick={this.onTileClick}
+          />
+        ))}
+      </>
+    );
+
+    const snowRemovalJobTypes = (
+      <>
+        <span className="job-type-tile tile-selected" onClick={() => this.setState({ selectedSeason: false })}>Back</span>
+        {this.state.winterJobArr.map((jobType, i) => (
+          <JobTile
+            key={i}
+            jobType={jobType}
+            onTileClick={this.onTileClick}
+          />
+        ))}
+      </>
+    );
+
+    const seasonSelectionOptions = (
+      <>
+        <span className="job-type-tile" onClick={() => this.setState({ selectedSeason: landscapingJobTypes })}>Summer</span>
+        <span className="job-type-tile" onClick={() => this.setState({ selectedSeason: snowRemovalJobTypes })}>Winter</span>
+      </>
+    );
+
     // If this.state.time exists, then a quote was successfully calculated
     // and we should redirect to the confirmation page.
     if (this.state.redirect) {
@@ -153,7 +197,7 @@ scrollDown = () => {
           {this.state.calcQuoteError ? <ErrorMessage dismissMessage={this.dismissMessage} /> : ''}
 
           <div className="quote-page-container">
-            <div className="quote-directions">
+            <div className="quote-hero">
               <h1>Quick. Easy. Accurate.</h1>
               <p>
                 Our time tested quoting tools are gauranteed to give you an accurate quote in just a matter of seconds.
@@ -161,40 +205,36 @@ scrollDown = () => {
               <p>Click here to get started!</p>
               <span className="quote-down-arrow" onClick={this.scrollDown}>&#8595;</span>
             </div>
-          {// Only render map if api key is present. (Prevents errors if the page is refreshed)
-            // Render transparent placeholder div if map isn't present for UI purposes.
-            this.props.apiKey ?
-            <div className="quote-map-container" ref={this.mapRef}>
+            <div className="quote-tools-container" ref={this.quoteRef}>
               <div className="map-directions">
                 <p>
-                  <strong>First,</strong> let's select a job below and mark the land that needs some work.<br/>
+                  <strong>First,</strong> select a season and click the job/jobs you're interested in. Then, just enter your address and draw around the perimeter of the area in question.
                 </p>
+                <h2>{this.state.areaTotal}</h2>
               </div>
 
-              <div className="job-type-container">
-                <span className="job-type-tile" onClick={() => this.onTileClick("Weeding")}>Weeding</span>
-                <span className="job-type-tile" onClick={() => this.onTileClick("Lawn_Care")}>Lawn Care</span>
-                <span className="job-type-tile" onClick={() => this.onTileClick("Garden_Clearance")}>Garden Clearance</span>
-                <span className="job-type-tile" onClick={() => this.onTileClick("Weed_Wacking")}>Weed Wacking</span>
-                <span className="job-type-tile" onClick={() => this.onTileClick("Grass_Installation")}>Grass Installation</span>
-                <span className="job-type-tile" onClick={() => this.onTileClick("Trimming_and_Pruning")}>Trimming & Pruning</span>
-                <span className="job-type-tile" onClick={() => this.onTileClick("Mulching")}>Mulch</span>
-              </div>
-
-              <div className="google-map">
-                <Map
-                  google={this.props.google}
-                  center={{lat: 42.3601, lng: -71.0589}}
-                  height='100%'
-                  zoom={15}
-                  handleArea={this.handleArea}
-                  apiKey={this.props.apiKey}
-                  addressChange={this.addressChange}
-                />
+              <div className="map-and-instructions">
+                {// Only render map if api key is present. (Prevents errors if the page is refreshed)
+                  // Render transparent placeholder div if map isn't present for UI purposes.
+                  this.props.apiKey ?
+                <div className="google-map">
+                  <Map
+                    google={this.props.google}
+                    center={{lat: 42.3601, lng: -71.0589}}
+                    height='100%'
+                    zoom={15}
+                    handleArea={this.handleArea}
+                    apiKey={this.props.apiKey}
+                    addressChange={this.addressChange}
+                  />
+                </div>
+                  : <div className="map-and-instructions"><div className="google-map-placeholder"></div></div>
+                }
+                <div className="job-type-container">
+                  {this.state.selectedSeason ? this.state.selectedSeason : seasonSelectionOptions}
+                </div>
               </div>
             </div>
-            : <div className="quote-map-container" ref={this.mapRef}><div className="google-map-placeholder"></div></div>
-          }
 
             <Form
               handleChange={this.handleChange}

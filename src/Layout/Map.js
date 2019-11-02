@@ -1,5 +1,5 @@
 import React from 'react'
-import { withGoogleMap, GoogleMap, withScriptjs, Marker, InfoWindow } from "react-google-maps";
+import { withGoogleMap, GoogleMap, withScriptjs, Marker } from "react-google-maps";
 import { DrawingManager } from 'react-google-maps/lib/components/drawing/DrawingManager'
 import Autocomplete from 'react-google-autocomplete';
 import Geocode from "react-geocode";
@@ -42,7 +42,7 @@ class Map extends React.Component {
      area = this.getArea( addressArray ),
      state = this.getState( addressArray );
 
-    console.log( 'city', city, area, state );
+    console.log('WEIRD AREA YO', area);
 
     this.setState( {
      address: ( address ) ? address : '',
@@ -56,13 +56,9 @@ class Map extends React.Component {
    }
   );
  };
-/**
-  * Component should only update ( meaning re-render ), when the user selects the address, or drags the pin
-  *
-  * @param nextProps
-  * @param nextState
-  * @return {boolean}
-  */
+
+// Component should only update ( meaning re-render ), when the user selects the address, or drags the pin
+
  shouldComponentUpdate( nextProps, nextState ){
    if (
      this.state.address !== nextState.address ||
@@ -75,19 +71,9 @@ class Map extends React.Component {
      return false
    }
  }
- //  MY CHANGES
- // componentDidUpdate(prevProps, prevState) {
- //   if (prevProps.address !== this.state.address) {
- //     this.setState({ address: this.props.address})
- //   }
- // }
 
-/**
-  * Get the city and set the city input value to the one selected
-  *
-  * @param addressArray
-  * @return {string}
-  */
+// Get the city and set the city input value to the one selected
+
  getCity = ( addressArray ) => {
   let city = '';
   for( let i = 0; i < addressArray.length; i++ ) {
@@ -97,12 +83,9 @@ class Map extends React.Component {
    }
   }
  };
-/**
-  * Get the area and set the area input value to the one selected
-  *
-  * @param addressArray
-  * @return {string}
-  */
+
+// Get the area and set the area input value to the one selected
+
  getArea = ( addressArray ) => {
   let area = '';
   for( let i = 0; i < addressArray.length; i++ ) {
@@ -116,12 +99,9 @@ class Map extends React.Component {
    }
   }
  };
-/**
-  * Get the address and set the address input value to the one selected
-  *
-  * @param addressArray
-  * @return {string}
-  */
+
+// Get the address and set the address input value to the one selected
+
  getState = ( addressArray ) => {
   let state = '';
   for( let i = 0; i < addressArray.length; i++ ) {
@@ -133,28 +113,24 @@ class Map extends React.Component {
    }
   }
  };
-/**
-  * And function for city,state and address input
-  * @param event
-  */
+
+ // And function for city,state and address input
+
  onChange = ( event ) => {
   this.setState({ [event.target.name]: event.target.value });
  };
-/**
-  * This Event triggers when the marker window is closed
-  *
-  * @param event
-  */
+
+// This Event triggers when the marker window is closed
+
   setZoom = () => {
     this.setState({
       zoom: this.mapRef.current.context.__SECRET_MAP_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.zoom
     })
     console.log(this.state.zoom, 'ZOOM STATE')
   };
-/**
-  * When the user types an address in the search box
-  * @param place
-  */
+
+ // When the user types an address in the search box
+
  onPlaceSelected = ( place ) => {
 
   const address = place.formatted_address,
@@ -191,6 +167,7 @@ openPopUp = () => {
 }
 
 // CALCULATE AREA OF POLYGON
+
 calcArea = () => {
   // eslint-disable-next-line
   const area = google.maps.geometry.spherical.computeArea(this.state.polygon)
@@ -201,34 +178,42 @@ calcArea = () => {
 
 // SET EVENT LISTENERS IN GOOGLE MAP FOR POLYGON
 // CALC AREA WHEN USER COMPLETES A POLYGON
+
 setPoly = poly => {
   this.setState({ polygon: poly.getPath() })
 
   // eslint-disable-next-line
   google.maps.event.addListener(poly.getPath(), 'set_at', this.calcArea);
   // eslint-disable-next-line
-  google.maps.event.addListener(poly.getPath(), 'insert_at', this.calcArea);
+  google.maps.event.addListener(poly.getPath(), 'insert_at', this.updateArea);
+  // eslint-disable-next-line
+  google.maps.event.addListener(poly, 'rightclick', function(evt) {
+    if (!poly.getPath() || evt.vertex === undefined) {
+      return;
+    }
+    poly.getPath().removeAt(evt.vertex)
+  });
 
   this.calcArea()
   this.openPopUp()
 }
 
 render () {
-  const infoWindow = (
-    <InfoWindow
-       defaultPosition={{ lat: this.state.mapPosition.lat, lng: this.state.mapPosition.lng }}
-       options={{ enableEventPropagation: true }}
-       className="info-box"
-     >
-     <div style={{ backgroundColor: `white`, padding: `12px` }}>
-       <div style={{ fontSize: `16px`, fontColor: `#08233B` }}>
-         Do you want to draw another area for this job type?
-       </div>
-       <button className="info-box-yes">Continue Drawing</button>
-       <button className="info-box-done">Finish</button>
-     </div>
-   </InfoWindow>
-  )
+// const infoWindow = (
+//     <InfoWindow
+//        defaultPosition={{ lat: this.state.mapPosition.lat, lng: this.state.mapPosition.lng }}
+//        options={{ enableEventPropagation: true }}
+//        className="info-box"
+//      >
+//      <div style={{ backgroundColor: `white`, padding: `12px` }}>
+//        <div style={{ fontSize: `16px`, fontColor: `#08233B` }}>
+//          Do you want to draw another area for this job type?
+//        </div>
+//        <button className="info-box-yes">Continue Drawing</button>
+//        <button className="info-box-done">Finish</button>
+//      </div>
+//    </InfoWindow>
+//  )
 
   const AsyncMap = withScriptjs(
     withGoogleMap(props => (
@@ -251,7 +236,7 @@ render () {
           }}
           mapTypeId={this.state.mapType}
          >
-          {this.state.isOpen && infoWindow}
+          {/* this.state.isOpen && infoWindow */}
          <DrawingManager
            onPolygonComplete={this.setPoly}
              // eslint-disable-next-line
