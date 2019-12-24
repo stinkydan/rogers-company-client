@@ -1,6 +1,6 @@
 let routeUrl
 const routeUrls = {
-  production: 'https://mverost44.github.io/rogers-company-client/#',
+  production: 'https://beta.greaterbostonsnowremoval.com/#',
   development: 'http://localhost:3000/#'
 }
 

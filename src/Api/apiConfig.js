@@ -1,6 +1,6 @@
 let apiUrl
 const apiUrls = {
-  production: 'https://guarded-shore-72344.herokuapp.com',
+  production: 'https://api.greaterbostonsnowremoval.com/',
   development: 'http://localhost:4741'
 }
 
