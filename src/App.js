@@ -7,7 +7,7 @@ import SnowInfo from './Components/Layout/SnowInfo';
 import Quote from './Pages/Quote';
 import About from './Pages/About';
 import Testimonials from './Pages/Testimonials';
-import GalleryPage from './Pages/GalleryPage';
+// import GalleryPage from './Pages/GalleryPage';
 import QuoteConfirmation from './Components/QuoteConfirmation';
 import Scheduling from './Components/Scheduling';
 

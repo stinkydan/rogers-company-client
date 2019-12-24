@@ -1,6 +1,5 @@
 {
   "name": "rogers-company-client",
-  "homepage": "https://beta.greaterbostonsnowremoval.com",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
