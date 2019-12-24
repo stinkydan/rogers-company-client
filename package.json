@@ -5,6 +5,9 @@
   "private": true,
   "dependencies": {
     "axios": "^0.18.1",
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "express-history-api-fallback": "^2.2.1",
     "google-map-react": "^1.1.5",
     "google-maps-react": "^2.0.2",
     "measuretool-googlemaps-v3": "^0.4.2",
