@@ -1,24 +1,41 @@
 import axios from 'axios';
 import apiUrl from './apiConfig.js'
 
-export const createJob = (userId, userToken, job) => {
+export const createJob = (job, userId) => {
   return axios({
     url: `${apiUrl}/jobs`,
     method: 'POST',
-    headers: {
-      "Content-Type": "Application/json",
-      'Authorization': `Token token=${userToken}`
-    },
+    headers: {"Content-Type": "Application/json"},
     data: {
       job: {
-        user_id: userId,
-        job_type: job.jobType,
-        job_rate: job.jobRate,
-        area: job.area,
-        time_in_min: job.time,
-        quote: job.quote,
-        job_date: job.date,
-        job_time: job.jobTime
+        quote_user_id: userId,
+        user_written_details: job.writtenDetails,
+        sidewalk: job.jobDetails.Sidewalk,
+        stairs: job.jobDetails.Stairs,
+        walkway: job.jobDetails.Walkway,
+        driveway: job.jobDetails.Driveway,
+        parking_lot: job.jobDetails.Parking_Lot,
+        trash: job.jobDetails.Trash,
+        porch: job.jobDetails.Porch,
+        garage_entrances: job.jobDetails.Garage_Entrances,
+        salt: job.jobDetails.Salt,
+        shoveling_between_cars: job.jobDetails.Shoveling_Between_Cars,
+        total_area: job.jobDetails.total_area
+      }
+    }
+  })
+}
+
+export const updateJob = (jobId, packageSelection) => {
+  return axios({
+    url: `${apiUrl}/jobs/${jobId}`,
+    headers: {"Content-Type": "Application/json"},
+    method: 'PATCH',
+    data: {
+      job: {
+        id: jobId,
+        selected_package: packageSelection[0],
+        quote_price: packageSelection[1]
       }
     }
   })

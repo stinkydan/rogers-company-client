@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router';
 import { Link } from 'react-router-dom';
-import LoadingPage from './LoadingPage';
+import LoadingPage from './../Util/LoadingPage';
 
 import SignUpForm from './Forms/SignUpForm'
 
-import image from './../images/cut-grass.jpg';
+import image from './../Util/images/cut-grass.jpg';
 
 class QuoteConfirmation extends Component {
   constructor(props) {
@@ -27,10 +27,6 @@ class QuoteConfirmation extends Component {
       behavior: 'smooth',
       block: 'start'
     })
-  }
-
-  initPopup = () => {
-    this.setState({ showPopup: true })
   }
 
   render() {
@@ -75,7 +71,7 @@ class QuoteConfirmation extends Component {
 
             <button
               className="confirm-quote-button"
-              onClick={this.initPopup}
+              onClick={() => this.setState({ showPopup: true })}
             >
               Let's go!
             </button>

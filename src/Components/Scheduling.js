@@ -6,7 +6,7 @@ import { withRouter } from 'react-router';
 import {Elements, StripeProvider} from 'react-stripe-elements';
 
 import { checkAvailability } from './../Api/scheduleApi';
-import CheckoutForm from './../Stripe/CheckoutForm';
+import CheckoutForm from './Stripe/CheckoutForm';
 
 import Popup from "reactjs-popup";
 

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 
 import { Redirect } from 'react-router';
-import LoadingPage from './../LoadingPage';
+import LoadingPage from './../../Util/LoadingPage';
 // import CheckoutForm from './../../Stripe/CheckoutForm';
 
 import { signUp, signIn } from './../../Api/signUpApi'

@@ -1,22 +1,13 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import SnowSite from '../images/snow_removal_site.PNG';
 
 class Nav extends Component {
   constructor() {
     super()
-    this.state = {
-      isHovering: false
-    }
+    this.state = {}
   }
 
   render() {
-    const tooltip = (
-      <div className="thumbnail">
-        <img src={SnowSite} alt="snow removal website" />
-      </div>
-    )
-
     return (
       <>
         <header className="main-nav">
@@ -34,12 +25,10 @@ class Nav extends Component {
             </span>*/}
           </div>
 
-          {this.state.isHovering ? tooltip : ''}
-
           <div className="main-nav-links">
             <Link to="/" className="nav-link">Home</Link>
             <Link to="/quote" className="nav-link">Get Quote</Link>
-            <Link to="/services" className="nav-link">Services</Link>
+            {/*<Link to="/services" className="nav-link">Services</Link>*/}
             <Link to="/about" className="nav-link">About</Link>
             <Link to="/testimonials" className="nav-link">Testimonials</Link>
             <Link to="/gallery" className="nav-link">Gallery</Link>

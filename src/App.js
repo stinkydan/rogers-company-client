@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
 
-import Nav from './Layout/Nav';
-import Hero from './Layout/Hero';
-import Info from './Layout/Info';
-import Services from './Layout/Services';
-import Quote from './Layout/Quote';
-import About from './Layout/About';
-import Testimonials from './Layout/Testimonials';
-import GalleryPage from './Layout/GalleryPage';
-import QuoteConfirmation from './Layout/QuoteConfirmation';
-import Scheduling from './Layout/Scheduling';
+import Nav from './Components/Layout/Nav';
+import Hero from './Components/Layout/Hero';
+import SnowInfo from './Components/Layout/SnowInfo';
+// import Services from './Pages/Services';
+import Quote from './Pages/Quote';
+import About from './Pages/About';
+import Testimonials from './Pages/Testimonials';
+import GalleryPage from './Pages/GalleryPage';
+import QuoteConfirmation from './Components/QuoteConfirmation';
+import Scheduling from './Components/Scheduling';
 
-import Footer from './Layout/Footer';
+import Footer from './Components/Layout/Footer';
 
 import { Route } from 'react-router-dom';
 
@@ -49,11 +49,11 @@ class App extends Component {
 
         <Route
           exact path="/"
-          render={() => <Info /> } />
+          render={() => <SnowInfo /> } />
 
-        <Route
+        {/* <Route
           exact path="/services"
-          render={() => <Services /> } />
+          render={() => <Services /> } /> */}
 
         <Route
           exact path="/quote"
@@ -67,9 +67,9 @@ class App extends Component {
           exact path="/testimonials"
           render={() =>  <Testimonials /> } />
 
-        <Route
+{/*        <Route
           exact path="/gallery"
-          render={() =>  <GalleryPage /> } />
+          render={() =>  <GalleryPage /> } /> */}
 
         <Route
           exact path="/quote-confirmation"

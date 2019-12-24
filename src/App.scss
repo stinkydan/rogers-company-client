@@ -1,4 +1,5 @@
 $grass: rgba(123, 158, 54, 1);
+$snow-blue: rgba(2, 83, 126, 1);
 
 // TOP-NAV: COMPANY NAME, LOGO, AND CALL TO ACTION
 .main-nav {
@@ -74,7 +75,7 @@ $grass: rgba(123, 158, 54, 1);
     }
 
     .nav-link:hover {
-      color: rgba(123, 158, 54, 1);
+      color: $snow-blue;
     }
   }
 }
@@ -90,6 +91,7 @@ $grass: rgba(123, 158, 54, 1);
 }
 
 // HERO IMAGE AND TITLE SECTION
+
 .hero-img {
   height: auto;
   width: 100%;
@@ -100,7 +102,7 @@ $grass: rgba(123, 158, 54, 1);
   position: relative;
   display: flex;
   flex-direction: column;
-  background-color: rgba(123, 158, 54, 1);
+  background-color: $snow-blue;
   height: auto;
   width: inherit;
   margin-top: -5px;
@@ -112,12 +114,23 @@ $grass: rgba(123, 158, 54, 1);
     align-items: center;
     width: inherit;
 
+    h4 {
+      margin-top: 0;
+      color: #FFFFFF;
+    }
+
     .hero-title {
       color: rgb(255, 255, 255);
       font-size: 3rem;
       font-family: avenir, sans-serif;
       text-align: center;
       text-shadow: rgba(0, 0, 0, 0.4) 0px 4px 5px;
+      margin-bottom: 15px;
+    }
+
+    .quote-cta {
+      text-decoration: none;
+      color: inherit;
     }
 
     .hero-social-cta {
@@ -134,7 +147,7 @@ $grass: rgba(123, 158, 54, 1);
 @media (max-width: 470px) {
   .hero-block {
     position: relative;
-    background-color: rgba(123, 158, 54, 1);
+    background-color: $snow-blue;
     height: auto;
     width: 100%;
     margin-top: -5px;
@@ -169,38 +182,43 @@ $grass: rgba(123, 158, 54, 1);
 }
 
 //INFO BOXES
+
 .info-container {
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: space-around;
   flex-wrap: wrap;
   align-items: center;
   width: 100%;
   height: auto;
   background-color: rgba(230, 230, 230, .5);
-  padding-bottom: 50px;
+  padding: 80px 0;
 
   .info-box {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: flex-end;
-    height: 24vw;
-    width: 24vw;
-    background-color: white;
-    margin-top: 50px;
-    margin-left: 2vw;
-    margin-right: 2vw;
+    justify-content: center;
+    text-align: center;
+    height: auto;
+    width: 23vw;
+    margin: 20px 3vw 0;
 
-    svg {
+    img {
       height: auto;
-      width: 12vw;
-      margin-bottom: 10%;
+      width: 80%;
+      margin-bottom: 5px;
+      border: 1px solid transparent;
+      border-radius: 100%;
     }
 
-    h3 {
-      font-size: calc(2vw + 5px);
-      margin-bottom: 10%;
+    h4 {
+      font-size: 20px;
+      margin-bottom: 5px;
+    }
+
+    p {
+      font-size: 16px;
     }
   }
 }
@@ -380,7 +398,7 @@ $grass: rgba(123, 158, 54, 1);
 .quote-page-container {
   display: flex;
   flex-direction: column;
-  width: 96%;
+  width: 100%;
   height: auto;
   padding-top: 85px;
 
@@ -390,10 +408,10 @@ $grass: rgba(123, 158, 54, 1);
     align-items: center;
     justify-content: flex-start;
     flex-direction: column;
-    height: calc(100vh - 85px);
+    height: calc(100vh - 65px);
 
     h1 {
-      color: rgba(50, 65, 50, 1);
+      color: $snow-blue;
       font-size: 3rem;
       font-family: avenir, sans-serif;
       text-align: center;
@@ -418,46 +436,164 @@ $grass: rgba(123, 158, 54, 1);
     }
 
     .quote-down-arrow {
-      color: rgba(50, 65, 50, 1);
+      color: $snow-blue;
       position: relative;
       cursor: pointer;
       font-size: 33px;
-      border: 2px solid rgba(50, 65, 50, 1);
+      border: 2px solid $snow-blue;
       border-radius: 100%;
       padding: 6px 22px 11px;
-      margin-bottom: auto;
       transition: 0.35s;
+      margin-bottom: auto;
     }
 
     .quote-down-arrow:hover {
-      background-color: rgba(50, 65, 50, 1);
+      background-color: $snow-blue;
       color: white;
     }
   }
+
+.quote-tools-ref {
+  width: 100%;
+  height: 100vh;
+  padding-top: 85px;
 
   .quote-tools-container {
     display: flex;
     flex-direction: column;
     position: relative;
-    width: 100%;
-    height: calc(100vh - 90px);
-    padding-top: 65px;
+    width: 96%;
+    height: calc(100% - 95px);
+    margin: auto 2%;
+    background-color: #F9F9F9;
+    border: 1px solid transparent;
+    border-radius: 5px;
+    box-shadow: 1px 2px 5px 1px rgba(0,0,0,0.35);
 
-    .map-directions {
-      color: rgba(50, 65, 50, 1);
-      text-align: center;
+    .input-tools-container {
       width: 100%;
-      height: 20%;
-      padding-bottom: 10px;
+      height: 100%;
+
+      .input-directions {
+        color: rgba(50, 65, 50, 1);
+        text-align: center;
+      }
+
+      .input-wrapper {
+        width: 65%;
+        max-width: 500px;
+        height: auto;
+        margin: calc(40vh - 85px) auto 0;
+
+        .google-maps-input {
+          width: 100%;
+          background: #fff;
+          border-radius: 8px;
+          box-sizing: border-box;
+          border: 1px solid transparent;
+          padding: 12px 75px 11px 10px;
+          box-shadow: 1px 2px 5px 1px rgba(0,0,0,0.35);
+        }
+      }
     }
 
-    .map-and-instructions {
+    button {
+      cursor: pointer;
+      outline: none;
+      border: 1px solid transparent;
+      padding: 10px 15px;
+      font-family: Lato, arial, sans-serif;
+      font-size: 14px;
+    }
+
+    .button-group {
+
+      button:first-of-type {
+        border-radius: 4px 0 0 4px;
+      }
+
+      button:nth-of-type(2) {
+        border-radius: 0 4px 4px 0;
+      }
+
+      button.selected {
+        background-color: $snow-blue;
+        color: #FFFFFF;
+        box-shadow: 0px 2px 5px 1px rgba(0,0,0,0.55);
+      }
+    }
+
+    .toggle-price-details {
+      margin: auto;
+    }
+
+    .quote-details {
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      margin: auto;
+
+      button {
+        margin-top: 10px;
+      }
+
+      button.selected {
+        background-color: $snow-blue;
+        color: #FFFFFF;
+        box-shadow: 0px 2px 5px 1px rgba(0,0,0,0.55);
+      }
+
+      button:hover {
+        background-color: $snow-blue;
+        color: #FFFFFF;
+        transition: .4s;
+      }
+    }
+
+    .deposit-container {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 0 20px;
+
+      button {
+        display: flex;
+        align-content: center;
+        justify-content: center;
+        width: auto;
+        max-width: 300px;
+        padding: 13px 35px;
+        margin: 60% 0;
+        border: 2px solid transparent;
+        border-radius: 3px;
+        color: #FFFFFF;
+        background-color: $snow-blue;
+        font-family: avenir, sans-serif;
+        font-size: 16px;
+      }
+    }
+
+    .confirmation-buttons {
+      margin: auto;
+
+      button {
+        margin: 0 12px;
+        border-radius: 4px;
+      }
+
+      button > * {
+        color: black;
+        text-decoration: none;
+      }
+    }
+  }
+
+    .map-tools-container {
       display: flex;
       flex-direction: row-reverse;
-      justify-content: center;
-      align-items: center;
-      height: 100%;
       width: 100%;
+      height: 100%;
 
       .google-map-placeholder {
         background-color: transparent;
@@ -466,57 +602,66 @@ $grass: rgba(123, 158, 54, 1);
       .google-map, .google-map-placeholder {
         height: 100%;
         width: 100%;
+      }
 
-          .google-maps-input {
-            position: absolute;
-            margin-top: calc(-100vh + 205px);
-            margin-left: 5px;
-            margin-right: auto;
-            width: 50%;
-            max-width: 350px;
-            background: #fff;
-            border-radius: 8px;
-            box-sizing: border-box;
-            border: 1px solid transparent;
-            padding: 12px 75px 11px 10px;
-          }
+      .draw-area-prompt {
+        position: absolute;
+        text-align: center;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+        width: calc(75.7%);
+        z-index: 10;
+        background-color: #FFFFFF;
 
-          // .info-box {
-          //   .info-box-yes {
-          //     margin-left: 15px;
-          //     color: #FFFFFF;
-          //     background-color: $grass;
-          //     padding: 15px 25px;
-          //     border: 2px solid transparent;
-          //     border-radius: 3px;
-          //     font-family: avenir, sans-serif;
-          //     font-size: 16px;
-          //   }
-          //
-          //   .info-box-done {
-          //     padding: 15px 25px;
-          //     border: 2px solid transparent;
-          //     border-radius: 3px;
-          //     font-family: avenir, sans-serif;
-          //     font-size: 16px;
-          //   }
-          // }
+        p {
+          width: 100%;
         }
+
+        button {
+          margin: 0px 10px 15px;
+        }
+      }
+
+      .google-map.job-type-expanded {
+        height: 0;
+        width: 0;
+      }
+
+      .change-address {
+        position: absolute;
+        cursor: pointer;
+        top: 5px;
+        left: 10px;
+        right: auto;
+      }
 
         .job-type-container {
           display: flex;
-          align-items: center;
-          justify-content: flex-start;
           flex-direction: column;
+          text-align: center;
+          justify-content: center;
+          align-items: center;
           flex-wrap: wrap;
           width: 30vw;
           height: inherit;
           background-color: inherit;
+          transition: .8s;
 
-          h2 {
-            width: auto;
-            height: 50px;
-            margin-top: 0;
+          p {
+            margin-top: 0px;
+            font-size: 16px;
+          }
+
+          .house-confirmation {
+            margin-top: 0%;
+
+            span:nth-of-type(2) {
+              font-size: 13px;
+              font-style: italic;
+            }
           }
 
           .job-type-tile {
@@ -525,19 +670,117 @@ $grass: rgba(123, 158, 54, 1);
             align-items: center;
             justify-content: center;
             height: 33px;
-            width: auto;
+            width: 90%;
+            max-width: 600px;
             padding: 0 5px;
-            margin: 2% 3%;
+            margin: 3%;
             border: 1px solid transparent;
             border-radius: 5px;
             box-shadow: 1px 2px 5px 1px rgba(0,0,0,0.25);
             transition: 0.35s;
+
+            .clickable-span {
+              width: 100%;
+            }
           }
+
           .tile-selected, .job-type-tile:hover {
-            background-color: $grass;
+            background-color: rgba(2, 83, 126, 1);
+            color: #FFFFFF;
+          }
+
+          .disabled {
+            cursor: not-allowed;
+          }
+
+          .areas-in-progress {
+            background-color: rgba(2, 83, 126, .6);
             color: #FFFFFF;
           }
         }
+        .job-type-container.expanded {
+          display: flex;
+          justify-content: center;
+          flex-direction: row;
+          width: 100%;
+          height: 100%;
+          text-align: center;
+
+          p {
+            height: 5%;
+          }
+
+          .small-help-text {
+            font-size: 13px;
+            font-style: italic;
+          }
+
+          .job-type-tile.continue-button {
+            color: #FFFFFF;
+            margin: 20px auto;
+            background-color: $snow-blue;
+          }
+
+          .job-selections {
+            width: 100%;
+            height: 60%;
+            display: flex;
+            justify-content: center;
+            flex-direction: row;
+            flex-wrap: wrap;
+
+            .job-type-tile {
+              width: 15%;
+              height: auto;
+            }
+
+          .job-type-tile.back-button {
+            margin-bottom: 5%;
+            background-color: #e6e6e6;
+          }
+
+
+          .job-type-tile.details-shown {
+            display: flex;
+            justify-content: center;
+            align-content: center;
+            flex-direction: column;
+            padding: 5px;
+            height: auto;
+            flex-wrap: wrap;
+            background-color: rgba(2, 83, 126, .9);
+            color: #FFFFFF;
+          }
+
+          .job-type-tile.details {
+            display: flex;
+            flex-direction: column;
+            height: auto;
+            width: 95%;
+            flex-wrap: wrap;
+            border-radius: 5px;
+            color: #000000;
+            background-color: #FFFFFF;
+
+            .detail {
+              display: flex;
+              flex-direction: row;
+              height: auto;
+              width: 100%;
+              align-items: center;
+              justify-content: center;
+
+              button {
+                height: 30px;
+                padding: 5px 10px;
+                margin: 0 8px;
+                border: 1px solid transparent;
+                border-radius: 3px;
+              }
+            }
+          }
+        }
+      }
       }
     }
 
@@ -546,13 +789,10 @@ $grass: rgba(123, 158, 54, 1);
     flex-direction: column;
     justify-content: center;
     margin: 15px auto;
-    width: 90%;
+    width: 100%;
     max-width: 700px;
     height: calc(100vh - 90px);
     background-color: #F9F9F9;
-    border: 1px solid transparent;
-    border-radius: 5px;
-    box-shadow: 1px 2px 5px 1px rgba(0,0,0,0.35);
     overflow-y: auto;
 
     label:first-of-type {
@@ -581,6 +821,7 @@ $grass: rgba(123, 158, 54, 1);
     }
 
     .get-quote-button {
+      cursor: pointer;
       align-self: center;
       width: 160px;
       height: auto;
@@ -603,26 +844,33 @@ $grass: rgba(123, 158, 54, 1);
   align-items: center;
   width: 100%;
   height: auto;
-  background-color: rgba(230, 230, 230, .5);
-  padding-top: 85px;
+  background-color: #FFFFFF;
+  padding-top: 95px;
   padding-bottom: 50px;
   text-align: left;
 
     .about-block {
       display: flex;
       flex-direction: row;
-      width: 75vw;
+      width: 100%;
       height: auto;
       background-color: #FFFFFF;
 
+      img {
+        width: 35vw;
+        height: auto;
+        margin: 0 auto auto;
+      }
+
       .about-text {
+        width: 40%;
         padding: 0 3%;
 
         h1 {
           font-family: avenir, sans-serif;
           font-style: normal;
           font-weight: 600;
-          font-size: calc(30px + 2%);
+          font-size: calc(18px + 2%);
           color: black;
           text-shadow: rgba(0, 0, 0, 0.4) 1px 1px 2px;
           text-align: center;
@@ -633,15 +881,16 @@ $grass: rgba(123, 158, 54, 1);
           font-style: normal;
           font-weight: 600;
           font-size: calc(22px + 2%);
-          color: $grass;
+          color: $snow-blue;
           text-align: center;
+          margin-top: 0;
         }
 
         p {
           font-family: omnes-thin, sans-serif;
           font-style: normal;
           font-weight: 100;
-          font-size: 20px;
+          font-size: 16px;
           line-height: 1.5;
           text-align: left;
         }
@@ -653,11 +902,6 @@ $grass: rgba(123, 158, 54, 1);
           font-size: 20px;
           line-height: 1.5;
         }
-      }
-
-      img {
-        width: 50%;
-        height: auto;
       }
     }
 
@@ -671,18 +915,8 @@ $grass: rgba(123, 158, 54, 1);
       align-items: center;
       width: 50%;
 
-      h2 {
-        font-family: avenir, sans-serif;
-        font-style: normal;
-        font-weight: 600;
-        font-size: calc(32px + 2%);
-        color: black;
-        text-shadow: rgba(0, 0, 0, 0.4) 1px 1px 2px;
-        text-align: center;
-      }
-
       button {
-        background-color: $grass;
+        background-color: $snow-blue;
         padding: 15px 25px;
         border: 1px solid transparent;
         color: #FFFFFF;
@@ -690,13 +924,23 @@ $grass: rgba(123, 158, 54, 1);
         margin: 8% 0;
       }
 
-      p {
+      h2 {
         font-family: avenir, sans-serif;
         font-style: normal;
         font-weight: 600;
-        font-size: 18px;
-        color: $grass;
+        font-size: calc(22px + 2%);
+        color: $snow-blue;
         text-align: center;
+        margin-top: 0;
+      }
+
+      p {
+        font-family: omnes-thin, sans-serif;
+        font-style: normal;
+        font-weight: 100;
+        font-size: 16px;
+        line-height: 1.5;
+        text-align: left;
       }
     }
   }
@@ -734,7 +978,7 @@ $grass: rgba(123, 158, 54, 1);
         display: flex;
         justify-content: space-around;
         align-items: center;
-        background-color: $grass;
+        background-color: $snow-blue;
         height: auto;
         padding: 0 5%;
         color: #FFFFFF;
@@ -801,13 +1045,13 @@ $grass: rgba(123, 158, 54, 1);
       text-align: center;
     }
     .footer-1 {
-      background-color: rgba(50, 65, 50, 1);
+      background-color: $snow-blue;
     }
     .footer-2 {
-      background-color: rgba(94, 128, 26, 1);
+      background-color: rgba(52, 133, 176, 1);
     }
     .footer-3 {
-      background-color: $grass;
+      background-color: rgba(102, 183, 226, 1);
     }
 
     svg {
@@ -862,7 +1106,7 @@ $grass: rgba(123, 158, 54, 1);
 .confirmation-page-wrapper {
   position: relative;
   z-index: 110;
-  background: url('./images/cut-grass.jpg');
+  background: url('Util/images/cut-grass.jpg');
   background-attachment: fixed;
   background-size: cover;
   display: flex;
@@ -978,7 +1222,7 @@ $grass: rgba(123, 158, 54, 1);
     .confirm-quote-button {
       margin-left: 15px;
       color: #FFFFFF;
-      background-color: $grass;
+      background-color: $snow-blue;
       padding: 15px 25px;
       border: 2px solid transparent;
       border-radius: 3px;
@@ -1203,7 +1447,7 @@ $grass: rgba(123, 158, 54, 1);
         border: 2px solid transparent;
         border-radius: 3px;
         color: #FFFFFF;
-        background-color: $grass;
+        background-color: $snow-blue;
         font-family: avenir, sans-serif;
         font-size: 16px;
       }
