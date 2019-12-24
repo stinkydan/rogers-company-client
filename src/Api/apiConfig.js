@@ -1,6 +1,6 @@
 let apiUrl
 const apiUrls = {
-  production: 'https://api.greaterbostonsnowremoval.com/',
+  production: 'https://api.greaterbostonsnowremoval.com',
   development: 'http://localhost:4741'
 }
 
