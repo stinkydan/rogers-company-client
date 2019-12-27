@@ -90,8 +90,16 @@ export default function quoteDetails({ user, job, monthlyQuote, saltMonthlyQuote
       </>
     );
   } else if (userDecision === 'continue' && packageSelection) {
-    // const fullPrice = packageSelection[1]
-    const deposit = packageSelection[1]
+      let deposit = 0
+
+      if (packageSelection[0] ==='perVisit' || packageSelection[0] === 'perVisitSalt') {
+         deposit = packageSelection[1]
+      } else if (packageSelection[0] ==='monthly' || packageSelection[0] === 'monthlySalt') {
+         deposit = packageSelection[1]
+      } else if (packageSelection[0] ==='seasonal' || packageSelection[0] === 'seasonalSalt') {
+         deposit = deposit = packageSelection[1] / 4
+      }
+
     return (
       <>
         <div className="deposit-container">
@@ -103,8 +111,7 @@ export default function quoteDetails({ user, job, monthlyQuote, saltMonthlyQuote
               <CheckoutForm
                 user={user}
                 job={job}
-                typeDeposit={true}
-                package={packageSelection[0]}
+                selectedPackage={packageSelection[0]}
                 price={deposit.toString().replace('.', '')}
               />
             </Elements>

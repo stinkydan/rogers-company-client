@@ -7,7 +7,7 @@ import SnowInfo from './Components/Layout/SnowInfo';
 import Quote from './Pages/Quote';
 import About from './Pages/About';
 import Testimonials from './Pages/Testimonials';
-// import GalleryPage from './Pages/GalleryPage';
+import GalleryPage from './Pages/GalleryPage';
 import QuoteConfirmation from './Components/QuoteConfirmation';
 import Scheduling from './Components/Scheduling';
 
@@ -67,9 +67,9 @@ class App extends Component {
           exact path="/testimonials"
           render={() =>  <Testimonials /> } />
 
-{/*        <Route
+          <Route
           exact path="/gallery"
-          render={() =>  <GalleryPage /> } /> */}
+          render={() =>  <GalleryPage /> } />
 
         <Route
           exact path="/quote-confirmation"

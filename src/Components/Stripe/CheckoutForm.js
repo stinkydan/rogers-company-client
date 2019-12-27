@@ -5,10 +5,10 @@ import { Redirect } from 'react-router';
 import StripeCheckout from 'react-stripe-checkout';
 import { injectStripe } from 'react-stripe-elements';
 
-import { makeDeposit } from './../../Api/chargeApi';
+import { makeDeposit, createCustomer } from './../../Api/chargeApi';
 import { updateJob } from './../../Api/jobApi';
 
-function checkoutForm({ user, price, job, typeDeposit }) {
+function checkoutForm({ user, price, job, selectedPackage }) {
   let [paymentComplete, setPaymentComplete] = useState(false);
   let [jobConfirmation, setJobConfirmation] = useState('');
 
@@ -16,7 +16,10 @@ function checkoutForm({ user, price, job, typeDeposit }) {
     const token = ev.id
 
     try {
-      await makeDeposit(token, price)
+      const customerRes = await createCustomer(token, user.id)
+      console.log(customerRes, "CUSTOMER STRIPE OBJECT")
+
+      await makeDeposit(customerRes.data.id, price, selectedPackage)
 
       const jobConfirmation = await updateJob(job, user.userId)
 
@@ -49,7 +52,7 @@ function checkoutForm({ user, price, job, typeDeposit }) {
         token={(ev) => submit(ev)}
       >
         <button className="payment-button">
-          { typeDeposit ? 'Make deposit' : 'Pay in full' }
+          Make Payment
         </button>
       </StripeCheckout>
     );

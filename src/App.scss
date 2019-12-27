@@ -19,6 +19,8 @@ $snow-blue: rgba(2, 83, 126, 1);
 
     svg {
       align-self: center;
+      width: auto;
+      margin: auto;
     }
 
     .company-name {
@@ -57,8 +59,7 @@ $snow-blue: rgba(2, 83, 126, 1);
     justify-content: center;
     flex-wrap: wrap;
     height: 100%;
-    width: 80%;
-    padding-right: 10%;
+    width: auto;
     z-index: 100;
 
     .nav-link {
@@ -94,7 +95,7 @@ $snow-blue: rgba(2, 83, 126, 1);
 
 .hero-img {
   height: auto;
-  width: 100%;
+  width: 100vw;
   margin-top: 71px;
 }
 
@@ -104,7 +105,7 @@ $snow-blue: rgba(2, 83, 126, 1);
   flex-direction: column;
   background-color: $snow-blue;
   height: auto;
-  width: inherit;
+  width: 100vw;
   margin-top: -5px;
 
   .hero-cta {
@@ -126,6 +127,20 @@ $snow-blue: rgba(2, 83, 126, 1);
       text-align: center;
       text-shadow: rgba(0, 0, 0, 0.4) 0px 4px 5px;
       margin-bottom: 15px;
+    }
+
+    .snow-link-btn > * {
+      cursor: pointer;
+      align-self: center;
+      width: 160px;
+      height: auto;
+      padding: 10px 20px;
+      background-color: #003C7B;
+      color: #FFFFFF;
+      border: 1px solid transparent;
+      border-radius: 33px;
+      margin: auto;
+      box-shadow: 0px 2px 5px 1px rgba(0,0,0,0.55);
     }
 
     .quote-cta {
@@ -164,7 +179,7 @@ $snow-blue: rgba(2, 83, 126, 1);
       display: flex;
       flex-direction: column;
       align-items: center;
-      width: 70vw;
+      width: 70%;
 
       .hero-title {
         color: rgb(255, 255, 255);
@@ -587,6 +602,7 @@ $snow-blue: rgba(2, 83, 126, 1);
         text-decoration: none;
       }
     }
+
   }
 
     .map-tools-container {
@@ -633,6 +649,8 @@ $snow-blue: rgba(2, 83, 126, 1);
       .change-address {
         position: absolute;
         cursor: pointer;
+        text-decoration: underline;
+        color: $snow-blue;
         top: 5px;
         left: 10px;
         right: auto;
@@ -649,6 +667,20 @@ $snow-blue: rgba(2, 83, 126, 1);
           height: inherit;
           background-color: inherit;
           transition: .8s;
+
+          .presentation-mode {
+            margin-top: 30px;
+            width: 95%;
+            height: auto;
+            background-color: #F9F9F9;
+
+            .slide.primary {
+              display: flex;
+              justify-content: center;
+              height: 100%;
+              background-color: #F9F9F9;
+            }
+          }
 
           p {
             margin-top: 0px;
@@ -674,6 +706,7 @@ $snow-blue: rgba(2, 83, 126, 1);
             max-width: 600px;
             padding: 0 5px;
             margin: 3%;
+            background-color: #FFF;
             border: 1px solid transparent;
             border-radius: 5px;
             box-shadow: 1px 2px 5px 1px rgba(0,0,0,0.25);
@@ -781,6 +814,64 @@ $snow-blue: rgba(2, 83, 126, 1);
           }
         }
       }
+      }
+      @media (max-width: 450px) {
+        .quote-tools-container {
+          width: 100%;
+          margin: 0;
+        }
+
+        .map-tools-container {
+          width: 100%;
+          flex-direction: column-reverse;
+
+          .job-type-container {
+            flex-direction: row;
+            width: 100%;
+
+            .presentation-mode {
+              margin-top: 30px;
+              height: auto;
+              background-color: #F9F9F9;
+
+              .slide.primary {
+                display: flex;
+                justify-content: center;
+                height: 100%;
+                background-color: #F9F9F9;
+              }
+            }
+
+            .house-confirmation {
+              margin-bottom: 0;
+              justify-content: center;
+              align-items: center;
+              flex-direction: row;
+            }
+          }
+
+          .job-type-container.expanded {
+            margin-top: 20px;
+            text-align: center;
+
+            p:nth-of-type(1) {
+              margin-bottom: 0px;
+            }
+
+            .small-help-text {
+              margin-top: 0px;
+            }
+
+            .job-selections {
+              margin-top: 0;
+
+              .job-type-tile {
+                height: auto;
+                width: auto;
+              }
+            }
+          }
+        }
       }
     }
 
@@ -948,6 +1039,7 @@ $snow-blue: rgba(2, 83, 126, 1);
 
 // TESTIMONIALS PAGE
 .testimonial-page-container {
+  overflow-x: hidden;
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -1038,6 +1130,7 @@ $snow-blue: rgba(2, 83, 126, 1);
       flex-direction: column;
       justify-content: center;
       align-items: center;
+      flex-wrap: wrap;
       height: 100%;
       width: 33.333333%;
       width: calc(100% /3);
@@ -1060,7 +1153,13 @@ $snow-blue: rgba(2, 83, 126, 1);
       margin-bottom: 6%;
     }
     span {
-      font-size: calc(20px + 1vw);
+      font-size: 20px;
+    }
+
+    @media(max-width: 450px) {
+      span {
+        font-size: 13px;
+      }
     }
   }
 

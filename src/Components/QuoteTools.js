@@ -7,6 +7,9 @@ import JobTile from './JobTile';
 import AutocompleteInput from './AutocompleteInput';
 import QuoteDetails from './QuoteDetails';
 
+import "react-responsive-carousel/lib/styles/carousel.min.css";
+import { Carousel } from 'react-responsive-carousel';
+
 export default class QuoteTools extends Component {
   constructor() {
     super()
@@ -172,13 +175,28 @@ export default class QuoteTools extends Component {
 
     const areasToDraw = (
       <div className="job-type-container">
-        <p>
-          Now, let's draw the areas for your selections.
-        </p>
-        <p>
-          Click on a selection below- then, click on the map to place points around that part of your house.
-        </p>
-        <p>To complete an area, just click on the first point that you laid.</p>
+        <Carousel
+          infiniteLoop
+          showStatus={false}
+          showIndicators={true}
+          showThumbs={false}
+          className="presentation-mode"
+        >
+          <div className="slide primary">
+            <p>
+              Now, let's draw the areas for your selections.
+            </p>
+          </div>
+          <div className="slide primary">
+            <p>
+              Click on a selection below- then, click on the map to place points around that part of your house.
+            </p>
+          </div>
+          <div className="slide primary">
+            <p>To complete an area, just click on the first point that you laid.</p>
+          </div>
+        </Carousel>
+
         {
           Object.entries(this.props.jobDetails).map((jobType, i) => {
             if (jobType[1]) {

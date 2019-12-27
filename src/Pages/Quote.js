@@ -5,7 +5,6 @@ import { Redirect } from 'react-router';
 import { getQuote, saveUser } from './../Api/quoteApi';
 import { createJob } from './../Api/jobApi';
 
-
 import QuoteTools from './../Components/QuoteTools';
 import LoadingPage from './../Util/LoadingPage';
 import ErrorMessage from './../Components/ErrorMessage';
@@ -47,11 +46,11 @@ class Quote extends Component {
 async handleUserInfo(jobInfo, user) {
   try {
       const userRes = await saveUser(user)
-      console.log("USER RES", userRes)
+
       const quoteRes = await getQuote(jobInfo, userRes.data.quote_user.id)
-      console.log("QUOTERES", quoteRes)
+
       const jobRes = await createJob(jobInfo, userRes.data.quote_user.id)
-      console.log("JOBRES", jobRes)
+
       this.setState({
         user: userRes.data.quote_user,
         quote: quoteRes,
