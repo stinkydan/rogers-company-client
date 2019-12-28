@@ -5,10 +5,10 @@ import { Redirect } from 'react-router';
 import StripeCheckout from 'react-stripe-checkout';
 import { injectStripe } from 'react-stripe-elements';
 
-import { makeDeposit, createCustomer } from './../../Api/chargeApi';
+import { createCustomer } from './../../Api/chargeApi';
 import { updateJob } from './../../Api/jobApi';
 
-function checkoutForm({ user, price, job, selectedPackage }) {
+function checkoutForm({ user, price, job, selectedPackage, startTransaction }) {
   let [paymentComplete, setPaymentComplete] = useState(false);
   let [jobConfirmation, setJobConfirmation] = useState('');
 
@@ -19,9 +19,11 @@ function checkoutForm({ user, price, job, selectedPackage }) {
       const customerRes = await createCustomer(token, user.id)
       console.log(customerRes, "CUSTOMER STRIPE OBJECT")
 
-      await makeDeposit(customerRes.data.id, price, selectedPackage)
+      const depositRes = await startTransaction(customerRes.data.quote_user.customer_id, price, selectedPackage)
 
-      const jobConfirmation = await updateJob(job, user.userId)
+      console.log(depositRes, 'DEPOSIT RES')
+
+      const jobConfirmation = await updateJob(job, selectedPackage)
 
       setJobConfirmation(jobConfirmation)
       setPaymentComplete(true)

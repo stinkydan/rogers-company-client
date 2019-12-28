@@ -26,16 +26,16 @@ export const createJob = (job, userId) => {
   })
 }
 
-export const updateJob = (jobId, packageSelection) => {
+export const updateJob = (job, packageSelection) => {
   return axios({
-    url: `${apiUrl}/jobs/${jobId}`,
+    url: `${apiUrl}/jobs/${job.id}`,
     headers: {"Content-Type": "Application/json"},
     method: 'PATCH',
     data: {
       job: {
-        id: jobId,
-        selected_package: packageSelection[0],
-        quote_price: packageSelection[1]
+        id: job.id,
+        selected_package: packageSelection,
+        quote_price: packageSelection
       }
     }
   })

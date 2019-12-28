@@ -10,6 +10,8 @@ import DetailButton from './../Hooks/DetailButton';
 
 import { updateJob } from './../Api/jobApi';
 
+import { perVisitTransaction, createSubscription } from './../Api/chargeApi';
+
 export default function quoteDetails({ user, job, monthlyQuote, saltMonthlyQuote, seasonalQuote, saltSeasonalQuote, perVisit, saltPerVisit }) {
 
   let [showSaltDetails, toggleDetails] = useState(false)
@@ -24,7 +26,7 @@ export default function quoteDetails({ user, job, monthlyQuote, saltMonthlyQuote
 
   async function onConfirm() {
     try {
-      const updateRes = await updateJob(job.id, packageSelection)
+      const updateRes = await updateJob(job, packageSelection)
       console.log(updateRes)
       setUserDecision('continue')
     }
@@ -91,26 +93,40 @@ export default function quoteDetails({ user, job, monthlyQuote, saltMonthlyQuote
     );
   } else if (userDecision === 'continue' && packageSelection) {
       let deposit = 0
+      let startTransaction
+      let depositDirections
 
       if (packageSelection[0] ==='perVisit' || packageSelection[0] === 'perVisitSalt') {
          deposit = packageSelection[1]
+         startTransaction = perVisitTransaction
+         depositDirections = <p>In order to secure our services, you must complete the full payment.</p>
+
       } else if (packageSelection[0] ==='monthly' || packageSelection[0] === 'monthlySalt') {
          deposit = packageSelection[1]
+         startTransaction = createSubscription
+         depositDirections = <p>In order to secure our services, you must complete the first month of payment. Payments will be taken automatically each month until your subscription ends or you cancel your subscription.</p>
+
       } else if (packageSelection[0] ==='seasonal' || packageSelection[0] === 'seasonalSalt') {
-         deposit = deposit = packageSelection[1] / 4
+         deposit = (packageSelection[1] / 4).toFixed(2)
+         startTransaction = createSubscription
+         depositDirections = <p>In order to secure our services, you must complete the first month of payment. Payments will be taken automatically each month until your subscription ends or you cancel your subscription.</p>
       }
+      console.log(deposit, "deposit")
 
     return (
       <>
         <div className="deposit-container">
           <div className="deposit-directions">
-            <h3>In order to secure our services, you must complete a minimum of a 50% deposit.</h3>
+            <h3>Almost there!</h3>
+            {depositDirections}
+            <p>Click the button below to enter your payment details. We use Stripe (a trusted online payment platform) for all of our transactions.</p>
           </div>
           <StripeProvider apiKey="pk_test_aHCGfI44J5xIBeYr3aptiYw700c4gxEais">
             <Elements>
               <CheckoutForm
                 user={user}
                 job={job}
+                startTransaction={startTransaction}
                 selectedPackage={packageSelection[0]}
                 price={deposit.toString().replace('.', '')}
               />

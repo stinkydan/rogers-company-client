@@ -4,28 +4,30 @@ import apiUrl from './apiConfig.js'
 // DEVELOPMENT URL http://localhost:4741/
 // PRODUCTION URL https://guarded-shore-72344.herokuapp.com/
 
-export const makeDeposit = (customerId, price, selectedPackage) => {
+export const perVisitTransaction = (customerId, price, selectedPackage) => {
   return axios({
     url: `${apiUrl}/charges`,
     method: 'POST',
     headers: {"Content-Type": "Application/json"},
     data: {
       deposit: {
-        selected_package: selectedPackage,
         customer_id: customerId,
+        selected_package: selectedPackage,
         price: price
       }
     }
   })
 }
 
-export const createSubscription = () => {
+export const createSubscription = (customerId, price, selectedPackage) => {
   return axios({
     url: `${apiUrl}/subscriptions`,
     method: 'POST',
     headers: {"Content-Type": "Application/json"},
     data: {
-      // subscription data
+      customer_id: customerId,
+      selected_package: selectedPackage,
+      price: price
     }
   })
 }
