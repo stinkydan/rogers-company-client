@@ -31,7 +31,7 @@ class Nav extends Component {
             {/*<Link to="/services" className="nav-link">Services</Link>*/}
             <Link to="/about" className="nav-link">About</Link>
             <Link to="/testimonials" className="nav-link">Testimonials</Link>
-            <Link to="/gallery" className="nav-link">Gallery</Link>
+            {/* <Link to="/gallery" className="nav-link">Gallery</Link> */}
           </div>
         </header>
       </>
