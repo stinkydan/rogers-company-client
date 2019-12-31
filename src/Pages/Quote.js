@@ -25,18 +25,8 @@ class Quote extends Component {
       redirect: false,
       showLoadingPage: false,
       calcQuoteError: false,
-      jobDetails: {
-        Sidewalk: false,
-        Stairs: false,
-        Walkway: false,
-        Driveway: false,
-        Parking_Lot: false,
-        Trash: false,
-        Porch: false,
-        Garage_Entrances: false,
-        Shoveling_Between_Cars: false
-      },
-      jobAreas: {},
+      jobDetails: ['Sidewalk', 'Stairs', 'Walkway', 'Driveway', 'Parking_Lot', 'Trash', 'Porch', 'Garage_Entrances', 'Shoveling_Between_Cars'],
+      selectedJobs: {},
       areaTotal: 0
     }
   }
@@ -76,10 +66,10 @@ onValidateSuccess = () => {
   }
 
   const user = {
-    client_name: name,
-    client_email: email,
-    client_phone: phone,
-    client_address: address
+    name: name,
+    email: email,
+    phone: phone,
+    address: address
   }
 
   this.handleUserInfo(jobInfo, user);
@@ -88,28 +78,19 @@ onValidateSuccess = () => {
 validateForm = (e) => {
   e.preventDefault()
 
-  this.state.jobAreas ? this.onValidateSuccess() : console.log("form didn't validate")
+  this.state.selectedJobs ? this.onValidateSuccess() : console.log("form didn't validate")
 }
 
 // Job Type and Map Area Functionality
 
 handleArea = (polyPath, newArea) => {
-  let { selectedJobType, jobAreas, areaTotal } = this.state
+  let { selectedJobType, selectedJobs } = this.state
 
-  if (!jobAreas[selectedJobType]) {
+  selectedJobs[selectedJobType].polyPaths = selectedJobs[selectedJobType].polyPaths.concat([polyPath])
+  selectedJobs[selectedJobType].areaTotal += newArea
 
-    jobAreas[selectedJobType] = [polyPath, newArea]
-
-  } else if (jobAreas[selectedJobType]) {
-
-    jobAreas[selectedJobType] = jobAreas[selectedJobType].concat([polyPath, newArea])
-
-  } else {
-    return ''
-  }
   this.setState({
-    jobAreas: jobAreas,
-    areaTotal: areaTotal += newArea
+    selectedJobs: selectedJobs
   })
 }
 
@@ -151,12 +132,15 @@ initError = () => {
 // DETAIL TILE FUNCTIONS
 
 detailChoice = (jobType, detailChosen) => {
-  let { jobDetails } = this.state
+  let { selectedJobs } = this.state
 
-    jobDetails[jobType] = detailChosen
+    selectedJobs[jobType] = {
+      polyPaths: [],
+      areaTotal: 0
+    }
 
   this.setState({
-    jobDetails: jobDetails
+    selectedJobs: selectedJobs
   })
 }
 
@@ -205,7 +189,7 @@ onJobTypeSelect = (jobType, completeAreas) => {
                   detailChoice={this.detailChoice}
                   resetDetailChoice={this.resetDetailChoice}
                   jobDetails={this.state.jobDetails}
-                  jobAreas={this.state.jobAreas}
+                  selectedJobs={this.state.selectedJobs}
                   onJobTypeSelect={this.onJobTypeSelect}
                   selectedJobType={this.state.selectedJobType}
                   completeAreas={this.state.completeAreas}

@@ -8,15 +8,19 @@ import CheckoutForm from './Stripe/CheckoutForm';
 
 import DetailButton from './../Hooks/DetailButton';
 
+import ConfirmationPage from './ConfirmationPage'
+
 import { updateJob } from './../Api/jobApi';
 
 import { perVisitTransaction, createSubscription } from './../Api/chargeApi';
 
 export default function quoteDetails({ user, job, monthlyQuote, saltMonthlyQuote, seasonalQuote, saltSeasonalQuote, perVisit, saltPerVisit }) {
 
-  let [showSaltDetails, toggleDetails] = useState(false)
-  let [userDecision, setUserDecision] = useState(false)
-  let [packageSelection, savePackage] = useState([false])
+  let [paymentComplete, setPaymentComplete] = useState(false);
+  let [showSaltDetails, toggleDetails] = useState(false);
+  let [userDecision, setUserDecision] = useState(false);
+  let [packageSelection, savePackage] = useState([false]);
+  let [newJob, setJob] = useState('')
 
   function selectPackage(ev) {
     console.log(job, "JOB")
@@ -33,6 +37,11 @@ export default function quoteDetails({ user, job, monthlyQuote, saltMonthlyQuote
     catch (err) {
       console.log('onconfirm no good', err)
     }
+  }
+
+  function handlePaymentComplete(newJob) {
+    setJob(newJob)
+    setPaymentComplete(true)
   }
 
   // Prices toggle logic
@@ -91,6 +100,13 @@ export default function quoteDetails({ user, job, monthlyQuote, saltMonthlyQuote
         </div>
       </>
     );
+  } else if (paymentComplete) {
+      return (
+        <ConfirmationPage
+          user={user}
+          job={newJob}
+        />
+      );
   } else if (userDecision === 'continue' && packageSelection) {
       let deposit = 0
       let startTransaction
@@ -129,6 +145,7 @@ export default function quoteDetails({ user, job, monthlyQuote, saltMonthlyQuote
                 startTransaction={startTransaction}
                 selectedPackage={packageSelection[0]}
                 price={deposit.toString().replace('.', '')}
+                handlePaymentComplete={handlePaymentComplete}
               />
             </Elements>
           </StripeProvider>

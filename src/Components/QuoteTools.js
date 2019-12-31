@@ -68,20 +68,7 @@ export default class QuoteTools extends Component {
   }
 
   continueToForm = () => {
-    let details = []
-    let areas = Object.keys(this.props.jobAreas)
-    for (const value in this.props.jobDetails) {
-      if (this.props.jobDetails[value]) {
-        details.push(true)
-        console.log('validate push')
-      } else {
-        console.log('value false')
-        continue
-      }
-    }
-    if (areas.length === details.length) {
-      this.setState({ showForm: true })
-    } else { console.log('not validated')}
+    this.setState({ showForm: true })
   }
 
   onMarkerDragEnd = e => {
@@ -130,10 +117,10 @@ export default class QuoteTools extends Component {
     const snowRemovalJobTypes = (
       <>
       {/* <span className="job-type-tile back-button" onClick={() => this.setState({ selectedSeason: false })}>Back</span> */}
-        {Object.entries(this.props.jobDetails).map((jobArr, i) => (
+        {this.props.jobDetails.map((job, i) => (
           <JobDetails
             key={i}
-            jobType={jobArr[0]}
+            jobType={job}
             detailChoice={this.props.detailChoice}
           />
         ))}
@@ -198,18 +185,14 @@ export default class QuoteTools extends Component {
         </Carousel>
 
         {
-          Object.entries(this.props.jobDetails).map((jobType, i) => {
-            if (jobType[1]) {
-              return (
-                <JobTile
-                  key={i}
-                  jobType={jobType[0]}
-                  onTileClick={this.props.onJobTypeSelect}
-                />
-              )
-            } else {
-              return ''
-            }
+          this.props.jobDetails.map((jobType, i) => {
+            return (
+              <JobTile
+                key={i}
+                jobType={jobType}
+                onTileClick={this.props.onJobTypeSelect}
+              />
+            )
           })
         }
         <span className="job-type-tile" onClick={this.continueToForm}>

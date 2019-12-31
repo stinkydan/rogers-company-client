@@ -34,8 +34,8 @@ export const updateJob = (job, packageSelection) => {
     data: {
       job: {
         id: job.id,
-        selected_package: packageSelection,
-        quote_price: packageSelection
+        selected_package: packageSelection[0],
+        quote_price: packageSelection[1]
       }
     }
   })

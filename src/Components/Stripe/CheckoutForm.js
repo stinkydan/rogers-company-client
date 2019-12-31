@@ -1,6 +1,4 @@
-import React, { useState } from 'react'
-
-import { Redirect } from 'react-router';
+import React from 'react'
 
 import StripeCheckout from 'react-stripe-checkout';
 import { injectStripe } from 'react-stripe-elements';
@@ -8,10 +6,7 @@ import { injectStripe } from 'react-stripe-elements';
 import { createCustomer } from './../../Api/chargeApi';
 import { updateJob } from './../../Api/jobApi';
 
-function checkoutForm({ user, price, job, selectedPackage, startTransaction }) {
-  let [paymentComplete, setPaymentComplete] = useState(false);
-  let [jobConfirmation, setJobConfirmation] = useState('');
-
+function checkoutForm({ user, price, job, selectedPackage, startTransaction, handlePaymentComplete }) {
   async function submit(ev) {
     const token = ev.id
 
@@ -23,28 +18,17 @@ function checkoutForm({ user, price, job, selectedPackage, startTransaction }) {
 
       console.log(depositRes, 'DEPOSIT RES')
 
-      const jobConfirmation = await updateJob(job, selectedPackage)
+      if(depositRes.data.paid === true) {
+        const updateRes = await updateJob(job, selectedPackage)
 
-      setJobConfirmation(jobConfirmation)
-      setPaymentComplete(true)
+        handlePaymentComplete(updateRes.data)
+      }
     }
     catch(err) {
       console.log(err)
     }
   }
 
-    if (paymentComplete)
-    return (
-      <Redirect
-        to={{
-          pathname: '/',
-          state: {
-            userId: user.userId,
-            job: jobConfirmation,
-          }
-        }}
-      />
-    );
     return (
       <StripeCheckout
         amount={Number.parseInt(price)}
@@ -52,6 +36,7 @@ function checkoutForm({ user, price, job, selectedPackage, startTransaction }) {
         stripeKey="pk_test_aHCGfI44J5xIBeYr3aptiYw700c4gxEais"
         email={user.client_email}
         token={(ev) => submit(ev)}
+        job={job}
       >
         <button className="payment-button">
           Make Payment

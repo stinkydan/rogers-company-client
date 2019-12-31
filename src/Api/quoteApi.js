@@ -31,9 +31,12 @@ export const saveUser = userInfo => {
   return axios(
     {
       method: 'POST',
-      url: `${apiUrl}/quote_users`,
+      url: "http://localhost:1337/quote_user",
       data: {
-        quote_user_details: userInfo
+        name: userInfo.name,
+        email: userInfo.email,
+        phone: userInfo.phone,
+        address: userInfo.address
       }
     }
   )
