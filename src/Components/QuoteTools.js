@@ -31,6 +31,8 @@ export default class QuoteTools extends Component {
       latValue = place.geometry.location.lat(),
       lngValue = place.geometry.location.lng();
 
+      this.props.updateAddress(address)
+
       this.setState({
         inputVisibility: "input-tools-container hide",
         mapVisibility: "map-tools-container show",
@@ -185,7 +187,7 @@ export default class QuoteTools extends Component {
         </Carousel>
 
         {
-          this.props.jobDetails.map((jobType, i) => {
+          Object.keys(this.props.selectedJobs).map((jobType, i) => {
             return (
               <JobTile
                 key={i}
@@ -218,12 +220,9 @@ export default class QuoteTools extends Component {
             <QuoteDetails
               user={this.props.user}
               job={this.props.job}
-              monthlyQuote={this.props.quoteDetails.data.monthly_quote}
-              seasonalQuote={this.props.quoteDetails.data.seasonal_quote}
-              saltMonthlyQuote={this.props.quoteDetails.data.salt_monthly_quote}
-              saltSeasonalQuote={this.props.quoteDetails.data.salt_seasonal_quote}
-              perVisit={this.props.quoteDetails.data.per_visit}
-              saltPerVisit={this.props.quoteDetails.data.salt_per_visit}
+              monthlyPrices={this.props.quoteDetails.monthlyPrices}
+              seasonalPrices={this.props.quoteDetails.seasonalPrices}
+              perVisitPrices={this.props.quoteDetails.perVisitPrices}
             />
           </div>
         </>

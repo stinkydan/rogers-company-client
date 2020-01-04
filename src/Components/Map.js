@@ -47,10 +47,16 @@ class Map extends React.Component {
   setPoly = poly => {
       let polyPath = poly.getPath()
 
+      let coordinates = ''
+
+      for (let i = 0; i < polyPath.getLength(); i++) {
+        coordinates += polyPath.getAt(i).toUrlValue(6) + ";";
+      }
+
       // eslint-disable-next-line
-      google.maps.event.addListener(polyPath, 'set_at', this.props.handleArea(polyPath, this.calcArea(polyPath)));
+      google.maps.event.addListener(polyPath, 'set_at', this.props.handleArea(coordinates, this.calcArea(polyPath)));
       // eslint-disable-next-line
-      google.maps.event.addListener(polyPath, 'insert_at', console.log('INSERT AT RAN MAPSSS'));
+      google.maps.event.addListener(polyPath, 'insert_at', console.log(''));
       // eslint-disable-next-line
       google.maps.event.addListener(poly, 'rightclick', function(evt) {
         if (!polyPath || evt.vertex === undefined) {

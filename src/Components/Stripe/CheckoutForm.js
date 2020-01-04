@@ -14,7 +14,7 @@ function checkoutForm({ user, price, job, selectedPackage, startTransaction, han
       const customerRes = await createCustomer(token, user.id)
       console.log(customerRes, "CUSTOMER STRIPE OBJECT")
 
-      const depositRes = await startTransaction(customerRes.data.quote_user.customer_id, price, selectedPackage)
+      const depositRes = await startTransaction(customerRes.data.id, price, selectedPackage)
 
       console.log(depositRes, 'DEPOSIT RES')
 

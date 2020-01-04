@@ -34,35 +34,38 @@ class Quote extends Component {
 // FORM
 
 async handleUserInfo(jobInfo, user) {
+  console.log(jobInfo)
   try {
       const userRes = await saveUser(user)
+      console.log(userRes)
 
-      const quoteRes = await getQuote(jobInfo, userRes.data.quote_user.id)
+      const quoteRes = await getQuote(jobInfo, userRes.data.insertedId)
+      console.log(quoteRes)
 
-      const jobRes = await createJob(jobInfo, userRes.data.quote_user.id)
+      const jobRes = await createJob(jobInfo, userRes.data.insertedId)
+      console.log(jobRes, "JOB RES")
 
       this.setState({
-        user: userRes.data.quote_user,
-        quote: quoteRes,
-        job: jobRes.data.job,
+        user: userRes.data.ops[0],
+        quote: quoteRes.data,
+        job: jobRes.data.ops[0],
         showQuoteConfirmation: true
       })
     }
 
-  catch {
+  catch (err) {
+    console.log(err)
     this.setState({ showLoadingPage: false })
     this.initError()
   }
 }
 
 onValidateSuccess = () => {
-  const { name, email, phone, address, jobDetails, moreDetails, areaTotal } = this.state
-
-  jobDetails['total_area'] = areaTotal
+  const { name, email, phone, address, selectedJobs, moreDetails } = this.state
 
   const jobInfo = {
-    jobDetails: jobDetails,
-    writtenDetails: moreDetails
+    selectedJobs: selectedJobs,
+    customerExplanation: moreDetails
   }
 
   const user = {
@@ -83,10 +86,10 @@ validateForm = (e) => {
 
 // Job Type and Map Area Functionality
 
-handleArea = (polyPath, newArea) => {
+handleArea = (coordinates, newArea) => {
   let { selectedJobType, selectedJobs } = this.state
 
-  selectedJobs[selectedJobType].polyPaths = selectedJobs[selectedJobType].polyPaths.concat([polyPath])
+  selectedJobs[selectedJobType].polyPaths = selectedJobs[selectedJobType].polyPaths.concat([coordinates])
   selectedJobs[selectedJobType].areaTotal += newArea
 
   this.setState({
@@ -127,6 +130,10 @@ initError = () => {
     }),
     5000
   );
+}
+
+updateAddress = address => {
+  this.setState({ address })
 }
 
 // DETAIL TILE FUNCTIONS
@@ -196,6 +203,7 @@ onJobTypeSelect = (jobType, completeAreas) => {
                   validateForm={this.validateForm}
                   showQuoteConfirmation={this.state.showQuoteConfirmation}
                   quoteDetails={this.state.quote}
+                  updateAddress={this.updateAddress}
                   user={this.state.user}
                   job={this.state.job}
                 />

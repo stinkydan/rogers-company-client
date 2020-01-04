@@ -1,42 +1,30 @@
 import axios from 'axios';
-import apiUrl from './apiConfig.js'
+// import apiUrl from './apiConfig.js'
 
 export const createJob = (job, userId) => {
   return axios({
-    url: `${apiUrl}/jobs`,
+    url: "http://localhost:1337/jobs",
     method: 'POST',
     headers: {"Content-Type": "Application/json"},
     data: {
-      job: {
-        quote_user_id: userId,
-        user_written_details: job.writtenDetails,
-        sidewalk: job.jobDetails.Sidewalk,
-        stairs: job.jobDetails.Stairs,
-        walkway: job.jobDetails.Walkway,
-        driveway: job.jobDetails.Driveway,
-        parking_lot: job.jobDetails.Parking_Lot,
-        trash: job.jobDetails.Trash,
-        porch: job.jobDetails.Porch,
-        garage_entrances: job.jobDetails.Garage_Entrances,
-        salt: job.jobDetails.Salt,
-        shoveling_between_cars: job.jobDetails.Shoveling_Between_Cars,
-        total_area: job.jobDetails.total_area
+      userId: userId,
+      workAreas: job.selectedJobs,
+      customerExplanation: job.customerExplanation
       }
     }
-  })
+  )
 }
 
 export const updateJob = (job, packageSelection) => {
   return axios({
-    url: `${apiUrl}/jobs/${job.id}`,
+    url: `http://localhost:1337/jobs/${job._id}`,
     headers: {"Content-Type": "Application/json"},
-    method: 'PATCH',
+    method: 'PUT',
     data: {
-      job: {
-        id: job.id,
-        selected_package: packageSelection[0],
-        quote_price: packageSelection[1]
+      id: job._id,
+      selectedPackage: packageSelection[0],
+      quotePrice: packageSelection[1]
       }
     }
-  })
+  )
 }

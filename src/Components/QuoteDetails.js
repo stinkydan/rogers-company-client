@@ -14,7 +14,7 @@ import { updateJob } from './../Api/jobApi';
 
 import { perVisitTransaction, createSubscription } from './../Api/chargeApi';
 
-export default function quoteDetails({ user, job, monthlyQuote, saltMonthlyQuote, seasonalQuote, saltSeasonalQuote, perVisit, saltPerVisit }) {
+export default function quoteDetails({ user, job, monthlyPrices, seasonalPrices, perVisitPrices }) {
 
   let [paymentComplete, setPaymentComplete] = useState(false);
   let [showSaltDetails, toggleDetails] = useState(false);
@@ -47,14 +47,14 @@ export default function quoteDetails({ user, job, monthlyQuote, saltMonthlyQuote
   // Prices toggle logic
   let perVisitTitle = showSaltDetails ? 'Per Visit with Salt' : 'Per Visit'
   let monthlyTitle = showSaltDetails ? 'Monthly Quote with Salt' : 'Monthly Quote'
-  let seasonalTitle = showSaltDetails ? 'Seasonal Quote with Salt' : 'Seasonal Quote'
+  // let seasonalTitle = showSaltDetails ? 'Seasonal Quote with Salt' : 'Seasonal Quote'
 
-  let perVisitPrice = showSaltDetails ? saltPerVisit.toFixed(2) : perVisit.toFixed(2)
-  let monthlyPrice = showSaltDetails ? saltMonthlyQuote.toFixed(2) : monthlyQuote.toFixed(2)
-  let seasonalPrice = showSaltDetails ? saltSeasonalQuote.toFixed(2) : seasonalQuote.toFixed(2)
+  let perVisitPrice = showSaltDetails ? perVisitPrices.salt.toFixed(2) : perVisitPrices.basic.toFixed(2)
+  let monthlyPrice = showSaltDetails ? monthlyPrices.salt.toFixed(2) : monthlyPrices.basic.toFixed(2)
+  // let seasonalPrice = showSaltDetails ? seasonalPrices.salt.toFixed(2) : seasonalPrices.basic.toFixed(2)
 
   let monthlyPackageTitle = showSaltDetails ? 'monthlySalt' : 'monthly'
-  let seasonalPackageTitle = showSaltDetails ? 'seasonalSalt' : 'seasonal'
+  // let seasonalPackageTitle = showSaltDetails ? 'seasonalSalt' : 'seasonal'
   let perVisitPackageTitle = showSaltDetails ? 'perVisitSalt' : 'perVisit'
 
   if (!userDecision) {
@@ -77,13 +77,13 @@ export default function quoteDetails({ user, job, monthlyQuote, saltMonthlyQuote
             packageSelection={packageSelection}
           />
 
-          <DetailButton
+          {/* <DetailButton
             userTitle={seasonalTitle}
             packageTitle={seasonalPackageTitle}
             price={seasonalPrice}
             selectPackage={selectPackage}
             packageSelection={packageSelection}
-          />
+          /> */}
 
           <DetailButton
             userTitle={perVisitTitle}
