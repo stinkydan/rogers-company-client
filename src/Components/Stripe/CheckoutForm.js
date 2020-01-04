@@ -18,7 +18,7 @@ function checkoutForm({ user, price, job, selectedPackage, startTransaction, han
 
       console.log(depositRes, 'DEPOSIT RES')
 
-      if(depositRes.data.paid === true) {
+      if(depositRes.data.paid === true || depositRes.data.status === 'active') {
         const updateRes = await updateJob(job, selectedPackage)
 
         handlePaymentComplete(updateRes.data)
@@ -34,7 +34,7 @@ function checkoutForm({ user, price, job, selectedPackage, startTransaction, han
         amount={Number.parseInt(price)}
         name="Roger's Snow Removal & Landscaping LLC"
         stripeKey="pk_test_aHCGfI44J5xIBeYr3aptiYw700c4gxEais"
-        email={user.client_email}
+        email={user.email}
         token={(ev) => submit(ev)}
         job={job}
       >

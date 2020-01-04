@@ -13,7 +13,7 @@ function confirmationPage({ user, job }) {
 
       const sendEmail = async () => {
         try {
-          const res = await sendConfirmationEmail(user.client_email, job.selected_package, job.quote_price);
+          const res = await sendConfirmationEmail(user.email, job.selectedPackage, job.quotePrice);
           console.log(res);
         } catch(err) {
           console.log(err);
@@ -34,11 +34,9 @@ function confirmationPage({ user, job }) {
       <>
         <div className="confirmation-page-wrapper">
           <div className="confirmation-page-greeting">
-            <h1>Hello, {user.client_name}</h1>
-
             <h2>Thank you for choosing Roger's Snow Removal!</h2>
             <p>Your payment was successful- so, we've added you to our fulfillment list.</p>
-            <p>If you'd like to reach out, we've provided contact information in the email confirmation we just sent to your address.</p>
+            <p>If you'd like to reach out, we've provided contact information in an email confirmation!</p>
             <p></p>
           </div>
         </div>
